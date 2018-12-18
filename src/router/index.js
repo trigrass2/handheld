@@ -11,7 +11,7 @@ import choiceShangJ from '@/components/choiceShangJ'					//选择上浆单
 import addGuaSha from '@/components/addGuaSha'								//新增挂纱
 import addZhou from '@/components/addZhou'										//整经-新增轴
 import mergeBill from '@/components/mergeBill'								//并轴工单详情
-
+import aaa from '@/components/ssss'
 
 Vue.use(Router)
 
