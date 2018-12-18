@@ -1,0 +1,469 @@
+<template>
+	<div class="bg1">
+		<div class="tablist">
+            <div :class="{active:0==isactive}" @click="details(0)">工单信息</div>
+            <div :class="{active:1==isactive}" @click="details(1)">整经条件</div>
+            <div :class="{active:2==isactive}" @click="details(2)">上浆条件</div>
+        </div>
+        
+        <!--工单信息-->
+        <div v-if="gongdan">
+	    	<div class="zhengjing">
+	    		<p>整经信息</p>
+	    	</div>
+	        <div class="list-detail">
+	        	<div>
+	        		<span>发行日期</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>发行者</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>整经编号</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>使用原丝</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>批号</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>品名</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>筒子个数</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>卷数长度</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>筒子根数确认者</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>垫圈确认者</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>经纱总根数</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div style="border: 0;">
+	        		<span>并轴个数</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        </div>
+        	<div class="zhengjing workers">
+	    		<p>对头作业者</p>
+	    	</div>
+	        <div class="list-detail">
+	        	<div style="border: 0;">
+	        		<span>东侧一排   XXXX</span>
+	        		<span class="rt">西侧一排 XXXXX</span>
+	        	</div>
+	        </div>
+	        <div class="zhengjing workers">
+	    		<p>筒子确认者</p>
+	    	</div>
+	        <div class="list-detail">
+	        	<div style="border: 0;">
+	        		<span>东侧一排   XXXX</span>
+	        		<span class="rt">西侧一排 XXXXX</span>
+	        	</div>
+	        </div>
+        </div>
+        
+        <!--整经条件-->
+        <div v-if="zhengjing">
+	    	<div class="zhengjing">
+	    		<p>整经条件</p>
+	    	</div>
+	        <div class="list-detail">
+	        	<div>
+	        		<span>条件设定者</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>条件确认者</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>白色垫圈</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>筒子张力器位置</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>卷取速度</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>总卷取张力</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>单纱卷取张力</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>单纱筒子卷取张力</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>总长度</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>总羽毛数</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>卷取张力按钮刻度</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div style="border: 0;">
+	        		<span>经轴压纱辊压力</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        </div>
+        </div>
+        
+        <!--上浆单-->
+        <div v-if="shangjiang">
+	    	<div class="zhengjing">
+	    		<p>上浆并轴条件</p>
+	    	</div>
+	        <div class="list-detail">
+	        	<section class="conditions-list">
+	        		<div>上轴条件1</div><div>上轴条件2</div><div>上轴条件3</div><div>上轴条件4</div><div>上轴条件5</div>
+	        	</section>
+	        	<div>
+	        		<span>条件设定者111</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>条件确认者</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div class="halfs">
+	        		<div>
+	        			<span>卷取速度</span>
+	        			<span class="rt">XXXX</span>
+	        		</div>
+	        		<div style="border-right: none;">
+	        			<span style="margin-left: .15rem;">第一锡林</span>
+	        			<span class="rt">XXXX</span>
+	        		</div>
+	        	</div>
+	        	<div class="halfs">
+	        		<div>
+	        			<span>第一烘箱</span>
+	        			<span class="rt">XXXX</span>
+	        		</div>
+	        		<div style="border-right: none;">
+	        			<span style="margin-left: .15rem;">第二锡林</span>
+	        			<span class="rt">XXXX</span>
+	        		</div>
+	        	</div>
+	        	<div class="halfs">
+	        		<div>
+	        			<span>第二烘箱</span>
+	        			<span class="rt">XXXX</span>
+	        		</div>
+	        		<div style="border-right: none;">
+	        			<span style="margin-left: .15rem;">第三锡林</span>
+	        			<span class="rt">XXXX</span>
+	        		</div>
+	        	</div>
+	        	<div class="halfs">
+	        		<div>
+	        			<span>浆料温度</span>
+	        			<span class="rt">XXXX</span>
+	        		</div>
+	        		<div style="border-right: none;">
+	        			<span style="margin-left: .15rem;">第四锡林</span>
+	        			<span class="rt">XXXX</span>
+	        		</div>
+	        	</div>
+	        	<div class="halfs last-halfs">
+	        		<div>
+	        			<span>温水温度</span>
+	        			<span class="rt">XXXX</span>
+	        		</div>
+	        		<div style="border-right: none;">
+	        			<span style="margin-left: .15rem;">第五锡林</span>
+	        			<span class="rt">XXXX</span>
+	        		</div>
+	        	</div>
+	        </div>
+	        <div class="zhengjing">
+	    		<p>后上油</p>
+	    	</div>
+	        <div class="list-detail">
+	        	<div>
+	        		<span>使用油剂</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>油温</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div style="border-bottom: 0;">
+	        		<span>后上油蜡辊转速</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        </div>
+	        <div class="zhengjing">
+	    		<p>后上蜡</p>
+	    	</div>
+	        <div class="list-detail">
+	        	<div>
+	        		<span>使用蜡名</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>蜡温</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>压浆辊压力</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>SD部分压力</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>浸没辊压力</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>卷取张力</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>上浆部分拉伸</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>经轴最后卷径</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>烘箱部分拉升</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>梳子上浆料附着</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>上浆率</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>烘箱部分拉升</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div style="border-bottom: 0;">
+	        		<span>浆料配方</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        </div>
+	        
+	        <div class="zhengjing">
+	    		<p>并轴条件</p>
+	    	</div>
+	        <div class="list-detail">
+	        	<div>
+	        		<span>条件设定者</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>条件确认者</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>卷取速度</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>经轴幅宽</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>匹长</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        </div>
+	        <div class="zhengjing">
+	    		<p>并轴经轴架</p>
+	    	</div>
+	        <div class="list-detail">
+	        	<div>
+	        		<span>经轴个数</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>经轴最初卷经</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>维度(电器粗刻度)</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        </div>
+	        <div class="zhengjing">
+	    		<p>卷曲部分</p>
+	    	</div>
+	        <div class="list-detail">
+	        	<div>
+	        		<span>卷取张力</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>单个经轴张力</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>经轴单纱张力</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        	<div>
+	        		<span>其他备注</span>
+	        		<span class="rt">XXXXX</span>
+	        	</div>
+	        </div>
+	        
+        </div>
+        
+	</div>
+</template>
+
+<script>
+	export default {
+        name: 'repcardrecord',
+        data(){
+          return{
+            isactive:2,
+            gongdan:false,
+            zhengjing:false,
+            shangjiang:true
+          }
+        },
+        methods:{
+        	details:function(index){
+        		this.isactive=index
+        		if(this.isactive == 0){
+        			this.gongdan = true;
+        			this.zhengjing = false;
+        			this.shangjiang = false;
+        		}else if(this.isactive == 1){
+        			this.gongdan = false;
+        			this.zhengjing = true;
+        			this.shangjiang = false;
+        		}else if(this.isactive == 2){
+        			this.gongdan = false;
+        			this.zhengjing = false;
+        			this.shangjiang = true;
+        		}
+        		
+        	}
+        }
+    }  
+</script>
+
+<style scoped="scoped" lang="less">
+.bg1{
+	font-size: .15rem;
+	.tablist{
+    	border-bottom: 1px solid #f2f2f2;
+        font-size: 0.15rem;
+        color: #999999;
+        background: #ffffff;
+        display: flex;
+        height: 0.45rem;
+        justify-content: space-around;
+      div{
+        box-sizing: border-box;
+        height: 0.45rem;
+        line-height:0.45rem;
+      }
+	    .active{
+	      border-bottom:2px solid #007EFF;
+	      color: #007EFF;
+	    }
+    }
+	.zhengjing{
+		height: .35rem;
+		line-height: .35rem;
+		background-color: #F3F3F3;
+		p{
+			margin-left:.15rem;
+			color: #999999;
+		}
+	}
+	.list-detail{
+		background-color: white;
+		padding-left: .15rem;
+		>div{
+			height: .5rem;
+			line-height: .5rem;	
+			border-bottom: 1px solid #D5D5D5;
+			span:first-child{
+				color: #999999;
+			}
+			span:last-child{
+				color: #333;
+			}
+			.rt{
+				margin-right: .15rem;
+			}
+		}
+	}
+}
+.conditions-list{
+	height: 1.03rem!important;
+	border-bottom:1px solid #D5D5D5 ;
+	div{
+		margin-top: .15rem;
+		width: 1.04rem;
+		height: .29rem;
+		line-height: .29rem;
+		background-color: #007EFF;
+		border-radius:1.36rem;
+		text-align: center;
+		color: white;
+		display: inline-block;
+		margin-right: .09rem;
+	}
+}
+.halfs{
+	display: flex;
+	div{
+		display: inline-block;
+		flex: 1;
+		/*background-color: red;*/
+		border-right: 1px solid #D5D5D5;
+		span:first-child{
+			color: #999;
+		}
+		span:last-child{
+			color: #333;
+		}
+	}
+}
+.last-halfs{
+	border-bottom:0!important;
+}
+</style>
