@@ -4,7 +4,7 @@
 		<div class="body-item">
 			<div class="item-title">
 				<span class="lf">整经编号: 18882</span>
-				<span class="rt">查看</span>
+				<span class="rt">查看123</span>
 			</div>
 			<div class="item-body">
 				<div class="productName">
