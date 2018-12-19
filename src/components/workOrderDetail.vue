@@ -385,10 +385,10 @@
 
 <style scoped="scoped" lang="less">
 .bg1{
-	font-size: .15rem;
+	font-size: .17rem;
 	.tablist{
     	border-bottom: 1px solid #f2f2f2;
-        font-size: 0.15rem;
+        font-size: 0.17rem;
         color: #999999;
         background: #ffffff;
         display: flex;
@@ -409,13 +409,14 @@
 		line-height: .35rem;
 		background-color: #F3F3F3;
 		p{
-			margin-left:.15rem;
+			margin-left:.17rem;
 			color: #999999;
+			font-size: 0.15rem;
 		}
 	}
 	.list-detail{
 		background-color: white;
-		padding-left: .15rem;
+		padding-left: .17rem;
 		>div{
 			height: .5rem;
 			line-height: .5rem;	
@@ -427,16 +428,17 @@
 				color: #333;
 			}
 			.rt{
-				margin-right: .15rem;
+				margin-right: .17rem;
 			}
 		}
 	}
 }
 .conditions-list{
 	height: 1.03rem!important;
+	font-size: 0.15rem;
 	border-bottom:1px solid #D5D5D5 ;
 	div{
-		margin-top: .15rem;
+		margin-top: .17rem;
 		width: 1.04rem;
 		height: .29rem;
 		line-height: .29rem;
