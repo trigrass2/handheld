@@ -1,32 +1,38 @@
 <template>
 	<div class="bg1">
-		<div class="body-item">
+		<div class="body-item" v-for="item in num">
 			<span class="lf">上浆单：20181201-1</span>
 			<span class="rt">选择</span>
 		</div>
-		
-		<div class="body-item">
-			<span class="lf">上浆单：20181201-1</span>
-			<span class="rt">选择</span>
-		</div>
-		
-		<div class="body-item">
-			<span class="lf">上浆单：20181201-1</span>
-			<span class="rt">选择</span>
-		</div>
-		
-		
 	</div>
 </template>
 
 <script>
-	
+	export default {
+		name: 'applydetail',
+		data() {
+			return {
+				num:5
+			}
+		},
+		methods:{
+			aa:function(){
+				this.num++
+			}
+		},
+		created() {
+			
+		}
+	}
 </script>
 
 <style scoped lang="less">
 	.bg1{
 		padding-top: .12rem;
 		font-size: .17rem;
+		min-height: 100%;
+		height: auto;
+		padding-bottom: .2rem;
 		.body-item{
 			width: 3.4rem;
 			height: .61rem;
@@ -48,9 +54,6 @@
 		}
 		.body-item:first-child{
 			margin-top: 0;
-		}
-		.body-item:last-child{
-			margin-bottom: .2rem;
 		}
 	}
 </style>

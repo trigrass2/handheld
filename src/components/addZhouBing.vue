@@ -2,35 +2,32 @@
 	<div class="bg1">
 		<div class="basic">
 			<div>
-				<div>原料名称</div><div><input type="text" placeholder="请输入"></div>
-			</div>
-			<div>
-				<div>原料批号</div><div><input type="text" placeholder="请输入"></div>
-			</div>
-			<div>
-				<div>筒子确认者</div>
+				<div>上浆单</div>
 				<div class="rt">
-					<select>
-						<option>请选择</option>
+					<select style="width: 1.05rem;color: #007EFF;">
+						<option>请选择上浆单</option>
 						<option>请选择11</option>
 						<option>请选择22</option>
 					</select> <img src="../assets/img/819.png">
 				</div>
 			</div>
-			<div>
-				<div>垫圈确认者</div>
-				<div class="rt">
-					<select>
-						<option>请选择</option>
-						<option>请选择1122222</option>
-						<option>请选择22</option>
-					</select> <img src="../assets/img/819.png">
-				</div>
+			<div style="color: #333;">
+				<div>经轴编号</div><div class="jzCode"><input type="text" placeholder="请输入"><span>确定</span> </div><div><img src="../assets/img/3906.png" class="saoma"></div>
 			</div>
-			<div style="border: none;">
-				<div>边丝颜色</div><div><input type="text" placeholder="请输入"></div>
+			<div>
+				<div>经轴长度</div><div><input type="text" placeholder="请输入"></div>
+			</div>
+			<div>
+				<div>米数</div><div><input type="text" placeholder="请输入"></div>
+			</div>
+			<div>
+				<div>索套个数</div><div class="rt" style="margin-right: .15rem;">请在责任人中输入</div>
+			</div>
+			<div id="remark">
+				<div>备注</div><div><textarea></textarea></div>
 			</div>
 		</div>
+		
 		
 		<div class="add-item" v-for="(i , index)  in num">
 			<p>责任人{{index+1}}</p>
@@ -46,7 +43,10 @@
 					</div>
 				</div>
 				<div>
-					<div id="tongNum">筒子个数</div><div class="rt"><input type="text" placeholder="请输入"></div>
+					<div id="tongNum">米数</div><div class="rt"><input type="text" placeholder="请输入"></div>
+				</div>
+				<div>
+					<div id="tongNum">索套个数</div><div class="rt"><input type="text" placeholder="请输入"></div>
 				</div>
 				<div>
 					<div>开始时间</div>
@@ -55,7 +55,7 @@
 							<option>请选择</option>
 							<option>请选择11</option>
 							<option>请选择22</option>
-						</select> <img src="../assets/img/819.png">
+						</select><img src="../assets/img/819.png">
 					</div>
 				</div>
 				<div>
@@ -81,6 +81,8 @@
 			</div>
 		</div>
 		
+		
+		
 		<div class="addNew" @click="aa">
 			<img src="../assets/img/3893.png" />
 		</div>
@@ -92,21 +94,21 @@
 
 <script>
 		export default {
-			name: 'applydetail',
-			data() {
-				return {
-					num:1
-				}
-			},
-			methods:{
-				aa:function(){
-					this.num++
-				}
-			},
-			created() {
-				
+		name: 'applydetail',
+		data() {
+			return {
+				num:1
 			}
+		},
+		methods:{
+			aa:function(){
+				this.num++
+			}
+		},
+		created() {
+			
 		}
+	}
 </script>
 
 <style scoped lang="less">
@@ -129,11 +131,11 @@
 				color: #474747;
 			}
 			>div div:first-child{
-				width: 1rem;
+				width: .85rem;
 				color: #474747;
 			}
 			input{
-				width: 2.25rem;
+				width: 2.38rem;
 				height: .35rem;
 				line-height: .35rem;
 				padding-left: .07rem;
@@ -161,6 +163,19 @@
 				margin-right: .15rem;
 				width: .09rem;
 				height: .17rem;
+			}
+			textarea{
+				width: 2.38rem;
+				height: .75rem;
+				margin-top: .15rem;
+				margin-bottom: .15rem;
+				outline: none;
+				padding-left: .05rem;
+				padding-top: .05rem;
+				resize:none;
+				border: none;
+				background-color: #f3f3f3;
+				color: #999999;
 			}
 		}
 	}
@@ -198,5 +213,36 @@
 		#tongNum{
 			width: .9rem;
 		}
+	}
+	#remark{
+		height: 1.1rem;
+		border: none;
+		div{
+			vertical-align: top;
+			display: inline-block;
+			height: 1.1rem;
+		}
+	}
+	.jzCode{
+		height: .35rem;
+		width: 2rem;
+		display: inline-block;
+		input{
+			width: 1.35rem!important;
+		}
+		span{
+			width: .55rem;
+			height: .35rem;
+			line-height: .35rem;
+			background-color: #007EFF;
+			text-align: center;
+			display: inline-block;
+			color: white;
+		}
+	}
+	.saoma{
+		width: .35rem!important;
+		height: .35rem!important;
+		margin-left: .1rem;
 	}
 </style>

@@ -11,6 +11,13 @@ import choiceShangJ from '@/components/choiceShangJ'					//选择上浆单
 import addGuaSha from '@/components/addGuaSha'								//新增挂纱
 import addZhou from '@/components/addZhou'										//整经-新增轴
 import mergeBill from '@/components/mergeBill'								//并轴工单详情
+import addZhouBing from '@/components/addZhouBing'						//并轴-新增轴
+import addZhouShang from '@/components/addZhouShang'						//上浆-新增轴
+
+import zjSingleDetail from '@/components/zjSingleDetail'			//整经工单详情
+import shangJDetail from '@/components/shangJDetail'					//上浆工单详情
+import guashaDetail from '@/components/guashaDetail'					//挂纱详细
+import shangJcondition from '@/components/shangJcondition'					//预览上浆条件
 
 Vue.use(Router)
 
@@ -93,7 +100,51 @@ export default new Router({
       meta: {
         title: '并轴工单详情'
       }
+    },{
+      path: '/addZhouBing',
+      name: 'addZhouBing',
+      component: addZhouBing,
+      meta: {
+        title: '并轴-新增轴'
+      }
+    },{
+      path: '/addZhouShang',
+      name: 'addZhouShang',
+      component: addZhouShang,
+      meta: {
+        title: '上浆-新增轴'
+      }
+    },{
+      path: '/zjSingleDetail',
+      name: 'zjSingleDetail',
+      component: zjSingleDetail,
+      meta: {
+        title: '整经工单详情'
+      }
+    },{
+      path: '/shangJDetail',
+      name: 'shangJDetail',
+      component: shangJDetail,
+      meta: {
+        title: '上浆工单详情'
+      }
+    },{
+      path: '/guashaDetail',
+      name: 'guashaDetail',
+      component: guashaDetail,
+      meta: {
+        title: '挂纱详细'
+      }
+    },{
+      path: '/shangJcondition',
+      name: 'shangJcondition',
+      component: shangJcondition,
+      meta: {
+        title: '预览上浆条件'
+      }
     }
+    
+    
   ]
 })
 

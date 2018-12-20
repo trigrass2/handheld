@@ -1,7 +1,7 @@
 <template>
 	<div class="bg1">
 		
-		<div class="item-detail">
+		<div class="item-detail" v-for="item in num">
 			<div class="item-title">
 				<span>上浆单</span><span>20181201-1</span>
 			</div>
@@ -29,66 +29,6 @@
 				</div>
 			</div>
 		</div>
-		
-		<div class="item-detail">
-			<div class="item-title">
-				<span>上浆单</span><span>20181201-1</span>
-			</div>
-			<div class="details">
-				<div class="codes">
-					<span>005</span><br />
-					<span>经轴编号</span>
-				</div>
-				<div class="tails">
-					<div>
-						<span>经轴长度</span>
-						<span>85</span>
-					</div>
-					<div>
-						<span>米数</span>
-						<span>85</span>
-					</div>
-					<div>
-						<span>时间</span>
-						<span>25-21 15:55</span>
-					</div>
-				</div>
-				<div class="edit">
-					<span>编<br />辑</span>
-				</div>
-			</div>
-		</div>
-		
-		<div class="item-detail">
-			<div class="item-title">
-				<span>上浆单</span><span>20181201-1</span>
-			</div>
-			<div class="details">
-				<div class="codes">
-					<span>005</span><br />
-					<span>经轴编号</span>
-				</div>
-				<div class="tails">
-					<div>
-						<span>经轴长度</span>
-						<span>85</span>
-					</div>
-					<div>
-						<span>米数</span>
-						<span>85</span>
-					</div>
-					<div>
-						<span>时间</span>
-						<span>25-21 15:55</span>
-					</div>
-				</div>
-				<div class="edit">
-					<span>编<br />辑</span>
-				</div>
-			</div>
-		</div>
-		
-		
 		
 		
 		<div class="posit">
@@ -98,13 +38,30 @@
 </template>
 
 <script>
+	export default {
+		name: 'applydetail',
+		data() {
+			return {
+				num:2
+			}
+		},
+		methods:{
+			aa:function(){
+				this.num++
+			}
+		},
+		created() {
+			
+		}
+	}
 </script>
 
 <style scoped lang="less">
 .bg1{
 	font-family: 'Microsoft YaHei UI';
 	font-size: .17rem;
-	height: 100%;
+	height: auto;
+	min-height: 6.8rem;
 	padding-bottom: .7rem;
 	.item-detail{
 		.item-title{
