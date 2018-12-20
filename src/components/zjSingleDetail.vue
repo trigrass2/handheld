@@ -4,24 +4,24 @@
       <div class="toptitle">轴信息</div>
       <div class="detailinfo">
         <div>
-          <div>上浆单</div>
-          <span>20181201-1</span>
+          <div>经轴编号</div>
+          <span>XXXXX</span>
         </div>
         <div>
-          <div>整经轴号(输出)</div>
-          <span></span>
+          <div>断纱</div>
+          <span>XXXXX</span>
         </div>
         <div>
-          <div>经轴长度</div>
-          <span></span>
+          <div>毛羽数</div>
+          <span>XXXXX</span>
         </div>
         <div>
-          <div>套扣个数</div>
-          <span>2001</span>
+          <div>对头次数</div>
+          <span>XXXXX</span>
         </div>
         <div>
           <div>备注</div>
-          <span></span>
+          <span>XXXXX</span>
         </div>
       </div>
     </div>
@@ -45,8 +45,8 @@
           <span>XXXXX</span>
         </div>
         <div>
-          <div>索套个数</div>
-          <span>2113</span>
+          <div>对头次数</div>
+          <span>XXXXX</span>
         </div>
 		<div>
           <div>班别</div>
@@ -74,8 +74,8 @@
           <span>XXXXX</span>
         </div>
         <div>
-          <div>索套个数</div>
-          <span>2009</span>
+          <div>对头次数</div>
+          <span>XXXXX</span>
         </div>
 		<div>
           <div>班别</div>
