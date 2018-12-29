@@ -1,22 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from '@/components/index' //首页
-import zhengJSingle from '@/components/zhengJSingle' //整经单
-import zhengJ from '@/components/zhengJ' //整经
-import workOrderDetail from '@/components/workOrderDetail' //工单详情
-import bingzhou from '@/components/bingzhou' //并轴
-import guasha from '@/components/guasha' //挂纱
-import shangJ from '@/components/shangJ' //上浆
-import choiceShangJ from '@/components/choiceShangJ' //选择上浆单
-import addGuaSha from '@/components/addGuaSha' //新增挂纱
-import addZhou from '@/components/addZhou' //整经-新增轴
-import mergeBill from '@/components/mergeBill' //并轴工单详情
-import addZhouBing from '@/components/addZhouBing' //并轴-新增轴
-import addZhouShang from '@/components/addZhouShang' //上浆-新增轴
+import index from '@/components/index' 						   //首页
+import zhengJSingle from '@/components/zhengJSingle' 		   //整经单
+import zhengJ from '@/components/zhengJ' 					   //整经
+import workOrderDetail from '@/components/workOrderDetail' 	   //工单详情
+import bingzhou from '@/components/bingzhou' 				   //并轴
+import guasha from '@/components/guasha' 					   //挂纱
+import shangJ from '@/components/shangJ' 					   //上浆
+import choiceShangJ from '@/components/choiceShangJ' 		   //选择上浆单
+import addGuaSha from '@/components/addGuaSha' 				   //新增挂纱
+import addZhou from '@/components/addZhou' 					   //整经-新增轴
+import mergeBill from '@/components/mergeBill' 				   //并轴工单详情
+import addZhouBing from '@/components/addZhouBing' 			   //并轴-新增轴
+import addZhouShang from '@/components/addZhouShang' 		   //上浆-新增轴
 import zjSingleDetail from '@/components/zjSingleDetail'       //整经工单详情
 import shangJDetail from '@/components/shangJDetail'           //上浆工单详情
 import guashaDetail from '@/components/guashaDetail'           //挂纱详细
 import shangJcondition from '@/components/shangJcondition'     //预览上浆条件
+import pullRefresh from '@/components/pullRefresh'     		//注册组件
 
 Vue.use(Router)
 
@@ -139,6 +140,13 @@ export default new Router({
 			component: shangJcondition,
 			meta: {
 				title: '预览上浆条件'
+			}
+		}, {
+			path: '/pullRefresh',
+			name: 'pullRefresh',
+			component: pullRefresh,
+			meta: {
+				title: '注册组件'
 			}
 		}
 

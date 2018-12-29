@@ -1,6 +1,5 @@
 <template>
 	<div class="bg1">
-		
 		<div class="item-detail">
 			<div class="item-title">
 				<span>上浆单</span><span>20181201-1</span>
@@ -59,6 +58,25 @@
 </template>
 
 <script>
+	export default {
+		name: 'applydetail',
+		data() {
+			return {
+				num:5
+			}
+		},
+		methods:{
+			aa:function(){
+				this.num++
+			},
+			open() {
+		        this.$message('这是一条消息提示');
+		      }
+		},
+		created() {
+			
+		}
+	}
 </script>
 
 <style scoped lang="less">

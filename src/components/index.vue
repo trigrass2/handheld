@@ -1,121 +1,178 @@
 <template>
-	<div class="bg1">
-		
-		<div class="body-item">
-			<div class="item-title">
-				<span class="lf">整经编号: 18882</span>
-				<span class="rt">查看</span>
-			</div>
-			<div class="item-body">
-				<div class="productName">
-					<div>品<span class="spaces"></span>名</div>
-					<div>NH005</div>
+	<div>
+		<v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" class="bg1">
+			<div class="body-item" v-for="item in listdata">
+				<div class="item-title">
+					<span class="lf">整经编号: {{item.Code}}</span>
+					<span class="rt">查看</span>
 				</div>
-				<div class="useVarieties">
-					<div>使用原丝</div>
-					<div>300/36f</div>
-				</div>
-				<div class="productNum">
-					<div>批<span class="spaces"></span>号</div>
-					<div>S13101AS</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="body-item">
-			<div class="item-title">
-				<span class="lf">整经编号: 18882</span>
-				<span class="rt">查看</span>
-			</div>
-			<div class="item-body">
-				<div class="productName">
-					<div>品<span class="spaces"></span>名</div>
-					<div>NH005</div>
-				</div>
-				<div class="useVarieties">
-					<div>使用原丝</div>
-					<div>300/36f</div>
-				</div>
-				<div class="productNum">
-					<div>批<span class="spaces"></span>号</div>
-					<div>S13101AS</div>
+				<div class="item-body">
+					<div class="productName">
+						<div>品<span class="spaces"></span>番</div>
+						<div>{{item.PNO}}</div>
+					</div>
+					<div class="useVarieties">
+						<div>筒子个数</div>
+						<div>{{item.CheeseNum}}</div>
+					</div>
+					<div class="productNum">
+						<div>经轴个数</div>
+						<div>{{item.SpoolNum}}</div>
+					</div>
 				</div>
 			</div>
-		</div>
-
-
+			
+		</v-scroll>
 	</div>
 </template>
 
 <script>
+	import Scroll from './pullRefresh';
+
 	export default {
-		name: 'applydetail',
 		data() {
 			return {
-				
+				counter: 1, //默认已经显示出15条数据 count等于一是让从16条开始加载
+				num: "20", // 一次显示多少条
+				pageStart: 0, // 开始页数
+				pageEnd: 0, // 结束页数
+				listdata: [], // 下拉更新数据存放数组
+				scrollData: {
+                    noFlag: false //暂无更多数据显示
+                }
 			}
 		},
-		methods:{
-			
+		mounted: function() {
+			this.getList();
 		},
-		created() {
-			
-		}
-	}	
-</script>
+		components: {
+			'v-scroll': Scroll
+		},
+		methods: {
+			getList() {
+				let vm = this;
+				this.$axios({
+		      	    method: 'post',
+		      	    url: 'api/WarpingOrder/GetWarpOrderListData',
+		      	    data:{
+		      	    	pageindex:"0",
+		      	    	pagesize:this.num
+		      	    }
+		      	}).then((response)=> {
+		      	    console.log(response);
+		      	    vm.listdata = response.data.data;
+		      	}).catch((error)=> {
+		      	    console.log(error);
+		      	});
+				
+			},
+			//下拉刷新
+			onRefresh(done) {
+				this.getList();
 
+				done() // call done
+
+			},
+			//上拉加载更多
+			onInfinite(done) {
+				let vm = this;
+				
+				let end = this.pageEnd = this.num * this.counter;
+                let i = this.pageStart = this.pageEnd - this.num;
+
+                let more = this.$el.querySelector('.load-more')
+                
+                let counters = String(vm.counter++);
+                
+				this.$axios({
+		      	    method: 'post',
+		      	    url: 'api/WarpingOrder/GetWarpOrderListData',
+		      	    data:{
+		      	    	pageindex:counters,
+		      	    	pagesize:this.num
+		      	    }
+		      	}).then((response)=> {
+//		      		console.log(end)
+		      	    for(i; i < end; i++) {
+	                    if(i >= end) {
+	                        more.style.display = 'none'; //隐藏加载条
+	                        //走完数据调用方法
+	                        this.scrollData.noFlag = true;
+	                        break;
+	                    } else {
+//	                        this.listdata.concat(response.data.data)
+//	                        console.log(this.listdata)
+	                        more.style.display = 'none'; //隐藏加载条
+	                    }
+	                }
+	                done();
+		      	}).catch((error)=> {
+		      	    console.log(error);
+		      	});
+				
+				
+			}
+		}
+	}
+</script>
 <style lang="less" scoped>
-	.bg1{
+	.bg1 {
 		padding-top: .12rem;
 		padding-bottom: .2rem;
 		font-size: .17rem;
-		.body-item{
+		min-height: 6.7rem;
+		height: auto;
+		.body-item {
 			width: 3.4rem;
 			height: 1.54rem;
 			background-color: white;
 			margin: 0 auto;
 			margin-top: .12rem;
-			.item-title{
+			.item-title {
 				border-bottom: 1px solid #D5D5D5;
 				height: .45rem;
-				.lf{
+				.lf {
 					margin-left: .15rem;
 					margin-top: .12rem;
 					color: #474747;
 					font-weight: bold;
 				}
-				.rt{
+				.rt {
 					margin-right: .15rem;
 					margin-top: .12rem;
 					color: #007EFF;
 				}
 			}
-			.item-body>div div{
+			.item-body>div div {
 				display: inline-block;
 			}
-			.item-body{
-				.productName>div:first-child{
+			.item-body {
+				.productName>div:first-child {
 					margin: .15rem .2rem .08rem .15rem;
 				}
-				.useVarieties>div:first-child{
+				.useVarieties>div:first-child {
 					margin: 0 .2rem .08rem .15rem;
 				}
-				.productNum>div:first-child{
+				.productNum>div:first-child {
 					margin: 0 .2rem .08rem .15rem;
 				}
 			}
 		}
-		.first-body{
+		.first-body {
 			margin-top: 0;
 		}
 	}
-	.body-item:first-child{
+	
+	.body-item:first-child {
 		margin-top: 0;
 	}
-	.item-body>div div:first-child{
+	
+	.item-body>div div:first-child {
 		color: #999;
 	}
-	.item-body>div div:last-child{
+	
+	.item-body>div div:last-child {
 		color: #474747;
 	}
+	
 </style>

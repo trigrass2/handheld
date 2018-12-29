@@ -2,137 +2,214 @@
 	<div class="bg1">
 		<div class="basic">
 			<div>
-				<div>原料名称</div><div><input type="text" placeholder="请输入"></div>
+				<div>原料名称</div>
+				<div><input type="text" placeholder="请输入" class="yuanlName"></div>
 			</div>
 			<div>
-				<div>原料批号</div><div><input type="text" placeholder="请输入"></div>
+				<div>原料批号</div>
+				<div><input type="text" placeholder="请输入" class="yuanlCode"></div>
 			</div>
 			<div>
 				<div>筒子确认者</div>
 				<div class="rt">
-					<select>
-						<option>请选择</option>
-						<option>请选择11</option>
-						<option>请选择22</option>
+					<select class="tzConfirmer">
+						<option v-for="item in empList" :value="item.Value">{{item.Text}}</option>
 					</select> <img src="../assets/img/819.png">
 				</div>
 			</div>
 			<div>
 				<div>垫圈确认者</div>
 				<div class="rt">
-					<select>
-						<option>请选择</option>
-						<option>请选择1122222</option>
-						<option>请选择22</option>
+					<select class="dqConfirmer">
+						<option v-for="item in empList" :value="item.Value">{{item.Text}}</option>
 					</select> <img src="../assets/img/819.png">
 				</div>
 			</div>
 			<div style="border: none;">
-				<div>边丝颜色</div><div><input type="text" placeholder="请输入"></div>
+				<div>边丝颜色</div>
+				<div><input type="text" placeholder="请输入" class="bsColor"></div>
 			</div>
 		</div>
-		
+
 		<div class="add-item" v-for="(i , index)  in num">
 			<p>责任人{{index+1}}</p>
 			<div class="basic" id="addsDetail">
 				<div>
 					<div>责任人</div>
 					<div class="rt">
-						<select>
-							<option>请选择</option>
-							<option>请选择11</option>
-							<option>请选择22</option>
+						<select class="zeren">
+							<option v-for="item in empList" :value="item.Value">{{item.Text}}</option>
 						</select> <img src="../assets/img/819.png">
 					</div>
 				</div>
 				<div>
-					<div id="tongNum">筒子个数</div><div class="rt"><input type="text" placeholder="请输入"></div>
+					<div id="tongNum">筒子个数</div>
+					<div class="rt"><input type="number" placeholder="请输入" class="tongzNum"></div>
 				</div>
-				<div>
-					<div>开始时间</div>
-					<div class="rt">
-						<select>
-							<option>请选择</option>
-							<option>请选择11</option>
-							<option>请选择22</option>
-						</select> <img src="../assets/img/819.png">
-					</div>
+				<div class="block">
+					<span class="demonstration">开始时间</span>
+					<el-date-picker v-model="itemRadios.index" type="datetime" placeholder="选择日期" class="rt dates startTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
 				</div>
-				<div>
-					<div>结束时间</div>
-					<div class="rt">
-						<select>
-							<option>请选择</option>
-							<option>请选择1122222</option>
-							<option>请选择22</option>
-						</select> <img src="../assets/img/819.png">
-					</div>
+				<div class="block">
+					<span class="demonstration">结束时间</span>
+					<el-date-picker v-model="itemRadios[index+1]" type="datetime" placeholder="选择日期" class="rt dates endTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
 				</div>
 				<div style="border-bottom: none;">
 					<div>班别</div>
 					<div class="rt">
-						<select>
-							<option>请选择</option>
-							<option>请选择1122222</option>
-							<option>请选择22</option>
+						<select class="classBan">
+							<option v-for="item in drpList" :value="item.Value">{{item.Text}}</option>
 						</select> <img src="../assets/img/819.png">
 					</div>
 				</div>
 			</div>
 		</div>
-		
-		<div class="addNew" @click="aa">
+
+		<div class="addNew" @click="addNew">
 			<img src="../assets/img/3893.png" />
 		</div>
-		<div class="posit">
+		<div class="posit" @click="confirms">
 			<p>确定</p>
 		</div>
 	</div>
 </template>
 
 <script>
-		export default {
-			name: 'applydetail',
-			data() {
-				return {
-					num:1
-				}
-			},
-			methods:{
-				aa:function(){
-					this.num++
-				}
-			},
-			created() {
-				
+	export default {
+		name: 'applydetail',
+		data() {
+			return {
+				num: 1,
+				dataNum:2,
+				empList: [],
+				drpList: [],
+				pickerOptions1: {
+					disabledDate(time) {
+						return time.getTime() > Date.now();
+					}
+				},
+				itemRadios:['value1','value2','value3','value4','value5','value6','value7','value8','value9','value10']
 			}
+		},
+		methods: {
+			addNew: function() {
+				this.num++
+				"value"+this.dataNum++ === ''
+				let dataNums1 = "value"+this.dataNum
+				console.log(dataNums1)
+			 	let jias =  this.dataNum++
+				"value"+jias++ === ''
+				let dataNums2 = "value"+this.dataNum
+				console.log(dataNums2)
+			},
+			confirms: function() {
+				//非空验证
+				if($('.yuanlName').val() == "" || $('.yuanlCode').val() == "" || $('.tzConfirmer').val() == "" || $('.dqConfirmer').val() == "" || 
+					$('.bsColor').val() == "" || $('.zeren').val() == "" || $('.tongzNum').val() == "" || this.value1 == "" ||  this.value2 == "" ||$('.classBan').val() == "") {
+					
+					this.$message({
+			          showClose: true,
+			          message: '请完善信息',
+			          type: 'error',
+			          center: true
+			        });
+				} else {
+				//不为空之后
+				console.log()
+					let entity = {};
+					entity.MName = $('.yuanlName').val();
+					entity.BatchNo = $('.yuanlCode').val();
+					entity.CheeseNumChekerID = $('.tzConfirmer').val();
+					entity.CheeseNumChekerName = $('.tzConfirmer option:selected').text();
+					entity.CloutCheckerID = $('.dqConfirmer').val();
+					entity.CloutCheckerName = $('.dqConfirmer option:selected').text();
+					entity.EdgWireColor = $('.bsColor').val();
+
+					let emplist = [];
+
+					for(let i = 0; i < $('.add-item').length; i++) {
+						let emplisters = {};
+
+						emplisters.EmpID = $('.zeren').eq(i).val();
+						emplisters.EmpName = $('.zeren option:selected').eq(i).text();
+						emplisters.DoNum = $('.tongzNum').eq(i).val();
+						emplisters.BeginTime = this.value1;
+						emplisters.EndTime = this.value2;
+						emplisters.ClassBan = $('.classBan').eq(i).val();
+						emplisters.ClassBanName = $('.classBan option:selected').eq(i).text();
+
+						emplist.push(emplisters)
+					}
+					this.$axios({
+						method: 'post',
+						url: 'api/WarpingOrder/SaveWarYarnHung',
+						data: {
+							entity: entity,
+							empjson: emplist
+						}
+					}).then((res) => {
+						console.log(res);
+					}).catch((error) => {
+						console.log(error);
+					});
+
+				}
+
+			},
+			tzConfirmerList: function() {
+				//筒子确认者列表
+				this.$axios({
+					method: 'post',
+					url: 'api/WarpingOrder/GetEmpDropDownList',
+				}).then((res) => {
+					console.log(res);
+					this.empList = res.data.data;
+				}).catch((error) => {
+					console.log(error);
+				});
+				//垫圈确认者列表
+				this.$axios({
+					method: 'post',
+					url: 'api/WarpingOrder/GetBShiftDrpDownList',
+				}).then((res) => {
+					console.log(res);
+					this.drpList = res.data.data;
+				}).catch((error) => {
+					console.log(error);
+				});
+
+			}
+		},
+		created() {
+			this.tzConfirmerList()
 		}
+	}
 </script>
 
 <style scoped lang="less">
-	.bg1{
+	.bg1 {
 		position: relative;
 		font-size: .17rem;
 		height: auto;
 		min-height: 6.7rem;
 		padding-bottom: .7rem;
-		.basic{
+		.basic {
 			background-color: white;
 			line-height: .5rem;
-			padding-left:.15rem;
-			>div{
+			padding-left: .15rem;
+			>div {
 				height: .5rem;
 				border-bottom: 1px solid #D5D5D5;
 			}
-			>div div{
+			>div div {
 				display: inline-block;
 				color: #474747;
 			}
-			>div div:first-child{
+			>div div:first-child {
 				width: 1rem;
 				color: #474747;
 			}
-			input{
+			input {
 				width: 2.25rem;
 				height: .35rem;
 				line-height: .35rem;
@@ -143,28 +220,29 @@
 				background-color: #F3F3F3;
 				color: #999;
 			}
-			select{
+			select {
 				vertical-align: middle;
 				outline: none;
 				border: none;
 				white-space: nowrap;
-				appearance:none;
-		        -moz-appearance:none;
-				-webkit-appearance:none;
+				appearance: none;
+				-moz-appearance: none;
+				-webkit-appearance: none;
 				text-indent: .02rem;
 				background-color: transparent;
 				font-size: .17rem;
 				color: #999;
-				width: .6rem;
+				width: .8rem;
 			}
-			img{
+			img {
 				margin-right: .15rem;
 				width: .09rem;
 				height: .17rem;
 			}
 		}
 	}
-	.posit{
+	
+	.posit {
 		position: fixed;
 		bottom: 0;
 		left: 0;
@@ -175,28 +253,35 @@
 		background-color: #007EFF;
 		color: white;
 	}
-	.addNew{
+	
+	.addNew {
 		position: fixed;
 		bottom: .65rem;
 		left: .97rem;
-		img{
+		img {
 			width: 1.65rem;
 		}
 	}
-	.add-item{
+	
+	.add-item {
 		width: 3.4rem!important;
 		margin: 0 auto;
-		p{
+		p {
 			margin: .15rem 0 .1rem .05rem;
 			color: #999999;
 			font-size: .15rem;
 		}
-		input{
+		input {
 			width: 2.1rem!important;
 			margin-right: .15rem;
 		}
-		#tongNum{
+		#tongNum {
 			width: .9rem;
 		}
+	}
+	
+	.dates {
+		margin-right: .15rem;
+		width: 2.16rem;
 	}
 </style>

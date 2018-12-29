@@ -4,6 +4,15 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+import 'element-ui/lib/theme-chalk/index.css';
+
+import { Message} from 'element-ui';
+import {DatePicker} from 'element-ui';
+
+Vue.component(Message)
+Vue.use(DatePicker)
+
+Vue.prototype.$message = Message;
 
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */

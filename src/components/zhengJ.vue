@@ -44,7 +44,20 @@
 </template>
 
 <script>
-	
+	export default {
+		name: 'applydetail',
+		data() {
+			return {
+				
+			}
+		},
+		methods:{
+			
+		},
+		created() {
+			
+		}
+	}
 </script>
 
 <style lang="less" scoped>

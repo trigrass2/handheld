@@ -5,53 +5,53 @@
 			<div class="item-body">
 				<div class="productCode">
 					<div>整经编号</div>
-					<div>NH005</div>
+					<div>{{listdata.Code}}</div>
 				</div>
 				<div class="productName">
-					<div>品<span class="spaces"></span>名</div>
-					<div>NH005</div>
+					<div>品<span class="spaces"></span>番</div>
+					<div>{{listdata.PF}}</div>
 				</div>
-				<div class="useVarieties">
+				<!--<div class="useVarieties">
 					<div>使用原丝</div>
 					<div>300/36f</div>
 				</div>
 				<div class="productNum">
 					<div>批<span class="spaces"></span>号</div>
 					<div>S13101AS</div>
-				</div>
+				</div>-->
 			</div>
 			
-			<div class="watchAll">
+			<div class="watchAll" @click="watchAll()">
 				<a href="">查看全部参数></a>
 			</div>
 		</div>
 		
 		<div class="operations">
 			<div class="operations-list">
-				<div>挂纱<span> 1</span></div>
-				<div class="rt">挂纱</div>
+				<div>挂纱<span> {{listdata.GSTJ}}</span></div>
+				<div class="rt" @click="guasha(0)">挂纱</div>
 			</div>
 		</div>
 		
 		<div class="operations">
 			<div class="operations-list">
-				<div>整经<span> 15</span></div>
-				<div class="rt">整经</div>
+				<div>整经<span> {{listdata.ZJTJ}}</span></div>
+				<div class="rt" @click="guasha(1)">整经</div>
 			</div>
 		</div>
 		
 		<div class="operations">
 			<div class="operations-list">
-				<div>上将<span> 6</span></div>
-				<div class="rt">上将</div>
+				<div>上浆<span> {{listdata.SJTJ}}</span></div>
+				<div class="rt" @click="guasha(2)">上浆</div>
 			</div>
 		</div>
 		
 		
 		<div class="operations">
 			<div class="operations-list">
-				<div>并州<span> 9</span></div>
-				<div class="rt">并州</div>
+				<div>并轴<span> {{listdata.BZTJ}}</span></div>
+				<div class="rt" @click="guasha(3)">并轴</div>
 			</div>
 		</div>
 		
@@ -64,14 +64,45 @@
 		name: 'applydetail',
 		data() {
 			return {
-				
+				listdata:{}
 			}
 		},
 		methods:{
-			
+			//获取页面数据
+			lists:function(){
+				this.$axios({
+		      	    method: 'post',
+		      	    url: 'api/WarpingOrder/GetWarpOrderByID',
+		      	    data:{
+		      	    	id:"d3075b52-a342-48bc-9cc2-dda37b4a3b24",
+						type:"0"
+		      	    }
+		      	}).then((res)=> {
+		      	    console.log(res);
+		      	    this.listdata = res.data.data;
+		      	}).catch((error)=> {
+		      	    console.log(error);
+		      	});
+			},
+			//查看所有参数页面
+			watchAll:function(){
+				
+			},
+			//下方操作页面
+			guasha:function(index){
+				if(index == 0){
+					//挂纱页面
+				}else if(index == 1){
+					//整经页面
+				}else if(index == 2){
+					//上浆页面
+				}else{
+					//并轴页面
+				}
+			}
 		},
 		created() {
-			
+			this.lists();
 		}
 	}	
 </script>
@@ -91,7 +122,7 @@
 				margin-right:.2rem;
 			}
 			.productName div:first-child{
-				margin: .15rem .2rem .08rem .15rem;
+				margin: .15rem .2rem .15rem .15rem;
 			}
 			.useVarieties div:first-child{
 				margin: 0 .2rem .08rem .15rem;
@@ -140,7 +171,7 @@
 		
 	}
 	.item-body{
-		border-bottom: 1px solid #ccc;
+		border-bottom: 1px solid #D5D5D5;
 		border-top: 1px solid #ccc;
 	}
 	.item-body>div div:first-child{

@@ -28,7 +28,6 @@
 			</div>
 		</div>
 		
-		
 		 <div class="posit">
 		 	<span>返回工单</span><span>新增轴</span>
 		 </div>
@@ -36,7 +35,20 @@
 </template>
 
 <script>
-	
+	export default {
+		name: 'applydetail',
+		data() {
+			return {
+				
+			}
+		},
+		methods:{
+			
+		},
+		created() {
+			
+		}
+	}
 </script>
 
 <style lang="less" scoped>
