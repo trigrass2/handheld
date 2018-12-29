@@ -4,7 +4,7 @@
       <div class="toptitle">轴信息</div>
       <div class="detailinfo">
         <div>
-          <div>经轴编号</div>
+          <div>经轴编号</div> 
           <span>XXXXX</span>
         </div>
         <div>
