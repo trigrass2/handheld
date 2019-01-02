@@ -44,7 +44,7 @@
 				</div>
 				<div>
 					<div id="tongNum">筒子个数</div>
-					<div class="rt"><input type="number" placeholder="请输入" class="tongzNum"></div>
+					<div class="rt"><input type="text" placeholder="请输入" class="tongzNum" oninput="value=value.replace(/[^\d]/g,'')"></div>
 				</div>
 				<div class="block">
 					<span class="demonstration">开始时间</span>
@@ -80,7 +80,6 @@
 		data() {
 			return {
 				num: 1,
-				dataNum:2,
 				empList: [],
 				drpList: [],
 				pickerOptions1: {
@@ -96,13 +95,6 @@
 		methods: {
 			addNew: function() {
 				this.num++
-				"value"+this.dataNum++ === ''
-				let dataNums1 = "value"+this.dataNum
-				console.log(dataNums1)
-			 	let jias =  this.dataNum++
-				"value"+jias++ === ''
-				let dataNums2 = "value"+this.dataNum
-				console.log(dataNums2)
 			},
 			confirms: function() {
 				console.log(this.endRadios);
@@ -216,7 +208,7 @@
 				color: #474747;
 			}
 			input {
-				width: 2.25rem;
+				width: 2.2rem;
 				height: .35rem;
 				line-height: .35rem;
 				padding-left: .07rem;

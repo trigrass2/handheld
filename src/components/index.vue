@@ -1,5 +1,8 @@
 <template>
 	<div>
+		<div class="tabItem">
+            <slot></slot>
+        </div>
 		<v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" class="bg1">
 			<div class="body-item" v-for="item in listdata">
 				<div class="item-title">
@@ -33,7 +36,7 @@
 		data() {
 			return {
 				counter: 1, //默认已经显示出15条数据 count等于一是让从16条开始加载
-				num: "20", // 一次显示多少条
+				num: "5", // 一次显示多少条
 				pageStart: 0, // 开始页数
 				pageEnd: 0, // 结束页数
 				listdata: [], // 下拉更新数据存放数组
@@ -69,49 +72,50 @@
 			//下拉刷新
 			onRefresh(done) {
 				this.getList();
-
-				done() // call done
-
+				done();
 			},
 			//上拉加载更多
-			onInfinite(done) {
-				let vm = this;
-				
-				let end = this.pageEnd = this.num * this.counter;
+			 onInfinite(done) {
+                let end = this.pageEnd = this.num * this.counter;
                 let i = this.pageStart = this.pageEnd - this.num;
-
+                console.log(this.pageEnd)
+                console.log(this.pageStart)
+				let counters = String(this.counter++);
+				
                 let more = this.$el.querySelector('.load-more')
+                    if(i >= 10) {
+                        more.style.display = 'none'; //隐藏加载条
+                        //走完数据调用方法
+                        this.scrollData.noFlag = true;
+                    } else {
+                    	this.$axios({
+				      	    method: 'post',
+				      	    url: 'api/WarpingOrder/GetWarpOrderListData',
+				      	    data:{
+				      	    	pageindex:counters,
+				      	    	pagesize:this.num
+				      	    }
+				      	}).then((res)=> {
+				      		console.log(res.data.data)
+				      		for(var i=0;i<res.data.data.length;i++){
+				      			this.listdata.push(res.data.data[i])
+				      		}
+				      		console.log(this.listdata)
+				      	}).catch((error)=> {
+				      	    console.log(error);
+				      	});
+                       
+                        more.style.display = 'none'; //隐藏加载条
+                    }
+                    done();
                 
-                let counters = String(vm.counter++);
-                
-				this.$axios({
-		      	    method: 'post',
-		      	    url: 'api/WarpingOrder/GetWarpOrderListData',
-		      	    data:{
-		      	    	pageindex:counters,
-		      	    	pagesize:this.num
-		      	    }
-		      	}).then((response)=> {
-//		      		console.log(end)
-		      	    for(i; i < end; i++) {
-	                    if(i >= end) {
-	                        more.style.display = 'none'; //隐藏加载条
-	                        //走完数据调用方法
-	                        this.scrollData.noFlag = true;
-	                        break;
-	                    } else {
-//	                        this.listdata.concat(response.data.data)
-//	                        console.log(this.listdata)
-	                        more.style.display = 'none'; //隐藏加载条
-	                    }
-	                }
-	                done();
-		      	}).catch((error)=> {
-		      	    console.log(error);
-		      	});
-				
-				
-			}
+            }
+			
+			
+			
+			
+			
+			
 		}
 	}
 </script>
