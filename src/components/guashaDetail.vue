@@ -5,84 +5,65 @@
       <div class="detailinfo">
         <div>
           <div>原料名称</div>
-          <span>XXXXX</span>
+          <span>{{shaDetails.MName}}</span>
         </div>
         <div>
           <div>原料批号</div>
-          <span>XXXXX</span>
+          <span>{{shaDetails.BatchNo}}</span>
         </div>
         <div>
           <div>筒子个数</div>
-          <span>22</span>
+          <span>{{shaDetails.CheeseNum}}</span>
         </div>
         <div>
           <div>筒子确认者</div>
-          <span>陈薇薇</span>
+          <span>{{shaDetails.CheeseNumChekerName}}</span>
         </div>
         <div>
           <div>垫圈确认者</div>
-          <span>陈薇薇</span>
+          <span>{{shaDetails.CloutCheckerName}}</span>
         </div>
         <div>
           <div>边丝颜色</div>
-          <span>XXXXX</span>
+          <span>{{shaDetails.EdgWireColor}}</span>
         </div>
         <div>
           <div>时间</div>
-          <span>2018-11-22 15:20</span>
+          <span>{{shaDetails.OprationDate}}</span>
+        </div>
+        <div>
+          <div>时间</div>
+          <span><input type="datetime-local"></span>
         </div>
       </div>
     </div>
-    <div>
-      <div class="toptitle">责任人1</div>
+    
+    <div v-for="(item,index) in fuzeersLists">
+      <div class="toptitle">责任人{{index+1}}</div>
       <div class="detailinfo">
         <div>
           <div>责任人1</div>
-          <span>XXXXX</span>
+          <span>{{item.EmpName}}</span>
         </div>
         <div>
           <div>开始时间</div>
-          <span>XXXXX</span>
+          <span>{{item.BeginTime}}</span>
         </div>
         <div>
           <div>结束时间</div>
-          <span>XXXXX</span>
+          <span>{{item.EndTime}}</span>
         </div>
         <div>
           <div>筒子个数</div>
-          <span>XXXXX</span>
+          <span>{{item.DoNum}}</span>
         </div>
         <div>
           <div>班别</div>
-          <span>甲班</span>
+          <span>{{item.ClassBanName}}</span>
         </div>
       </div>
     </div>
-    <div>
-      <div class="toptitle">责任人2</div>
-      <div class="detailinfo">
-        <div>
-          <div>责任人1</div>
-          <span>XXXXX</span>
-        </div>
-        <div>
-          <div>开始时间</div>
-          <span>XXXXX</span>
-        </div>
-        <div>
-          <div>结束时间</div>
-          <span>XXXXX</span>
-        </div>
-        <div>
-          <div>筒子个数</div>
-          <span>XXXXX</span>
-        </div>
-        <div>
-          <div>班别</div>
-          <span>乙班</span>
-        </div>
-      </div>
-    </div>
+    
   </div>
 </template>
 
@@ -90,10 +71,31 @@
 export default {
   name: "applydetail",
   data() {
-    return {};
+    return {
+    	shaDetails:{},
+    	fuzeersLists:[]
+    };
   },
-  methods: {},
-  created() {}
+  methods:{
+			shaList:function(){
+				this.$axios({
+					method: 'post',
+					url: 'api/WarpingOrder/GetWarpYarnHungByID',
+					data:{
+						id:"35d05a9b-7707-4004-96a0-ddc6abdb00de"
+					}
+				}).then((res) => {
+					console.log(res);
+					this.shaDetails = res.data.data.detailentity;
+					this.fuzeersLists = res.data.data.emps;
+				}).catch((error) => {
+					console.log(error);
+				});
+			}
+		},
+		created() {
+			this.shaList();
+		}
 };
 </script>
 

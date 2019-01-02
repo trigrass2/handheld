@@ -1,22 +1,22 @@
 <template>
 	<div class="bg1">
 		
-		<div class="bodys">
+		<div class="bodys" v-for="item in shaLists">
 			<div class="body-item">
 				<!--上方具体数据部分-->
 				<div class="top-item">
 					<div class="right-item">
 						<div style="margin-top: .1rem;">
 							<div>原料名称</div>
-							<div>300/36F</div>
+							<div>{{item.MName}}</div>
 						</div>
 						<div>
-							<div>原料名称</div>
-							<div>300/36F</div>
+							<div>原料批号</div>
+							<div>{{item.BatchNo}}</div>
 						</div>
 						<div>
 							<div>筒子个数</div>
-							<div>80</div>
+							<div>{{item.CheeseNum}}</div>
 						</div>
 					</div>
 				</div>
@@ -24,12 +24,11 @@
 				<div class="watch-item">
 					<span>查看</span><span>编辑</span>
 				</div>
-				
 			</div>
 		</div>
 		
 		 <div class="posit">
-		 	<span>返回工单</span><span>新增轴</span>
+		 	<span @click="returnGD">返回工单</span><span>新增轴</span>
 		 </div>
 	</div>
 </template>
@@ -39,14 +38,33 @@
 		name: 'applydetail',
 		data() {
 			return {
-				
+				shaLists:[]
 			}
 		},
 		methods:{
-			
+			shaList:function(){
+				this.$axios({
+					method: 'post',
+					url: 'api/WarpingOrder/GetWarpYarnHungListData',
+					data:{
+//						orderid:"041f5ead-e0a4-423c-96fd-c59fd97d4db7",
+						pageindex:"0",
+						pagesize:"20"
+					}
+				}).then((res) => {
+					console.log(res);
+					this.shaLists = res.data.data;
+				}).catch((error) => {
+					console.log(error);
+				});
+			},
+			//点击返回工单
+			returnGD:function(){
+				
+			}
 		},
 		created() {
-			
+			this.shaList();
 		}
 	}
 </script>

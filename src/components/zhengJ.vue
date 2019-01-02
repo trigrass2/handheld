@@ -2,29 +2,29 @@
 	<div class="bg1">
 		
 		<div class="bodys">
-			<div class="body-item">
+			<div class="body-item" v-for="item in lists">
 				<!--上方具体数据部分-->
 				<div class="top-item">
 					<div class="left-item">
-						<span>00</span>
-						<span>荆州编号</span>
+						<span>{{item.BeamCode}}</span>
+						<span>经轴编号</span>
 					</div>
 					<div class="right-item">
 						<div style="margin-top: .08rem;">
-							<div>羽毛数</div>
-							<div>80</div>
+							<div>毛羽数</div>
+							<div>{{item.BeamHairinessNum}}</div>
 						</div>
 						<div>
 							<div>断纱</div>
-							<div>80</div>
+							<div>{{item.YarnBroken}}</div>
 						</div>
 						<div>
-							<div>尾数</div>
-							<div>80</div>
+							<div>米数</div>
+							<div>{{item.Length}}</div>
 						</div>
 						<div>
 							<div>时间</div>
-							<div>12-21 12:55</div>
+							<div>{{item.OprationDate}}</div>
 						</div>
 					</div>
 				</div>
@@ -48,14 +48,29 @@
 		name: 'applydetail',
 		data() {
 			return {
-				
+				lists:[]
 			}
 		},
 		methods:{
-			
+			dataList:function(){
+				this.$axios({
+					method: 'post',
+					url: 'api/WarpingOrder/GetWarpingDetailListData',
+					data:{
+						orderid:"d3075b52-a342-48bc-9cc2-dda37b4a3b29",
+						pageindex:"0",
+						pagesize:"20"
+					}
+				}).then((res) => {
+					console.log(res);
+					this.lists = res.data.data;
+				}).catch((error) => {
+					console.log(error);
+				});
+			}
 		},
 		created() {
-			
+			this.dataList();
 		}
 	}
 </script>
@@ -81,7 +96,7 @@
 						display: block;
 					}
 					span:first-child{
-						font-size: .55rem;
+						font-size: .25rem;	/*************正确字号为55*************/
 						color: #FFA237;
 						font-weight: bold;
 						font-family:'dig';	/*---------------字体要改-------------------*/
@@ -95,7 +110,7 @@
 				}
 				.right-item{
 					>div{
-						margin-left: .45rem;
+						margin-left: .4rem;
 						margin-top: .04rem;
 						div:first-child{
 							color: #999;

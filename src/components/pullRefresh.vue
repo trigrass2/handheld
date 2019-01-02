@@ -229,4 +229,9 @@
 		align-items: center;
 		justify-content: center;
 	}
+	.nullData{
+		text-align: center;
+		height: .4rem;
+		line-height: .4rem;
+	}
 </style>

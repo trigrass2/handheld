@@ -44,15 +44,15 @@
 				</div>
 				<div>
 					<div id="tongNum">筒子个数</div>
-					<div class="rt"><input type="number" placeholder="请输入" class="tongzNum"></div>
+					<div class="rt"><input type="text" placeholder="请输入" class="tongzNum" oninput="value=value.replace(/[^\d]/g,'')"></div>
 				</div>
 				<div class="block">
 					<span class="demonstration">开始时间</span>
-					<el-date-picker v-model="itemRadios.index" type="datetime" placeholder="选择日期" class="rt dates startTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+					<el-date-picker v-model="value1" type="datetime" placeholder="选择日期" class="rt dates startTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
 				</div>
 				<div class="block">
 					<span class="demonstration">结束时间</span>
-					<el-date-picker v-model="itemRadios[index+1]" type="datetime" placeholder="选择日期" class="rt dates endTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+					<el-date-picker v-model="value2" type="datetime" placeholder="选择日期" class="rt dates endTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
 				</div>
 				<div style="border-bottom: none;">
 					<div>班别</div>
@@ -80,7 +80,6 @@
 		data() {
 			return {
 				num: 1,
-				dataNum:2,
 				empList: [],
 				drpList: [],
 				pickerOptions1: {
@@ -88,19 +87,14 @@
 						return time.getTime() > Date.now();
 					}
 				},
+				value1:'',
+				value2:'',
 				itemRadios:['value1','value2','value3','value4','value5','value6','value7','value8','value9','value10']
 			}
 		},
 		methods: {
 			addNew: function() {
 				this.num++
-				"value"+this.dataNum++ === ''
-				let dataNums1 = "value"+this.dataNum
-				console.log(dataNums1)
-			 	let jias =  this.dataNum++
-				"value"+jias++ === ''
-				let dataNums2 = "value"+this.dataNum
-				console.log(dataNums2)
 			},
 			confirms: function() {
 				//非空验证
@@ -210,7 +204,7 @@
 				color: #474747;
 			}
 			input {
-				width: 2.25rem;
+				width: 2.2rem;
 				height: .35rem;
 				line-height: .35rem;
 				padding-left: .07rem;
