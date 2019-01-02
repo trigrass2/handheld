@@ -13,7 +13,7 @@
 				<div>筒子确认者</div>
 				<div class="rt">
 					<select class="tzConfirmer">
-						<option v-for="item in empList" :value="item.Value">{{item.Text}}</option>
+						<option v-for="(item,i) in empList" :value="item.Value" :key="i">{{item.Text}}</option>
 					</select> <img src="../assets/img/819.png">
 				</div>
 			</div>
@@ -21,7 +21,7 @@
 				<div>垫圈确认者</div>
 				<div class="rt">
 					<select class="dqConfirmer">
-						<option v-for="item in empList" :value="item.Value">{{item.Text}}</option>
+						<option v-for="(item,x) in empList" :value="item.Value" :key="x">{{item.Text}}</option>
 					</select> <img src="../assets/img/819.png">
 				</div>
 			</div>
@@ -31,14 +31,14 @@
 			</div>
 		</div>
 
-		<div class="add-item" v-for="(i , index)  in num">
+		<div class="add-item" v-for="(i , index)  in num" :key="index">
 			<p>责任人{{index+1}}</p>
 			<div class="basic" id="addsDetail">
 				<div>
 					<div>责任人</div>
 					<div class="rt">
 						<select class="zeren">
-							<option v-for="item in empList" :value="item.Value">{{item.Text}}</option>
+							<option v-for="(item,tag) in empList" :value="item.Value" :key="tag">{{item.Text}}</option>
 						</select> <img src="../assets/img/819.png">
 					</div>
 				</div>
@@ -48,17 +48,17 @@
 				</div>
 				<div class="block">
 					<span class="demonstration">开始时间</span>
-					<el-date-picker v-model="itemRadios.index" type="datetime" placeholder="选择日期" class="rt dates startTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+					<el-date-picker v-model="startRadios[index]" type="datetime" placeholder="选择日期" class="rt dates startTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>					
 				</div>
 				<div class="block">
 					<span class="demonstration">结束时间</span>
-					<el-date-picker v-model="itemRadios[index+1]" type="datetime" placeholder="选择日期" class="rt dates endTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+					<el-date-picker v-model="endRadios[index]" type="datetime" placeholder="选择日期" class="rt dates endTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>					
 				</div>
 				<div style="border-bottom: none;">
 					<div>班别</div>
 					<div class="rt">
 						<select class="classBan">
-							<option v-for="item in drpList" :value="item.Value">{{item.Text}}</option>
+							<option v-for="(item,flag) in drpList" :value="item.Value" :key="flag">{{item.Text}}</option>
 						</select> <img src="../assets/img/819.png">
 					</div>
 				</div>
@@ -88,7 +88,9 @@
 						return time.getTime() > Date.now();
 					}
 				},
-				itemRadios:['value1','value2','value3','value4','value5','value6','value7','value8','value9','value10']
+				startRadios:[''],
+				endRadios:[''],
+
 			}
 		},
 		methods: {
@@ -103,6 +105,7 @@
 				console.log(dataNums2)
 			},
 			confirms: function() {
+				console.log(this.endRadios);
 				//非空验证
 				if($('.yuanlName').val() == "" || $('.yuanlCode').val() == "" || $('.tzConfirmer').val() == "" || $('.dqConfirmer').val() == "" || 
 					$('.bsColor').val() == "" || $('.zeren').val() == "" || $('.tongzNum').val() == "" || this.value1 == "" ||  this.value2 == "" ||$('.classBan').val() == "") {
@@ -187,6 +190,9 @@
 </script>
 
 <style scoped lang="less">
+.ceshi{
+	margin-top: 0rem;
+}
 	.bg1 {
 		position: relative;
 		font-size: .17rem;
