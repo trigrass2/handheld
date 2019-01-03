@@ -42,15 +42,33 @@
 		name: 'applydetail',
 		data() {
 			return {
-				num:2
+				num:2,
+				getDatalist:[]
 			}
 		},
 		methods:{
 			aa:function(){
 				this.num++
+			},
+			getData:function(){
+				this.$axios({
+					method: 'post',
+					url: 'api/WarpingOrder/GetReBeamDetailListData',
+					data:{
+						orderid:"a10da9e8-3a8a-44f0-b5bc-6294b171bac7",
+						pageindex:"0",
+						pagesize:"10"
+					}
+				}).then((res) => {
+					console.log(res.data.data);
+					this.getDatalist = res.data.data;
+				}).catch((error) => {
+					console.log(error);
+				});
 			}
 		},
 		created() {
+			this.getData();
 			
 		}
 	}

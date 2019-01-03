@@ -26,9 +26,7 @@
 			<div id="remark">
 				<div>备注</div><div><textarea></textarea></div>
 			</div>
-		</div>
-		
-		
+		</div>	
 		<div class="add-item" v-for="(i , index)  in num">
 			<p>责任人{{index+1}}</p>
 			<div class="basic" id="addsDetail">
@@ -51,21 +49,13 @@
 				<div>
 					<div>开始时间</div>
 					<div class="rt">
-						<select>
-							<option>请选择</option>
-							<option>请选择11</option>
-							<option>请选择22</option>
-						</select><img src="../assets/img/819.png">
+						<el-date-picker v-model="startRadios[index]" type="datetime" size="small" placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
 					</div>
 				</div>
 				<div>
 					<div>结束时间</div>
 					<div class="rt">
-						<select>
-							<option>请选择</option>
-							<option>请选择1122222</option>
-							<option>请选择22</option>
-						</select> <img src="../assets/img/819.png">
+						<el-date-picker v-model="endRadios[index]" type="datetime" size="small"  placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
 					</div>
 				</div>
 				<div style="border-bottom: none;">
@@ -79,10 +69,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		
-		
-		
+		</div>	
 		<div class="addNew" @click="aa">
 			<img src="../assets/img/3893.png" />
 		</div>
@@ -97,8 +84,17 @@
 		name: 'applydetail',
 		data() {
 			return {
-				num:1
-			}
+      num: 1,
+      empList: [],
+      drpList: [],
+      pickerOptions1: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+        }
+      },
+      startRadios: [""],
+      endRadios: [""]
+    };
 		},
 		methods:{
 			aa:function(){
@@ -214,6 +210,9 @@
 			width: .9rem;
 		}
 	}
+	.add-item:last-child{
+		margin-bottom: 1rem;
+	}
 	#remark{
 		height: 1.1rem;
 		border: none;
@@ -244,5 +243,9 @@
 		width: .35rem!important;
 		height: .35rem!important;
 		margin-left: .1rem;
+	}
+	.startTime{
+		width: 2.2rem!important;
+		margin-left: -2.35rem;
 	}
 </style>

@@ -48,11 +48,11 @@
 				</div>
 				<div class="block">
 					<span class="demonstration">开始时间</span>
-					<el-date-picker v-model="startTime[index]" type="datetime" placeholder="选择日期" class="rt dates" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+					<el-date-picker v-model="value1" type="datetime" placeholder="选择日期" class="rt dates startTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
 				</div>
 				<div class="block">
 					<span class="demonstration">结束时间</span>
-					<el-date-picker v-model="endTime[index]" type="datetime" placeholder="选择日期" class="rt dates" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+					<el-date-picker v-model="value2" type="datetime" placeholder="选择日期" class="rt dates endTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
 				</div>
 				<div style="border-bottom: none;">
 					<div>班别</div>
@@ -87,8 +87,9 @@
 						return time.getTime() > Date.now();
 					}
 				},
-				startTime:[''],
-				endTime:['']
+				value1:'',
+				value2:'',
+				itemRadios:['value1','value2','value3','value4','value5','value6','value7','value8','value9','value10']
 			}
 		},
 		methods: {

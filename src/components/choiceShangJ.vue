@@ -1,6 +1,6 @@
 <template>
 	<div class="bg1">
-		<div class="body-item" v-for="item in num">
+		<div class="body-item" v-for="item in zjList">
 			<span class="lf">上浆单：20181201-1</span>
 			<span class="rt">选择</span>
 		</div>
@@ -12,16 +12,30 @@
 		name: 'applydetail',
 		data() {
 			return {
-				num:5
+				zjList:[]
 			}
 		},
 		methods:{
-			aa:function(){
-				this.num++
+			lists:function(){
+				this.$axios({
+		      	    method: 'post',
+		      	    url: 'api/WarpingOrder/GetWarpSizingConditionByOrderid ',
+		      	    data:{
+		      	    	orderid:"d3075b52-a342-48bc-9cc2-dda37b4a3b29",
+						type:"1"
+		      	    }
+		      	}).then((res)=> {
+		      		if(res.data.code == "0"){
+		      			console.log(res.data.data.WarpOrder);
+		      			this.zjList = res.data.data.WarpCondition;
+		      		}
+		      	}).catch((error)=> {
+		      	    console.log(error);
+		      	})
 			}
 		},
 		created() {
-			
+			this.lists();
 		}
 	}
 </script>
