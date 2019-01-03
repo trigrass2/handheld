@@ -1,47 +1,26 @@
 <template>
 	<div class="bg1">
-		<div class="item-detail">
+		
+		<div class="item-detail" v-for="item in shaLists">
 			<div class="item-title">
-				<span>上浆单</span><span>20181201-1</span>
+				<span>上浆单</span><span>{{item.WarpSizingCode}}</span>
 			</div>
 			<div class="details">
 				<div class="tails">
 					<div>
-						<span class="top-one">经轴长度</span>
-						<span class="top-two">85</span>
+						<span class="top-one">整经轴号</span>
+						<span class="top-two">{{item.FromBeamCode}}</span>
 						<span><img src="../assets/img/821.png"></span>
-						<span class="top-one">经轴长度</span>
-						<span class="top-two">85</span>
+						<span class="top-one">上浆轴号</span>
+						<span class="top-two">{{item.ToBeamCode}}</span>
 					</div>
 					<div>
 						<span>米数</span>
-						<span>85</span>
+						<span>{{item.Length}}</span>
 					</div>
 					<div>
 						<span>时间</span>
-						<span>25-21 15:55</span>
-					</div>
-				</div>
-				<div class="edit rt">
-					<span>编<br />辑</span>
-				</div>
-			</div>
-			<div class="details">
-				<div class="tails">
-					<div>
-						<span class="top-one">经轴长度</span>
-						<span class="top-two">85</span>
-						<span><img src="../assets/img/821.png"></span>
-						<span class="top-one">经轴长度</span>
-						<span class="top-two">85</span>
-					</div>
-					<div>
-						<span>米数</span>
-						<span>85</span>
-					</div>
-					<div>
-						<span>时间</span>
-						<span>25-21 15:55</span>
+						<span>{{item.WarpDate}}</span>
 					</div>
 				</div>
 				<div class="edit rt">
@@ -62,19 +41,29 @@
 		name: 'applydetail',
 		data() {
 			return {
-				num:5
+				shaLists:[]
 			}
 		},
 		methods:{
-			aa:function(){
-				this.num++
-			},
-			open() {
-		        this.$message('这是一条消息提示');
-		      }
+			lists:function(){
+				this.$axios({
+					method: 'post',
+					url: 'api/WarpingOrder/GetWarpsizingList',
+					data:{
+						orderid:"d3075b52-a342-48bc-9cc2-dda37b4a3b24",
+						pageindex:"0",
+						pagesize:"20"
+					}
+				}).then((res) => {
+					console.log(res);
+					this.shaLists = res.data.data;
+				}).catch((error) => {
+					console.log(error);
+				});
+			}
 		},
 		created() {
-			
+			this.lists();
 		}
 	}
 </script>
@@ -83,8 +72,9 @@
 .bg1{
 	font-family: 'Microsoft YaHei UI';
 	font-size: .17rem;
-	height: 100%;
+	height:auto;
 	padding-bottom: .7rem;
+	min-height: 6.7rem;
 	.item-detail{
 		.item-title{
 			padding: .12rem 0 0 .1rem;

@@ -3,12 +3,8 @@
 		<div class="basic">
 			<div class="nonesBorder">
 				<div>上浆单</div>
-				<div class="rt">
-					<select style="width: 1.05rem;color: #007EFF;">
-						<option>请选择上浆单</option>
-						<option>请选择11</option>
-						<option>请选择22</option>
-					</select> <img src="../assets/img/824.png">
+				<div class="rt sjCode">
+					<span style="color: #007EFF;" class="chooseSJ">选择上浆单</span> <img src="../assets/img/824.png">
 				</div>
 			</div>
 			<div class="nonesBorder" style="padding: .05rem 0 .05rem 0;">
@@ -17,16 +13,16 @@
 				</div>
 			</div>
 			<div style="color: #333;">
-				<div>整经轴</div><div class="jzCode"><input type="text" placeholder="请输入"><span>确定</span> </div><div><img src="../assets/img/3906.png" class="saoma"></div>
+				<div>整经轴</div><div class="jzCode"><input type="text" placeholder="请输入" class="zjZhou"><span>确定</span> </div><div><img src="../assets/img/3906.png" class="saoma"></div>
 			</div>
 			<div style="color: #333;">
-				<div>上浆轴</div><div class="jzCode"><input type="text" placeholder="请输入"><span>确定</span> </div><div><img src="../assets/img/3906.png" class="saoma"></div>
+				<div>上浆轴</div><div class="jzCode"><input type="text" placeholder="请输入" class="sjZhou"><span>确定</span> </div><div><img src="../assets/img/3906.png" class="saoma"></div>
 			</div>
 			<div>
 				<div>索套个数</div><div class="rt" style="margin-right: .15rem;">请在责任人中输入</div>
 			</div>
 			<div id="remark">
-				<div>备注</div><div><textarea></textarea></div>
+				<div>备注</div><div><textarea class="remarks"></textarea></div>
 			</div>
 		</div>
 		
@@ -37,46 +33,30 @@
 				<div>
 					<div>责任人</div>
 					<div class="rt">
-						<select>
-							<option>请选择</option>
-							<option>请选择11</option>
-							<option>请选择22</option>
+						<select class="zeren">
+							<option v-for="item in empList" :value="item.Value">{{item.Text}}</option>
 						</select> <img src="../assets/img/819.png">
 					</div>
 				</div>
 				<div>
-					<div id="tongNum">米数</div><div class="rt"><input type="text" placeholder="请输入"></div>
+					<div id="tongNum">米数</div><div class="rt"><input type="text" placeholder="请输入" class="length"></div>
 				</div>
 				<div>
-					<div id="tongNum">索套个数</div><div class="rt"><input type="text" placeholder="请输入"></div>
+					<div id="tongNum">索套个数</div><div class="rt"><input type="text" placeholder="请输入" class="tcNum"></div>
 				</div>
-				<div>
-					<div>开始时间</div>
-					<div class="rt">
-						<select>
-							<option>请选择</option>
-							<option>请选择11</option>
-							<option>请选择22</option>
-						</select><img src="../assets/img/819.png">
-					</div>
+				<div class="block">
+					<span class="demonstration">开始时间</span>
+					<el-date-picker v-model="startTime[index]" type="datetime" placeholder="选择日期" class="rt dates startTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
 				</div>
-				<div>
-					<div>结束时间</div>
-					<div class="rt">
-						<select>
-							<option>请选择</option>
-							<option>请选择1122222</option>
-							<option>请选择22</option>
-						</select> <img src="../assets/img/819.png">
-					</div>
+				<div class="block">
+					<span class="demonstration">结束时间</span>
+					<el-date-picker v-model="endTime[index]" type="datetime" placeholder="选择日期" class="rt dates endTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
 				</div>
 				<div style="border-bottom: none;">
 					<div>班别</div>
 					<div class="rt">
-						<select>
-							<option>请选择</option>
-							<option>请选择1122222</option>
-							<option>请选择22</option>
+						<select class="classBan">
+							<option v-for="item in drpList" :value="item.Value">{{item.Text}}</option>
 						</select> <img src="../assets/img/819.png">
 					</div>
 				</div>
@@ -86,7 +66,7 @@
 		<div class="addNew" @click="aa">
 			<img src="../assets/img/3893.png" />
 		</div>
-		<div class="posit">
+		<div class="posit" @click="confirm">
 			<p>确定</p>
 		</div>
 	</div>
@@ -97,26 +77,110 @@
 		name: 'applydetail',
 		data() {
 			return {
-				num:1
+				num:1,
+				empList:[],
+				drpList:[],
+				startTime:[''],
+				endTime:[''],
+				pickerOptions1: {
+					disabledDate(time) {
+						return time.getTime() > Date.now();
+					}
+				},
 			}
 		},
 		methods:{
 			aa:function(){
 				this.num++
 			},
-			zizhi:function(){
-	      		this.$axios({
-		      	    method: 'post',
-		      	    url: 'api/WarpingOrder/GetWarpOrderListData'	
-		      	  }).then((response)=> {
-		      	    console.log(response);
-		      	  }).catch((error)=> {
-		      	    console.log(error);
-		      	  });
+			tzConfirmerList: function() {
+				//筒子确认者列表
+				this.$axios({
+					method: 'post',
+					url: 'api/WarpingOrder/GetEmpDropDownList',
+				}).then((res) => {
+					console.log(res);
+					this.empList = res.data.data;
+				}).catch((error) => {
+					console.log(error);
+				});
+				//班别列表
+				this.$axios({
+					method: 'post',
+					url: 'api/WarpingOrder/GetBShiftDrpDownList',
+				}).then((res) => {
+					console.log(res);
+					this.drpList = res.data.data;
+				}).catch((error) => {
+					console.log(error);
+				});
+			},
+			//确认
+			confirm: function() {
+				//上浆工单id
+				let WarpSizingID = localStorage.getItem("WarpSizingID");
+				//上浆工单编号
+				let WarpSizingCode = localStorage.getItem("WarpSizingCode");
+				//整经单id
+				let WarpOrderID = localStorage.getItem("WarpOrderID");
+				//整经单编号
+				let WarpOrderCode = localStorage.getItem("WarpOrderCode");
+				//非空验证
+				if($('.zjZhou').val() == "" || $('.sjZhou').val() == "" || $('.zeren').val() == "" || $('.length').val() == "" || $('.tcNum').val() == "" ||
+					$('.el-input__inner').val() == ""|| $('.classBan').val() == "") {
+					
+					this.$message({
+			          showClose: true,
+			          message: '请完善信息',
+			          type: 'error',
+			          center: true
+			        });
+				} else {
+				//不为空之后
+					
+					let entity = {};
+					entity.WarpSizingID = WarpSizingID;
+					entity.WarpSizingCode = WarpSizingCode;
+					entity.WarpOrderID = WarpOrderID;
+					entity.WarpOrderCode = WarpOrderCode;
+					entity.CloutCheckerID = $('.zjZhou').val();
+					entity.CloutCheckerName = $('.sjZhou').val();
+					entity.EdgWireColor = $('.remarks').val();
+
+					let emplist = [];
+
+					for(let i = 0; i < $('.add-item').length; i++) {
+						let emplisters = {};
+						emplisters.EmpID = $('.zeren').eq(i).val();
+						emplisters.EmpName = $('.zeren option:selected').eq(i).text();
+						emplisters.length = $('.length').eq(i).val();
+						emplisters.DoNum = $('.tcNum').eq(i).val();
+						emplisters.BeginTime =this.startTime[i];
+						emplisters.EndTime = this.endTime[i];
+						emplisters.ClassBan = $('.classBan').eq(i).val();
+						emplisters.ClassBanName = $('.classBan option:selected').eq(i).text();
+
+						emplist.push(emplisters)
+					}
+					this.$axios({
+						method: 'post',
+						url: 'api/WarpingOrder/SaveWarpsizingData',
+						data: {
+							entity: entity,
+							emplist: emplist
+						}
+					}).then((res) => {
+						console.log(res);
+					}).catch((error) => {
+						console.log(error);
+					});
+
+				}
+
 			}
 		},
 		created() {
-			this.zizhi();
+			this.tzConfirmerList()
 		}
 	}
 </script>
@@ -167,7 +231,7 @@
 				background-color: transparent;
 				font-size: .17rem;
 				color: #999;
-				width: .6rem;
+				width: .8rem;
 			}
 			img{
 				margin-right: .15rem;
@@ -275,5 +339,9 @@
 	}
 	.nonesBorder{
 		border: none!important;
+	}
+	.dates {
+		margin-right: .15rem;
+		width: 2.16rem;
 	}
 </style>

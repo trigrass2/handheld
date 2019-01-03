@@ -5,84 +5,57 @@
 			<div class="detailinfo">
 				<div>
 					<div>经轴编号</div>
-					<span>XXXXX</span>
+					<span>{{details.WarpOrderCode}}</span>
 				</div>
 				<div>
 					<div>断纱</div>
-					<span>XXXXX</span>
+					<span>{{details.YarnBroken}}</span>
 				</div>
 				<div>
 					<div>毛羽数</div>
-					<span>XXXXX</span>
+					<span>{{details.BeamHairinessNum}}</span>
 				</div>
 				<div>
 					<div>对头次数</div>
-					<span>XXXXX</span>
+					<span>{{details.DTCount}}</span>
 				</div>
 				<div>
 					<div>备注</div>
-					<span>XXXXX</span>
+					<span>{{details.Remark}}</span>
 				</div>
 			</div>
 		</div>
-		<div>
-			<div class="toptitle">责任人1</div>
+		
+		<div v-for="(item , index) in lists">
+			<div class="toptitle">责任人{{index+1}}</div>
 			<div class="detailinfo">
 				<div>
-					<div>责任人1</div>
-					<span>XXXXX</span>
+					<div>责任人</div>
+					<span>{{item.EmpName}}</span>
 				</div>
 				<div>
 					<div>开始时间</div>
-					<span>XXXXX</span>
+					<span>{{item.BeginTime}}</span>
 				</div>
 				<div>
 					<div>结束时间</div>
-					<span>XXXXX</span>
+					<span>{{item.EndTime}}</span>
 				</div>
 				<div>
 					<div>米数</div>
-					<span>XXXXX</span>
+					<span>{{item.Lenght}}</span>
 				</div>
 				<div>
 					<div>对头次数</div>
-					<span>XXXXX</span>
+					<span>{{item.DoNum}}</span>
 				</div>
 				<div>
 					<div>班别</div>
-					<span>甲班</span>
+					<span>{{item.ClassBanName}}</span>
 				</div>
 			</div>
 		</div>
-		<div>
-			<div class="toptitle">责任人2</div>
-			<div class="detailinfo">
-				<div>
-					<div>责任人1</div>
-					<span>XXXXX</span>
-				</div>
-				<div>
-					<div>开始时间</div>
-					<span>XXXXX</span>
-				</div>
-				<div>
-					<div>结束时间</div>
-					<span>XXXXX</span>
-				</div>
-				<div>
-					<div>米数</div>
-					<span>XXXXX</span>
-				</div>
-				<div>
-					<div>对头次数</div>
-					<span>XXXXX</span>
-				</div>
-				<div>
-					<div>班别</div>
-					<span>乙班</span>
-				</div>
-			</div>
-		</div>
+		
 	</div>
 </template>
 
@@ -91,7 +64,8 @@
 		name: "applydetail",
 		data() {
 			return {
-				
+				details:{},
+				lists:[]
 			}
 		},
 		methods: {
@@ -104,7 +78,8 @@
 					}
 				}).then((res) => {
 					console.log(res);
-					this.shaLists = res.data.data;
+					this.details = res.data.data;
+					this.lists = res.data.emps;
 				}).catch((error) => {
 					console.log(error);
 				});

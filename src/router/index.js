@@ -17,7 +17,7 @@ import zjSingleDetail from '@/components/zjSingleDetail'       //整经工
 import shangJDetail from '@/components/shangJDetail'           //上浆工单详情
 import guashaDetail from '@/components/guashaDetail'           //挂纱详细
 import shangJcondition from '@/components/shangJcondition'     //预览上浆条件
-import pullRefresh from '@/components/pullRefresh'     		//注册组件
+import pullRefresh from '@/components/pullRefresh'     		   //注册组件
 
 Vue.use(Router)
 
