@@ -3,7 +3,7 @@
 		
 		<div class="item-detail" v-for="(item,index) in getDatalist" :key="index">
 			<div class="item-title">
-				<span>上浆单</span><span>20181201-1</span>
+				<span>上浆单</span><span>{{item.AddDate}}</span>
 			</div>
 			<div class="details">
 				<div class="codes">
