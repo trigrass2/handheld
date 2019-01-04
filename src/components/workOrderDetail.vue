@@ -132,7 +132,7 @@
 	        		<div v-for="item in SizingCodes">{{item.Code}}</div>
 	        	</section>
 	        	<div>
-	        		<span>条件设定人</span>
+	        		<span>条件设定者</span>
 	        		<span class="rt">{{Sizingcondition.SettingUserName}}</span>
 	        	</div>
 	        	<div>
