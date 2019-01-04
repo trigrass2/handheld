@@ -147,8 +147,8 @@
 					//不为空之后
 					console.log();
 					let entity = {};
-					entity.WarpSizingID = localStorage.getItem("WarpSizingID") || '11896a5d-62f7-4330-9528-425e43f1803c';
-					entity.WarpSizingCode = localStorage.getItem("WarpSizingCode") || '121121';
+					entity.WarpRisingID = localStorage.getItem("WarpSizingCodeID") || '11896a5d-62f7-4330-9528-425e43f1803c';
+					entity.WarpRisingCode = localStorage.getItem("WarpSizingCode  ") || '121121';
 					entity.WarpOrderID = localStorage.getItem("WarpOrderID") || 'd3075b52-a342-48bc-9cc2-dda37b4a3b24';
 					entity.WarpOrderCode = localStorage.getItem("WarpOrderCode") || 'ZJ20181211003';
 					entity.BeamCode = $(".jzbianhao").val();

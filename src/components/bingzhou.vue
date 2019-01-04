@@ -1,27 +1,27 @@
 <template>
 	<div class="bg1">
 		
-		<div class="item-detail" v-for="item in num">
+		<div class="item-detail" v-for="(item,index) in getDatalist" :key="index">
 			<div class="item-title">
 				<span>上浆单</span><span>20181201-1</span>
 			</div>
 			<div class="details">
 				<div class="codes">
-					<span>005</span><br />
+					<span>{{item.BeamCode}}</span><br />
 					<span>经轴编号</span>
 				</div>
 				<div class="tails">
 					<div>
 						<span>经轴长度</span>
-						<span>85</span>
+						<span>{{item.BeamLength}}</span>
 					</div>
 					<div>
 						<span>米数</span>
-						<span>85</span>
+						<span>{{item.Length}}</span>
 					</div>
 					<div>
 						<span>时间</span>
-						<span>25-21 15:55</span>
+						<span>{{item.AddDate}}</span>
 					</div>
 				</div>
 				<div class="edit">
@@ -42,7 +42,6 @@
 		name: 'applydetail',
 		data() {
 			return {
-				num:2,
 				getDatalist:[]
 			}
 		},
@@ -55,7 +54,7 @@
 					method: 'post',
 					url: 'api/WarpingOrder/GetReBeamDetailListData',
 					data:{
-						orderid:"a10da9e8-3a8a-44f0-b5bc-6294b171bac7",
+						orderid:"d3075b52-a342-48bc-9cc2-dda37b4a3b24",
 						pageindex:"0",
 						pagesize:"10"
 					}

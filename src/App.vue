@@ -40,6 +40,7 @@
 	.bg1{
 		background-color: #f3f3f3;
 		height: 100%;
+		margin-top: 0.48rem;
 	}
 	.lf {
 		float: left;
