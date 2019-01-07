@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="tabItem">
-      <slot></slot>
+    <slot></slot>
     </div>
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" class="bg1">
@@ -60,7 +60,7 @@ export default {
   },
   methods: {
   	watchDetail:function(id , code){
-  		this.$router.push('zhengJSingle');
+//		this.$router.push('zhengJSingle');
   		localStorage.setItem("zjID" , id);
   		localStorage.setItem("zjCODE" , code);
   	},
