@@ -1,5 +1,6 @@
 <template>
 	<div class="bg1">
+		<HeaderSame :headerObj="headerObj"></HeaderSame>
 		<div class="tablist">
             <div :class="{active:0==isactive}" @click="details(0)">工单信息</div>
             <div :class="{active:1==isactive}" @click="details(1)">整经条件</div>
@@ -340,10 +341,17 @@
 </template>
 
 <script>
-	export default {
-        name: 'repcardrecord',
-        data(){
-          return{
+		import HeaderSame from "./common/sameHeader.vue";
+		export default {
+		components: { HeaderSame },
+		name: "applydetail",
+		data() {
+			return {
+			headerObj: {
+				title: "工单详情",
+				img: "",
+				text: ""
+			},
             isactive:0,
             gongdan:true,
             zhengjing:false,

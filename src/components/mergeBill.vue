@@ -1,5 +1,6 @@
 <template>
-  <div class="conntent">
+  <div class="conntent" style="margin-top:0.5rem;">
+    <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div>
       <div class="toptitle">轴信息</div>
       <div class="detailinfo">
@@ -58,10 +59,17 @@
 </template>
 
 <script>
+import HeaderSame from "./common/sameHeader.vue";
 export default {
+  components: { HeaderSame },
   name: "applydetail",
   data() {
     return {
+      headerObj: {
+        title: "并轴工单详情",
+        img: "",
+        text: ""
+      },
       getDatalist:{
         entity:[],
         emps:[]

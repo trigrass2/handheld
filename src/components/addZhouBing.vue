@@ -1,5 +1,6 @@
 <template>
 	<div class="bg1">
+		<HeaderSame :headerObj="headerObj"></HeaderSame>
 		<div class="basic">
 			<div>
 				<div>上浆单</div>
@@ -76,10 +77,17 @@
 </template>
 
 <script>
-		export default {
-		name: 'applydetail',
-		data() {
-			return {
+		import HeaderSame from "./common/sameHeader.vue";
+export default {
+  components: { HeaderSame },
+  name: "applydetail",
+  data() {
+    return {
+      headerObj: {
+        title: "并轴-新增轴",
+        img: "",
+        text: ""
+      },
       num: 1,
       pickerOptions1: {
         disabledDate(time) {
@@ -216,7 +224,7 @@
 		font-size: .17rem;
 		height: auto;
 		min-height: 6.7rem;
-		padding-bottom: .7rem;
+		padding-bottom: 1.3rem;
 		.basic{
 			background-color: white;
 			line-height: .5rem;
