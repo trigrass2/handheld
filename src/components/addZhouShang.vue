@@ -1,5 +1,6 @@
 <template>
 	<div class="bg1">
+		<HeaderSame :headerObj="headerObj"></HeaderSame>
 		<div class="basic">
 			<div class="nonesBorder">
 				<div>上浆单</div>
@@ -73,10 +74,17 @@
 </template>
 
 <script>
+		import HeaderSame from "./common/sameHeader.vue";
 		export default {
-		name: 'applydetail',
+		components: { HeaderSame },
+		name: "applydetail",
 		data() {
 			return {
+			headerObj: {
+				title: "上浆-新增轴",
+				img: "",
+				text: ""
+			},
 				num:1,
 				empList:[],
 				drpList:[],
@@ -191,7 +199,7 @@
 		font-size: .17rem;
 		height: auto;
 		min-height: 6.7rem;
-		padding-bottom: .7rem;
+		padding-bottom: 1.3rem;
 		.basic{
 			background-color: white;
 			line-height: .5rem;

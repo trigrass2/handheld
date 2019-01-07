@@ -88,7 +88,7 @@ export default {
         method: "post",
         url: "api/WarpingOrder/GetWarpOrderByID",
         data: {
-          id: this.$route.query.id,
+          id: "d3075b52-a342-48bc-9cc2-dda37b4a3b24",
           type: "0"
         }
       })

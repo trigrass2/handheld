@@ -27,7 +27,7 @@ export default {
   text-align: center;
   font-size: 0.36rem;
   color: #333333;
-  line-height: 0.4rem;
+  line-height: 0.35rem;
   top: 0;
   background: #fff;
   z-index: 99999;

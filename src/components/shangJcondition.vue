@@ -1,5 +1,6 @@
 <template>
 	<div class="content">
+		<HeaderSame :headerObj="headerObj"></HeaderSame>
         <div>
 	    	<div class="zhengjing">
 	    		<p>上浆条件</p>
@@ -209,10 +210,17 @@
 </template>
 
 <script>
+import HeaderSame from "./common/sameHeader.vue";
 export default {
+  components: { HeaderSame },
   name: "applydetail",
   data() {
-    return {};
+    return {
+      headerObj: {
+        title: "预览上浆条件",
+        img: "",
+        text: ""
+      },};
   },
   methods: {},
   created() {}
@@ -222,6 +230,7 @@ export default {
 <style scoped="scoped" lang="less">
 .content{
 	font-size: .17rem;
+	margin-top: 0.5rem;
 	.zhengjing{
 		height: .35rem;
 		line-height: .35rem;

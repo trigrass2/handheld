@@ -1,5 +1,6 @@
 <template>
-  <div class="bg1">
+  <div class="bg1" style="padding-bottom:1.3rem;">
+    <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="basic">
       <div>
         <div>原料名称</div>
@@ -106,10 +107,17 @@
 </template>
 
 <script>
+import HeaderSame from "./common/sameHeader.vue";
 export default {
+  components: { HeaderSame },
   name: "applydetail",
   data() {
     return {
+      headerObj: {
+        title: "新增挂纱",
+        img: "",
+        text: ""
+      },
       num: 1,
       empList: [],
       drpList: [],
@@ -248,7 +256,6 @@ export default {
   position: relative;
   font-size: 0.17rem;
   height: auto;
-  min-height: 6.7rem;
   padding-bottom: 0.7rem;
   .basic {
     background-color: white;
