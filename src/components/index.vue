@@ -8,7 +8,7 @@
       <div class="body-item" v-for="item in listdata">
         <div class="item-title">
           <span class="lf">整经编号: {{item.Code}}</span>
-          <span class="rt" @click="$router.push('zhengJSingle')">查看</span>
+          <span class="rt" @click="$router.push('zhengJSingle?id='+item.ID)">查看</span>
         </div>
         <div class="item-body">
           <div class="productName">
