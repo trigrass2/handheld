@@ -344,10 +344,10 @@
         name: 'repcardrecord',
         data(){
           return{
-            isactive:2,
-            gongdan:false,
+            isactive:0,
+            gongdan:true,
             zhengjing:false,
-            shangjiang:true,
+            shangjiang:false,
             gdList:{},
             zjList:{},
             SizingCodes:[],
@@ -385,6 +385,21 @@
 		      			console.log(res.data.data.WarpOrder);
 		      			this.gdList = res.data.data.WarpOrder;
 		      			this.zjList = res.data.data.WarpCondition;
+		      		}
+		      	}).catch((error)=> {
+		      	    console.log(error);
+		      	});
+		      	
+		      	
+		      	this.$axios({
+		      	    method: 'post',
+		      	    url: 'api/WarpingOrder/GetWarpSizingConditionByID',
+		      	    data:{
+		      	    	id:"11896a5d-62f7-4330-9528-425e43f1803c"
+		      	    }
+		      	}).then((res)=> {
+		      		if(res.data.code == "0"){
+		      			console.log(res.data.data);
 		      		}
 		      	}).catch((error)=> {
 		      	    console.log(error);
