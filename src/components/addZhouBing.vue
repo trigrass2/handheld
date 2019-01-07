@@ -4,12 +4,8 @@
 		<div class="basic">
 			<div>
 				<div>上浆单</div>
-				<div class="rt">
-					<select style="width: 1.05rem;color: #007EFF;" class="sjdanhao">
-						<option>请选择上浆单</option>
-						<option>请选择11</option>
-						<option>请选择22</option>
-					</select> <img src="../assets/img/819.png">
+				<div class="rt" @click="$router.push('choiceShangJ')">
+					<span style="color: #007EFF;">{{chocecode || code || '选择上浆单'}}</span> <img src="../assets/img/824.png">
 				</div>
 			</div>
 			<div style="color: #333;">
@@ -87,7 +83,9 @@ export default {
         title: "并轴-新增轴",
         img: "",
         text: ""
-      },
+	  },
+	  code:this.$route.query.code,
+	  chocecode:this.$route.query.chocecode,
       num: 1,
       pickerOptions1: {
         disabledDate(time) {
@@ -155,10 +153,10 @@ export default {
 					//不为空之后
 					console.log();
 					let entity = {};
-					entity.WarpRisingID = localStorage.getItem("WarpSizingCodeID") || '11896a5d-62f7-4330-9528-425e43f1803c';
-					entity.WarpRisingCode = localStorage.getItem("WarpSizingCode  ") || '121121';
-					entity.WarpOrderID = localStorage.getItem("WarpOrderID") || 'd3075b52-a342-48bc-9cc2-dda37b4a3b24';
-					entity.WarpOrderCode = localStorage.getItem("WarpOrderCode") || 'ZJ20181211003';
+					entity.WarpRisingID = this.route.query.choceid || this.route.query.id;
+					entity.WarpRisingCode = this.route.query.chocecode || this.route.query.code;
+					entity.WarpOrderID = localStorage.getItem("zjID");
+					entity.WarpOrderCode = localStorage.getItem("zjCODE");
 					entity.BeamCode = $(".jzbianhao").val();
 					entity.BeamLength = $(".jzlength").val();
 					entity.Length = $(".milength").val();

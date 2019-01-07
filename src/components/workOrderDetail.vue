@@ -130,7 +130,7 @@
 	    	</div>
 	        <div class="list-detail">
 	        	<section class="conditions-list">
-	        		<div v-for="item in SizingCodes">{{item.Code}}</div>
+	        		<div v-for="(item,index) in SizingCodes" @click="sjbztj(item.ID,index)" :key="index" class="selectdiv">{{item.Code}}</div>
 	        	</section>
 	        	<div>
 	        		<span>条件设定者</span>
@@ -379,35 +379,42 @@
         			this.shangjiang = true;
         		}
         		
-        	},
+			},
+			// 上浆并轴条件跳转
+			sjbztj:function(tag,index){
+				$('.selectdiv:eq(0)').css('background-color','#fff');
+				$('.selectdiv:eq(0)').css('color','#007EFF');
+				$('.selectdiv').removeClass('selectspan');
+				$('.selectdiv:eq('+index+')').addClass('selectspan');
+				console.log(tag);
+                	this.$axios({
+		      	    method: 'post',
+		      	    url: 'api/WarpingOrder/GetWarpSizingConditionByID',
+		      	    data:{
+		      	    	id:tag,
+		      	    }
+		      	}).then((res)=> {
+		      		if(res.data.code == "0"){
+						  console.log(res.data.data);
+						  this.Sizingcondition = res.data.data;
+		      		}
+		      	}).catch((error)=> {
+		      	    console.log(error);
+		      	});
+			},
         	listData:function(){
         		this.$axios({
 		      	    method: 'post',
 		      	    url: 'api/WarpingOrder/GetWarpOrderByID',
 		      	    data:{
-		      	    	id:"d3075b52-a342-48bc-9cc2-dda37b4a3b29",
+		      	    	id:localStorage.getItem("zjID"),
 						type:"1"
 		      	    }
 		      	}).then((res)=> {
 		      		if(res.data.code == "0"){
-		      			console.log(res.data.data.WarpOrder);
+		      			// console.log(res.data.data.WarpOrder);
 		      			this.gdList = res.data.data.WarpOrder;
 		      			this.zjList = res.data.data.WarpCondition;
-		      		}
-		      	}).catch((error)=> {
-		      	    console.log(error);
-		      	});
-		      	
-		      	
-		      	this.$axios({
-		      	    method: 'post',
-		      	    url: 'api/WarpingOrder/GetWarpSizingConditionByID',
-		      	    data:{
-		      	    	id:"11896a5d-62f7-4330-9528-425e43f1803c"
-		      	    }
-		      	}).then((res)=> {
-		      		if(res.data.code == "0"){
-		      			console.log(res.data.data);
 		      		}
 		      	}).catch((error)=> {
 		      	    console.log(error);
@@ -417,7 +424,7 @@
 		      	    method: 'post',
 		      	    url: 'api/WarpingOrder/GetWarpSizingConditionByOrderid',
 		      	    data:{
-		      	    	orderid:"d3075b52-a342-48bc-9cc2-dda37b4a3b29"
+		      	    	orderid:localStorage.getItem("zjID")
 		      	    }
 		      	}).then((res)=> {
 		      		if(res.data.code == "0"){
@@ -435,12 +442,20 @@
         },
         created() {
 			this.listData();
-		}
+		},
     }  
 </script>
 
 <style scoped="scoped" lang="less">
-.bg1{
+	.selectspan{
+		background-color: #007EFF!important;
+		color: #fff!important;
+	}
+	.conditions-list>div:first-child{
+		background-color: #007EFF;
+		color: #fff;
+	}
+  .bg1{
 	font-size: .17rem;
 	.tablist{
     	border-bottom: 1px solid #f2f2f2;
@@ -448,7 +463,7 @@
         color: #999999;
         background: #ffffff;
         display: flex;
-        height: 0.45rem;
+		height: 0.45rem;
         justify-content: space-around;
       div{
         box-sizing: border-box;
@@ -501,12 +516,12 @@
 		width: 1.04rem;
 		height: .29rem;
 		line-height: .29rem;
-		background-color: #007EFF;
 		border-radius:1.36rem;
 		text-align: center;
-		color: white;
+		color: #007EFF;
 		display: inline-block;
 		margin-right: .09rem;
+		border: 1px solid #007EFF;
 	}
 	div:last-child{
 		margin-bottom: .15rem;

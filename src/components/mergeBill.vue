@@ -22,7 +22,7 @@
         </div>
         <div>
           <div>备注</div>
-          <span>{{getDatalist.entity.Remark}}</span>
+          <span>{{getDatalist.entity.Remark}}</span> 
         </div>
       </div>
     </div>
@@ -82,7 +82,7 @@ export default {
 					method: 'post',
 					url: 'api/WarpingOrder/GetReBeamDetailDataByID',
 					data:{
-						id:"3d8425b2-57ef-4ffc-87b2-c01339d75cac"
+						id:this.$route.query.id,
 					}
 				}).then((res) => {
 					console.log(res.data.data);

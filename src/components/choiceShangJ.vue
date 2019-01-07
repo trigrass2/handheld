@@ -2,8 +2,8 @@
   <div class="bg1">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="body-item" v-for="item in zjList">
-      <span class="lf">上浆单：{{item.Code}}</span>
-      <span class="rt">选择</span>
+      <span class="lf" @click="$router.push('shangJcondition?id='+item.ID)">上浆单：{{item.Code}}</span>
+      <span class="rt"  @click="$router.push('addZhouShang?chocecode='+item.Code+'&choceid='+item.ID)">选择</span>
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
         method: "post",
         url: "api/WarpingOrder/GetWarpSizingConditionByOrderid ",
         data: {
-          orderid: "d3075b52-a342-48bc-9cc2-dda37b4a3b29",
+          orderid: localStorage.getItem("zjID"),
           type: "1"
         }
       })

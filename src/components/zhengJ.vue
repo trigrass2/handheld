@@ -30,14 +30,14 @@
         </div>
         <!--下方操作按钮部分-->
         <div class="watch-item">
-          <span>查看</span>
-          <span>编辑</span>
+          <span @click="$router.push('zjSingleDetail?id='+item.ID)">查看</span>
+          <span @click="$router.push('addZhou?handle='+'edit')">编辑</span>
         </div>
       </div>
     </div>
 
     <div class="posit">
-      <span>返回工单</span><span>新增轴</span>
+      <span @click="returnGD">返回工单</span><span @click="$router.push('addZhou?handle='+'add')">新增轴</span>
     </div>
   </div>
 </template>
@@ -63,7 +63,7 @@ export default {
         method: "post",
         url: "api/WarpingOrder/GetWarpingDetailListData",
         data: {
-          orderid: "d3075b52-a342-48bc-9cc2-dda37b4a3b29",
+          orderid: localStorage.getItem("zjID"),
           pageindex: "0",
           pagesize: "20"
         }
@@ -75,6 +75,10 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    //点击返回工单
+    returnGD: function() {
+      this.$router.push('zhengJSingle');
     }
   },
   created() {
