@@ -13,18 +13,10 @@
           </div>
           <div>{{listdata.PF}}</div>
         </div>
-        <!--<div class="useVarieties">
-					<div>使用原丝</div>
-					<div>300/36f</div>
-				</div>
-				<div class="productNum">
-					<div>批<span class="spaces"></span>号</div>
-					<div>S13101AS</div>
-        </div>-->
       </div>
 
       <div class="watchAll" @click="watchAll()">
-        <a href>查看全部参数></a>
+        <span style="color: #007EFF;">查看全部参数></span>
       </div>
     </div>
 
@@ -84,11 +76,12 @@ export default {
   methods: {
     //获取页面数据
     lists: function() {
+    	let id = localStorage.getItem("zjID");
       this.$axios({
         method: "post",
         url: "api/WarpingOrder/GetWarpOrderByID",
         data: {
-          id: "d3075b52-a342-48bc-9cc2-dda37b4a3b24",
+          id: id,
           type: "0"
         }
       })
@@ -101,7 +94,9 @@ export default {
         });
     },
     //查看所有参数页面
-    watchAll: function() {},
+    watchAll: function() {
+    	this.$router.push('workOrderDetail');
+    },
     //下方操作页面
     guasha: function(index) {
       if (index == 0) {

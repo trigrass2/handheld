@@ -8,13 +8,11 @@
       <div class="body-item" v-for="item in listdata">
         <div class="item-title">
           <span class="lf">整经编号: {{item.Code}}</span>
-          <span class="rt" @click="$router.push('zhengJSingle?id='+item.ID)">查看</span>
+          <span class="rt" @click="watchDetail(item.ID , item.Code)">查看</span>
         </div>
         <div class="item-body">
           <div class="productName">
-            <div>
-              品
-              <span class="spaces"></span>番
+            <div>品<span class="spaces"></span>番
             </div>
             <div>{{item.PNO}}</div>
           </div>
@@ -61,6 +59,14 @@ export default {
     $(".back").css("display", "none");
   },
   methods: {
+  	watchDetail:function(id , code){
+  		this.$router.push('zhengJSingle');
+  		localStorage.setItem("zjID" , id);
+  		localStorage.setItem("zjCODE" , code);
+  	},
+  	
+  	
+  	
     getList() {
       let vm = this;
       this.$axios({
@@ -88,8 +94,6 @@ export default {
     onInfinite(done) {
       let end = (this.pageEnd = this.num * this.counter);
       let i = (this.pageStart = this.pageEnd - this.num);
-      //   console.log(this.pageEnd);
-      //   console.log(this.pageStart);
       let counters = String(this.counter++);
 
       let more = this.$el.querySelector(".load-more");

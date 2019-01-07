@@ -133,7 +133,7 @@
 	        		<div v-for="item in SizingCodes">{{item.Code}}</div>
 	        	</section>
 	        	<div>
-	        		<span>条件设定人</span>
+	        		<span>条件设定者</span>
 	        		<span class="rt">{{Sizingcondition.SettingUserName}}</span>
 	        	</div>
 	        	<div>
@@ -342,20 +342,20 @@
 
 <script>
 		import HeaderSame from "./common/sameHeader.vue";
-export default {
-  components: { HeaderSame },
-  name: "applydetail",
-  data() {
-    return {
-      headerObj: {
-        title: "工单详情",
-        img: "",
-        text: ""
-      },
-            isactive:2,
-            gongdan:false,
+		export default {
+		components: { HeaderSame },
+		name: "applydetail",
+		data() {
+			return {
+			headerObj: {
+				title: "工单详情",
+				img: "",
+				text: ""
+			},
+            isactive:0,
+            gongdan:true,
             zhengjing:false,
-            shangjiang:true,
+            shangjiang:false,
             gdList:{},
             zjList:{},
             SizingCodes:[],
@@ -393,6 +393,21 @@ export default {
 		      			console.log(res.data.data.WarpOrder);
 		      			this.gdList = res.data.data.WarpOrder;
 		      			this.zjList = res.data.data.WarpCondition;
+		      		}
+		      	}).catch((error)=> {
+		      	    console.log(error);
+		      	});
+		      	
+		      	
+		      	this.$axios({
+		      	    method: 'post',
+		      	    url: 'api/WarpingOrder/GetWarpSizingConditionByID',
+		      	    data:{
+		      	    	id:"11896a5d-62f7-4330-9528-425e43f1803c"
+		      	    }
+		      	}).then((res)=> {
+		      		if(res.data.code == "0"){
+		      			console.log(res.data.data);
 		      		}
 		      	}).catch((error)=> {
 		      	    console.log(error);

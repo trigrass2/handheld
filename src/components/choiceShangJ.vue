@@ -2,7 +2,7 @@
   <div class="bg1">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="body-item" v-for="item in zjList">
-      <span class="lf">上浆单：20181201-1</span>
+      <span class="lf">上浆单：{{item.Code}}</span>
       <span class="rt">选择</span>
     </div>
   </div>
