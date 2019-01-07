@@ -5,81 +5,52 @@
       <div class="detailinfo">
         <div>
           <div>上浆单</div>
-          <span>20181201-1</span>
+          <span>{{getDatalist.entity.WarpRisingCode}}</span>
         </div>
         <div>
           <div>整经轴号(输出)</div>
-          <span></span>
+          <span>{{getDatalist.entity.BeamCode}}</span>
         </div>
         <div>
           <div>经轴长度</div>
-          <span></span>
+          <span>{{getDatalist.entity.BeamLength}}</span>
         </div>
         <div>
           <div>套扣个数</div>
-          <span>2001</span>
+          <span>{{getDatalist.entity.STCount}}</span>
         </div>
         <div>
           <div>备注</div>
-          <span></span>
+          <span>{{getDatalist.entity.Remark}}</span>
         </div>
       </div>
     </div>
-    <div>
-      <div class="toptitle">责任人1</div>
+    <div v-for="(tag,index) in getDatalist.emps" :key="index" >
+      <div class="toptitle">责任人{{index+1}}</div>
       <div class="detailinfo">
         <div>
-          <div>责任人1</div>
-          <span>XXXXX</span>
+          <div>责任人{{index+1}}</div>
+          <span>{{tag.EmpName}}</span>
         </div>
         <div>
           <div>开始时间</div>
-          <span>XXXXX</span>
+          <span>{{tag.BeginTime}}</span>
         </div>
         <div>
           <div>结束时间</div>
-          <span>XXXXX</span>
+          <span>{{tag.EndTime}}</span>
         </div>
         <div>
           <div>米数</div>
-          <span>XXXXX</span>
+          <span>{{tag.Lenght}}</span>
         </div>
         <div>
           <div>索套个数</div>
-          <span>2113</span>
+          <span>{{tag.DoNum}}</span>
         </div>
 		<div>
           <div>班别</div>
-          <span>甲班</span>
-        </div>
-      </div>
-    </div>
-	 <div>
-      <div class="toptitle">责任人2</div>
-      <div class="detailinfo">
-        <div>
-          <div>责任人1</div>
-          <span>XXXXX</span>
-        </div>
-        <div>
-          <div>开始时间</div>
-          <span>XXXXX</span>
-        </div>
-        <div>
-          <div>结束时间</div>
-          <span>XXXXX</span>
-        </div>
-        <div>
-          <div>米数</div>
-          <span>XXXXX</span>
-        </div>
-        <div>
-          <div>索套个数</div>
-          <span>2009</span>
-        </div>
-		<div>
-          <div>班别</div>
-          <span>乙班</span>
+          <span>{{tag.ClassBanName}}</span>
         </div>
       </div>
     </div>
@@ -90,10 +61,33 @@
 export default {
   name: "applydetail",
   data() {
-    return {};
+    return {
+      getDatalist:{
+        entity:[],
+        emps:[]
+      }
+    };
   },
-  methods: {},
-  created() {}
+  methods: {
+    getData:function(){
+				this.$axios({
+					method: 'post',
+					url: 'api/WarpingOrder/GetReBeamDetailDataByID',
+					data:{
+						id:"3d8425b2-57ef-4ffc-87b2-c01339d75cac"
+					}
+				}).then((res) => {
+					console.log(res.data.data);
+          this.getDatalist.entity = res.data.data.entity;
+          this.getDatalist.emps = res.data.data.emps;
+				}).catch((error) => {
+					console.log(error);
+				});
+			}
+  },
+  created() {
+    this.getData()
+  }
 };
 </script>
 
