@@ -134,60 +134,60 @@
 	        	</section>
 	        	<div>
 	        		<span>条件设定者</span>
-	        		<span class="rt">{{Sizingcondition.SettingUserName}}</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.SettingUserName}}</span>
 	        	</div>
 	        	<div>
 	        		<span>条件确认者</span>
-	        		<span class="rt">{{Sizingcondition.CheckUserName}}</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.CheckUserName}}</span>
 	        	</div>
 	        	<div class="halfs">
 	        		<div>
 	        			<span>卷取速度</span>
-	        			<span class="rt">{{Sizingcondition.RollSpeed}}</span>
+	        			<span class="rt">{{Sizingcondition == null?'':Sizingcondition.RollSpeed}}</span>
 	        		</div>
 	        		<div style="border-right: none;">
 	        			<span style="margin-left: .15rem;">第一锡林</span>
-	        			<span class="rt">{{Sizingcondition.FirstCylinder}} ℃</span>
+	        			<span class="rt">{{Sizingcondition == null?'':Sizingcondition.FirstCylinder}} ℃</span>
 	        		</div>
 	        	</div>
 	        	<div class="halfs">
 	        		<div>
 	        			<span>第一烘箱</span>
-	        			<span class="rt">{{Sizingcondition.Firstoven}} ℃</span>
+	        			<span class="rt">{{Sizingcondition == null?'':Sizingcondition.Firstoven}} ℃</span>
 	        		</div>
 	        		<div style="border-right: none;">
 	        			<span style="margin-left: .15rem;">第二锡林</span>
-	        			<span class="rt">{{Sizingcondition.SecondCylinder}} ℃</span>
+	        			<span class="rt">{{Sizingcondition == null?'':Sizingcondition.SecondCylinder}} ℃</span>
 	        		</div>
 	        	</div>
 	        	<div class="halfs">
 	        		<div>
 	        			<span>第二烘箱</span>
-	        			<span class="rt">{{Sizingcondition.Secondoven}} ℃</span>
+	        			<span class="rt">{{Sizingcondition == null?'':Sizingcondition.Secondoven}} ℃</span>
 	        		</div>
 	        		<div style="border-right: none;">
 	        			<span style="margin-left: .15rem;">第三锡林</span>
-	        			<span class="rt">{{Sizingcondition.ThirdCylinder}} ℃</span>
+	        			<span class="rt">{{Sizingcondition == null?'':Sizingcondition.ThirdCylinder}} ℃</span>
 	        		</div>
 	        	</div>
 	        	<div class="halfs">
 	        		<div>
 	        			<span>浆料温度</span>
-	        			<span class="rt">{{Sizingcondition.Slurrytemper}} ℃</span>
+	        			<span class="rt">{{Sizingcondition == null?'':Sizingcondition.Slurrytemper}} ℃</span>
 	        		</div>
 	        		<div style="border-right: none;">
 	        			<span style="margin-left: .15rem;">第四锡林</span>
-	        			<span class="rt">{{Sizingcondition.ForthCylinder}} ℃</span>
+	        			<span class="rt">{{Sizingcondition == null?'':Sizingcondition.ForthCylinder}} ℃</span>
 	        		</div>
 	        	</div>
 	        	<div class="halfs last-halfs">
 	        		<div>
 	        			<span>温水温度</span>
-	        			<span class="rt">{{Sizingcondition.Watertemper}} ℃</span>
+	        			<span class="rt">{{Sizingcondition == null?'':Sizingcondition.Watertemper}} ℃</span>
 	        		</div>
 	        		<div style="border-right: none;">
 	        			<span style="margin-left: .15rem;">第五锡林</span>
-	        			<span class="rt">{{Sizingcondition.FifthCylinder}} ℃</span>
+	        			<span class="rt">{{Sizingcondition == null?'':Sizingcondition.FifthCylinder}} ℃</span>
 	        		</div>
 	        	</div>
 	        </div>
@@ -197,15 +197,15 @@
 	        <div class="list-detail">
 	        	<div>
 	        		<span>使用油剂</span>
-	        		<span class="rt">{{Sizingcondition.OilType}}</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.OilType}}</span>
 	        	</div>
 	        	<div>
 	        		<span>油温</span>
-	        		<span class="rt">{{Sizingcondition.Oiltemper}}</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.Oiltemper}}</span>
 	        	</div>
 	        	<div style="border-bottom: 0;">
 	        		<span>后上油蜡辊转速</span>
-	        		<span class="rt">{{Sizingcondition.Rollerspeed}} 转</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.Rollerspeed}} 转</span>
 	        	</div>
 	        </div>
 	        <div class="zhengjing">
@@ -214,60 +214,60 @@
 	        <div class="list-detail">
 	        	<div>
 	        		<span>使用蜡名</span>
-	        		<span class="rt">{{Sizingcondition.WaxType}}</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.WaxType}}</span>
 	        	</div>
 	        	<div>
 	        		<span>蜡温</span>
-	        		<span class="rt">{{Sizingcondition.Waxtemper}}</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.Waxtemper}}</span>
 	        	</div>
 	        	<div>
 	        		<span>压浆辊压力</span>
-	        		<span class="rt">{{Sizingcondition.PRollerpress}} 公斤</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.PRollerpress}} 公斤</span>
 	        	</div>
 	        	<div>
 	        		<span>SD部分压力</span>
-	        		<span class="rt">{{Sizingcondition.SDPartTension}} 公斤</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.SDPartTension}} 公斤</span>
 	        	</div>
 	        	<div>
 	        		<span>浸没辊压力</span>
-	        		<span class="rt">{{Sizingcondition.IRollerpress}} 公斤</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.IRollerpress}} 公斤</span>
 	        	</div>
 	        	<div>
 	        		<span>卷取张力</span>
-	        		<span class="rt">{{Sizingcondition.RollingTension}} 公斤</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.RollingTension}} 公斤</span>
 	        	</div>
 	        	<div>
 	        		<span>上浆部分拉伸</span>
-	        		<span class="rt">{{Sizingcondition.SizingLift}}</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.SizingLift}}</span>
 	        	</div>
 	        	<div>
 	        		<span>经轴最后卷径</span>
-	        		<span class="rt">{{Sizingcondition.WarpLastRadius}} 厘米</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.WarpLastRadius}} 厘米</span>
 	        	</div>
 	        	<div>
 	        		<span>烘箱部分拉升</span>
-	        		<span class="rt">{{Sizingcondition.OvenLift}}</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.OvenLift}}</span>
 	        	</div>
 	        	<div>
 	        		<span>梳子上浆料附着</span>
-	        		<span class="rt" v-if="Sizingcondition.IsSizeAdhere == 0">是</span>
+	        		<span class="rt" v-if="Sizingcondition == null?'':Sizingcondition.IsSizeAdhere == 0">是</span>
 	        		<span class="rt" v-else>否</span>
 	        	</div>
 	        	<div>
 	        		<span>上浆率</span>
-	        		<span class="rt">{{Sizingcondition.SizingRate}} %</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.SizingRate}} %</span>
 	        	</div>
 	        	<div>
 	        		<span>烘箱出口经纱张力</span>
 	        		<span class="rt">
-	        			<span><span id="reds">左:</span> {{Sizingcondition.OYTL}}</span>&nbsp;
-	        			<span><span id="reds">中:</span> {{Sizingcondition.OYTC}}</span>&nbsp;
-	        			<span><span id="reds">右:</span> {{Sizingcondition.OYTR}}</span>
+	        			<span><span id="reds">左:</span> {{Sizingcondition == null?'':Sizingcondition.OYTL}}</span>&nbsp;
+	        			<span><span id="reds">中:</span> {{Sizingcondition == null?'':Sizingcondition.OYTC}}</span>&nbsp;
+	        			<span><span id="reds">右:</span> {{Sizingcondition == null?'':Sizingcondition.OYTR}}</span>
 	        		</span>
 	        	</div>
 	        	<div style="border-bottom: 0;">
 	        		<span>浆料配方</span>
-	        		<span class="rt">{{Sizingcondition.Sizinginstruction}}</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.Sizinginstruction}}</span>
 	        	</div>
 	        </div>
 	        
@@ -277,23 +277,23 @@
 	        <div class="list-detail">
 	        	<div>
 	        		<span>条件设定者</span>
-	        		<span class="rt">{{Sizingcondition.ConSetUserName}}</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.ConSetUserName}}</span>
 	        	</div>
 	        	<div>
 	        		<span>条件确认者</span>
-	        		<span class="rt">{{Sizingcondition.ConCheckUserName}}</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.ConCheckUserName}}</span>
 	        	</div>
 	        	<div>
 	        		<span>卷取速度</span>
-	        		<span class="rt">{{Sizingcondition.RollSpeed}} 米/分钟</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.RollSpeed}} 米/分钟</span>
 	        	</div>
 	        	<div>
 	        		<span>经轴幅宽</span>
-	        		<span class="rt">{{Sizingcondition.BeamWidth}}</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.BeamWidth}}</span>
 	        	</div>
 	        	<div>
 	        		<span>匹长</span>
-	        		<span class="rt">{{Sizingcondition.Length}} 米</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.Length}} 米</span>
 	        	</div>
 	        </div>
 	        <div class="zhengjing">
@@ -302,15 +302,15 @@
 	        <div class="list-detail">
 	        	<div>
 	        		<span>经轴个数</span>
-	        		<span class="rt">{{Sizingcondition.BeamNum}} 个</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.BeamNum}} 个</span>
 	        	</div>
 	        	<div>
 	        		<span>经轴最初卷径</span>
-	        		<span class="rt">{{Sizingcondition.BeamBRadius}} 厘米</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.BeamBRadius}} 厘米</span>
 	        	</div>
 	        	<div>
 	        		<span>维度(电器粗刻度)</span>
-	        		<span class="rt">{{Sizingcondition.Dimension}}</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.Dimension}}</span>
 	        	</div>
 	        </div>
 	        <div class="zhengjing">
@@ -319,19 +319,19 @@
 	        <div class="list-detail">
 	        	<div>
 	        		<span>卷取张力</span>
-	        		<span class="rt">{{Sizingcondition.RollingTension}} 公斤</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.RollingTension}} 公斤</span>
 	        	</div>
 	        	<div>
 	        		<span>单个经轴张力</span>
-	        		<span class="rt">{{Sizingcondition.BeamTension}} 公斤</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.BeamTension}} 公斤</span>
 	        	</div>
 	        	<div>
 	        		<span>经轴单纱张力</span>
-	        		<span class="rt">{{Sizingcondition.YarnTension}} G</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.YarnTension}} G</span>
 	        	</div>
 	        	<div>
 	        		<span>其他备注</span>
-	        		<span class="rt">{{Sizingcondition.Remark}}</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.Remark}}</span>
 	        	</div>
 	        </div>
 	        
@@ -386,7 +386,7 @@
 				$('.selectdiv:eq(0)').css('color','#007EFF');
 				$('.selectdiv').removeClass('selectspan');
 				$('.selectdiv:eq('+index+')').addClass('selectspan');
-				console.log(tag);
+				// console.log(tag);
                 	this.$axios({
 		      	    method: 'post',
 		      	    url: 'api/WarpingOrder/GetWarpSizingConditionByID',
@@ -395,7 +395,7 @@
 		      	    }
 		      	}).then((res)=> {
 		      		if(res.data.code == "0"){
-						  console.log(res.data.data);
+						//   console.log(res.data.data);
 						  this.Sizingcondition = res.data.data;
 		      		}
 		      	}).catch((error)=> {

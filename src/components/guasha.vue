@@ -8,7 +8,7 @@
           <div class="right-item">
             <div style="margin-top: .1rem;">
               <div>原料名称</div>
-              <div>{{item.MName}}</div>
+              <div>{{item.MName}}</div> 
             </div>
             <div>
               <div>原料批号</div>
@@ -23,7 +23,7 @@
         <!--下方操作按钮部分-->
         <div class="watch-item">
           <span @click="$router.push('guashaDetail?id='+item.ID)">查看</span>
-          <span @click="$router.push('addGuaSha?handle='+'edit')">编辑</span>
+          <span @click="$router.push('addGuaSha?handle='+'edit&id='+item.ID)">编辑</span>
         </div>
       </div>
     </div>

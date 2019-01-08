@@ -5,19 +5,20 @@
       <div>
         <div>原料名称</div>
         <div>
-          <input type="text" placeholder="请输入" class="yuanlName">
+          <input type="text" placeholder="请输入" class="yuanlName" :value="shaDetails?shaDetails.MName:''">
         </div>
       </div>
-      <div>
+      <div> 
         <div>原料批号</div>
         <div>
-          <input type="text" placeholder="请输入" class="yuanlCode">
+          <input type="text" placeholder="请输入" class="yuanlCode" :value="shaDetails?shaDetails.BatchNo:''">
         </div>
       </div>
       <div>
         <div>筒子确认者</div>
         <div class="rt">
           <select class="tzConfirmer">
+            <option v-if="shaDetails">{{shaDetails.CheeseNumChekerName}}</option>
             <option v-for="(item,i) in empList" :value="item.Value" :key="i">{{item.Text}}</option>
           </select>
           <img src="../assets/img/819.png">
@@ -27,6 +28,7 @@
         <div>垫圈确认者</div>
         <div class="rt">
           <select class="dqConfirmer">
+            <option v-if="shaDetails">{{shaDetails.CloutCheckerName}}</option>
             <option v-for="(item,x) in empList" :value="item.Value" :key="x">{{item.Text}}</option>
           </select>
           <img src="../assets/img/819.png">
@@ -35,7 +37,7 @@
       <div style="border: none;">
         <div>边丝颜色</div>
         <div>
-          <input type="text" placeholder="请输入" class="bsColor">
+          <input type="text" placeholder="请输入" class="bsColor" :value="shaDetails?shaDetails.EdgWireColor:''">
         </div>
       </div>
     </div>
@@ -118,6 +120,8 @@ export default {
         img: "",
         text: ""
       },
+      shaDetails:[],
+      fuzeersLists:[],
       num: 1,
       empList: [],
       drpList: [],
@@ -247,6 +251,21 @@ export default {
   },
   created() {
     this.tzConfirmerList();
+    if(this.$route.query.handle == 'edit'){
+				this.$axios({
+					method: 'post',
+					url: 'api/WarpingOrder/GetWarpYarnHungByID',
+					data:{
+						id:this.$route.query.id
+					}
+				}).then((res) => {
+					console.log(res.data.data);
+					this.shaDetails = res.data.data.detailentity;
+					this.fuzeersLists = res.data.data.emps;
+				}).catch((error) => {
+					console.log(error);
+				});
+			}
   }
 };
 </script>
