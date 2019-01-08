@@ -7,12 +7,12 @@
         <span>{{item.AddDate}}</span>
       </div>
       <div class="details">
-        <div class="codes">
+        <div class="codes" @click="$router.push('mergeBill?id='+item.ID)">
           <span>{{item.BeamCode}}</span>
           <br>
           <span>经轴编号</span>
         </div>
-        <div class="tails">
+        <div class="tails" @click="$router.push('mergeBill?id='+item.ID)">
           <div>
             <span>经轴长度</span>
             <span>{{item.BeamLength}}</span>
@@ -27,15 +27,14 @@
           </div>
         </div>
         <div class="edit">
-          <span>编
-            <br>辑
+          <span @click="$router.push('addZhouBing?handle='+'edit&code='+item.WarpSizingCode+'&id='+item.WarpSizingID)">编<br>辑
           </span>
         </div>
       </div>
     </div>
 
     <div class="posit">
-      <span>返回工单</span><span>新增轴</span>
+      <span @click="returnGD">返回工单</span><span @click="$router.push('addZhouBing?handle='+'add')">新增轴</span>
     </div>
   </div>
 </template>
@@ -64,9 +63,9 @@ export default {
         method: "post",
         url: "api/WarpingOrder/GetReBeamDetailListData",
         data: {
-          orderid: "d3075b52-a342-48bc-9cc2-dda37b4a3b24",
+          orderid: localStorage.getItem("zjID"),
           pageindex: "0",
-          pagesize: "10"
+          pagesize: "20"
         }
       })
         .then(res => {
@@ -76,6 +75,10 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    //点击返回工单
+    returnGD: function() {
+      this.$router.push('zhengJSingle');
     }
   },
   created() {
@@ -89,8 +92,8 @@ export default {
   font-family: "Microsoft YaHei UI";
   font-size: 0.17rem;
   height: auto;
-  min-height: 6.8rem;
   padding-bottom: 0.7rem;
+  min-height: 100%;
   .item-detail {
     .item-title {
       padding: 0.12rem 0 0.1rem 0.1rem;

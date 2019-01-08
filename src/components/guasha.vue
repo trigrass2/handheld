@@ -1,7 +1,7 @@
 <template>
-  <div class="bg1" style="padding-bottom:10.2rem!important;">
+  <div class="bg1">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
-    <div class="bodys" v-for="item in shaLists">
+    <div class="bodys" v-for="item in shaLists"> 
       <div class="body-item">
         <!--上方具体数据部分-->
         <div class="top-item">
@@ -22,14 +22,14 @@
         </div>
         <!--下方操作按钮部分-->
         <div class="watch-item">
-          <span>查看</span>
-          <span>编辑</span>
+          <span @click="$router.push('guashaDetail?id='+item.ID)">查看</span>
+          <span @click="$router.push('addGuaSha?handle='+'edit')">编辑</span>
         </div>
       </div>
     </div>
 
     <div class="posit">
-      <span @click="returnGD">返回工单</span><span>新增轴</span>
+      <span @click="returnGD">返回工单</span><span @click="$router.push('addGuaSha?handle='+'add')">新增轴</span>
     </div>
   </div>
 </template>
@@ -55,7 +55,7 @@ export default {
         method: "post",
         url: "api/WarpingOrder/GetWarpYarnHungListData",
         data: {
-          //						orderid:"041f5ead-e0a4-423c-96fd-c59fd97d4db7",
+          orderid:localStorage.getItem("zjID"),
           pageindex: "0",
           pagesize: "20"
         }
@@ -69,7 +69,9 @@ export default {
         });
     },
     //点击返回工单
-    returnGD: function() {}
+    returnGD: function() {
+      this.$router.push('zhengJSingle');
+    }
   },
   created() {
     this.shaList();
@@ -82,7 +84,7 @@ export default {
   position: relative;
   font-size: 0.17rem;
   padding-top: 0.12rem;
-  padding-bottom: 1.1rem;
+  padding-bottom: 6.9rem;
   .body-item {
     width: 3.4rem;
     height: 1.5rem;

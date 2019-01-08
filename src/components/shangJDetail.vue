@@ -80,7 +80,7 @@ export default {
 					method: 'post',
 					url: 'api/WarpingOrder/GetWarpsizingDataByID',
 					data: {
-						id: "a9ed2ce1-72d7-4681-9a26-2cef703dc49b"
+						id: this.$route.query.id,
 					}
 				}).then((res) => {
 					console.log(res);

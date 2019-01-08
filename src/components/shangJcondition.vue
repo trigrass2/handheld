@@ -235,7 +235,7 @@ export default {
       	    method: 'post',
       	    url: 'api/WarpingOrder/GetWarpSizingConditionByID',
       	    data:{
-      	    	id:"11896a5d-62f7-4330-9528-425e43f1803c"
+      	    	id:this.$route.query.id,
       	    }
       	}).then((res)=> {
       		if(res.data.code == "0"){

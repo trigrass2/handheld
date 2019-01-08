@@ -1,6 +1,7 @@
 <template>
   <div class="conntent">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="delatedetail"><img src="../assets/img/3314.png" alt=""></div>
     <div>
       <!-- <div class="toptitle">轴信息</div> -->
       <div class="detailinfo">
@@ -76,7 +77,7 @@ export default {
   data() {
     return {
       headerObj: {
-        title: "挂纱详情",
+        title: "挂纱详细",
         img: "",
         text: ""
       },
@@ -90,7 +91,7 @@ export default {
 					method: 'post',
 					url: 'api/WarpingOrder/GetWarpYarnHungByID',
 					data:{
-						id:"35d05a9b-7707-4004-96a0-ddc6abdb00de"
+						id:this.$route.query.id
 					}
 				}).then((res) => {
 					console.log(res);
@@ -108,6 +109,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.delatedetail{
+  position: absolute;
+  margin-left: 3.25rem;
+  margin-top: -0.38rem;
+  z-index: 99999;
+  >img{
+    height: 0.2rem;
+  }
+}
 .conntent {
   font-size: 0.17rem;
   margin-top: 0.5rem;

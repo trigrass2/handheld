@@ -7,7 +7,7 @@
         <span>{{item.WarpSizingCode}}</span>
       </div>
       <div class="details">
-        <div class="tails">
+        <div class="tails" @click="$router.push('shangJDetail?id='+item.ID)">
           <div>
             <span class="top-one">整经轴号</span>
             <span class="top-two">{{item.FromBeamCode}}</span>
@@ -27,14 +27,14 @@
           </div>
         </div>
         <div class="edit rt">
-          <span>编<br>辑
+          <span @click="$router.push('addZhouShang?handle='+'edit&code='+item.WarpSizingCode+'&id='+item.WarpSizingID)">编<br>辑
           </span>
         </div>
       </div>
     </div>
 
     <div class="posit">
-      <span>返回工单</span><span>新增轴</span>
+      <span @click="returnGD">返回工单</span><span @click="$router.push('addZhouShang?handle='+'add')">新增轴</span>
     </div>
   </div>
 </template>
@@ -60,7 +60,7 @@ export default {
         method: "post",
         url: "api/WarpingOrder/GetWarpsizingList",
         data: {
-          orderid: "d3075b52-a342-48bc-9cc2-dda37b4a3b24",
+          orderid: localStorage.getItem("zjID"),
           pageindex: "0",
           pagesize: "20"
         }
@@ -72,6 +72,10 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    //点击返回工单
+    returnGD: function() {
+      this.$router.push('zhengJSingle');
     }
   },
   created() {

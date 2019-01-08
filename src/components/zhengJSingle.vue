@@ -101,12 +101,16 @@ export default {
     guasha: function(index) {
       if (index == 0) {
         //挂纱页面
+        this.$router.push('guasha');
       } else if (index == 1) {
         //整经页面
+        this.$router.push('zhengJ');
       } else if (index == 2) {
         //上浆页面
+        this.$router.push('shangJ');
       } else {
         //并轴页面
+        this.$router.push('bingzhou');
       }
     }
   },

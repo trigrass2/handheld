@@ -4,8 +4,8 @@
 		<div class="basic">
 			<div class="nonesBorder">
 				<div>上浆单</div>
-				<div class="rt sjCode">
-					<span style="color: #007EFF;" class="chooseSJ">选择上浆单</span> <img src="../assets/img/824.png">
+				<div class="rt sjCode" @click="$router.push('choiceShangJ')">
+					<span style="color: #007EFF;" class="chooseSJ">{{chocecode || code || '选择上浆单'}}</span> <img src="../assets/img/824.png">
 				</div>
 			</div>
 			<div class="nonesBorder" style="padding: .05rem 0 .05rem 0;">
@@ -84,7 +84,9 @@
 				title: "上浆-新增轴",
 				img: "",
 				text: ""
-			},
+			},   
+			    code:this.$route.query.code,
+			    chocecode:this.$route.query.chocecode,
 				num:1,
 				empList:[],
 				drpList:[],
@@ -126,13 +128,13 @@
 			//确认
 			confirm: function() {
 				//上浆工单id
-				let WarpSizingID = localStorage.getItem("WarpSizingID");
+				let WarpSizingID = this.route.query.choceid || this.route.query.id;
 				//上浆工单编号
-				let WarpSizingCode = localStorage.getItem("WarpSizingCode");
+				let WarpSizingCode = this.route.query.chocecode || this.route.query.code;
 				//整经单id
-				let WarpOrderID = localStorage.getItem("WarpOrderID");
+				let WarpOrderID = localStorage.getItem("zjID");
 				//整经单编号
-				let WarpOrderCode = localStorage.getItem("WarpOrderCode");
+				let WarpOrderCode = localStorage.getItem("zjCODE");
 				//非空验证
 				if($('.zjZhou').val() == "" || $('.sjZhou').val() == "" || $('.zeren').val() == "" || $('.length').val() == "" || $('.tcNum').val() == "" ||
 					$('.el-input__inner').val() == ""|| $('.classBan').val() == "") {
@@ -188,7 +190,8 @@
 			}
 		},
 		created() {
-			this.tzConfirmerList()
+			this.tzConfirmerList();
+			localStorage.setItem('handle',this.$route.query.handle)
 		}
 	}
 </script>

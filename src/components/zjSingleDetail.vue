@@ -82,7 +82,7 @@
 					method: 'post',
 					url: 'api/WarpingOrder/GetWarpingDetailByID',
 					data: {
-						id:"8b0fecaf-c41d-45b5-b90a-55853ed62514"
+						id:this.$route.query.id,
 					}
 				}).then((res) => {
 					console.log(res);
