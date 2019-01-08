@@ -22,10 +22,8 @@ import pullRefresh from '@/components/pullRefresh'     //注册组件
 Vue.use(Router)
 
 export default new Router({
-		mode: 'history',
-		base: '/hot/',
 		routes: [{
-				path: '/',redirect:'/index',
+				path: '/index',
 				name: 'index',
 				component: index,
 				meta: {

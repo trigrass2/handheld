@@ -60,7 +60,7 @@ export default {
   },
   methods: {
   	watchDetail:function(id , code){
-//		this.$router.push('zhengJSingle');
+			this.$router.push('zhengJSingle');
   		localStorage.setItem("zjID" , id);
   		localStorage.setItem("zjCODE" , code);
   	},

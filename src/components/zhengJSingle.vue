@@ -95,7 +95,7 @@ export default {
     },
     //查看所有参数页面
     watchAll: function() {
-//  	this.$router.push('workOrderDetail');
+    	this.$router.push('workOrderDetail');
     },
     //下方操作页面
     guasha: function(index) {
