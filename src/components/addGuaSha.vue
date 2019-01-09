@@ -1,5 +1,5 @@
 <template>
-  <div class="bg1" style="padding-bottom:1.3rem;">
+  <div class="bg1">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="basic">
       <div>
@@ -18,7 +18,7 @@
         <div>筒子确认者</div>
         <div class="rt">
           <select class="tzConfirmer">
-            <option v-if="shaDetails">{{shaDetails.CheeseNumChekerName}}</option>
+            <option v-if="shaDetails" :value="shaDetails.CheeseNumChekerID">{{shaDetails.CheeseNumChekerName}}</option>
             <option v-for="(item,i) in empList" :value="item.Value" :key="i">{{item.Text}}</option>
           </select>
           <img src="../assets/img/819.png">
@@ -28,7 +28,7 @@
         <div>垫圈确认者</div>
         <div class="rt">
           <select class="dqConfirmer">
-            <option v-if="shaDetails">{{shaDetails.CloutCheckerName}}</option>
+            <option v-if="shaDetails" :value="shaDetails.CloutCheckerID">{{shaDetails.CloutCheckerName}}</option>
             <option v-for="(item,x) in empList" :value="item.Value" :key="x">{{item.Text}}</option>
           </select>
           <img src="../assets/img/819.png">
@@ -68,10 +68,10 @@
         <div class="block">
           <span class="demonstration">开始时间</span>
           <el-date-picker
-            v-model="startRadios[index]"
+            v-model="startRadios[index]" 
             type="datetime"
             placeholder="选择日期"
-            class="rt dates startTime"
+            class="startTime"
             value-format="yyyy-MM-dd HH:mm:ss"
             size="small"
           ></el-date-picker>
@@ -82,7 +82,7 @@
             v-model="endRadios[index]"
             type="datetime"
             placeholder="选择日期"
-            class="rt dates endTime"
+            class="startTime"
             value-format="yyyy-MM-dd HH:mm:ss"
             size="small"
           ></el-date-picker>
@@ -179,6 +179,9 @@ export default {
         entity.CloutCheckerID = $(".dqConfirmer").val();
         entity.CloutCheckerName = $(".dqConfirmer option:selected").text();
         entity.EdgWireColor = $(".bsColor").val();
+        entity.WarpOrderID = localStorage.getItem("zjID");
+				entity.WarpOrderCode = localStorage.getItem("zjCODE");
+        this.$route.query.handle == 'edit'?entity.ID = this.$route.query.id:'';
 
         let emplist = [];
 
@@ -216,6 +219,13 @@ export default {
         })
           .then(res => {
             console.log(res);
+            this.$message({
+              showClose: true,
+              message: this.$route.query.handle =='add'?"新增成功":"修改成功",
+              type: "success",
+              center: true
+            });
+            this.$router.push('guasha')
           })
           .catch(error => {
             console.log(error);
@@ -275,7 +285,7 @@ export default {
   position: relative;
   font-size: 0.17rem;
   height: auto;
-  padding-bottom: 0.7rem;
+  padding-bottom: 1.3rem;
   .basic {
     background-color: white;
     line-height: 0.5rem;
@@ -365,8 +375,8 @@ export default {
   margin-bottom: 0.5rem !important;
 }
 
-.dates {
-  margin-right: 0.15rem;
-  width: 2.16rem;
+.startTime {
+  width: 2.2rem !important;
+  margin-left: 0.16rem;
 }
 </style>

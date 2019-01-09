@@ -25,13 +25,13 @@
             <div>
               <div>时间</div>
               <div>{{item.OprationDate}}</div>
-            </div>
+            </div> 
           </div>
         </div>
         <!--下方操作按钮部分-->
         <div class="watch-item">
           <span @click="$router.push('zjSingleDetail?id='+item.ID)">查看</span>
-          <span @click="$router.push('addZhou?handle='+'edit')">编辑</span>
+          <span @click="$router.push('addZhou?handle='+'edit&id='+item.ID)">编辑</span>
         </div>
       </div>
     </div>
@@ -98,6 +98,7 @@ export default {
     height: 1.65rem;
     background-color: white;
     margin: 0 auto;
+    margin-bottom: 0.1rem;
     .top-item {
       > div {
         display: inline-block;

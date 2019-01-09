@@ -25,7 +25,7 @@
 					<span>{{details.Remark}}</span>
 				</div>
 			</div>
-		</div>
+		</div> 
 		
 		<div v-for="(item , index) in lists">
 			<div class="toptitle">责任人{{index+1}}</div>

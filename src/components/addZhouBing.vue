@@ -4,7 +4,7 @@
 		<div class="basic">
 			<div>
 				<div>上浆单</div>
-				<div class="rt" @click="$router.push('choiceShangJ')">
+				<div class="rt" @click="$router.push('choiceShangJ?jump='+'bing')">
 					<span style="color: #007EFF;">{{chocecode || code || '选择上浆单'}}</span> <img src="../assets/img/824.png">
 				</div>
 			</div>
@@ -73,17 +73,17 @@
 </template>
 
 <script>
-		import HeaderSame from "./common/sameHeader.vue";
-export default {
-  components: { HeaderSame },
-  name: "applydetail",
-  data() {
-    return {
-      headerObj: {
-        title: "并轴-新增轴",
-        img: "",
-        text: ""
-	  },
+	import HeaderSame from "./common/sameHeader.vue";
+	export default {
+	components: { HeaderSame },
+	name: "applydetail",
+	data() {
+		return {
+		headerObj: {
+			title: "并轴-新增轴",
+			img: "",
+			text: ""
+		},
 	  code:this.$route.query.code,
 	  chocecode:this.$route.query.chocecode,
       num: 1,
@@ -153,14 +153,15 @@ export default {
 					//不为空之后
 					console.log();
 					let entity = {};
-					entity.WarpRisingID = this.route.query.choceid || this.route.query.id;
-					entity.WarpRisingCode = this.route.query.chocecode || this.route.query.code;
+					entity.WarpRisingID = this.$route.query.choceid || this.$route.query.id;
+					entity.WarpRisingCode = this.$route.query.chocecode || this.$route.query.code;
 					entity.WarpOrderID = localStorage.getItem("zjID");
 					entity.WarpOrderCode = localStorage.getItem("zjCODE");
 					entity.BeamCode = $(".jzbianhao").val();
 					entity.BeamLength = $(".jzlength").val();
 					entity.Length = $(".milength").val();
 					entity.Remark = $(".beizhu").val();
+					this.$route.query.handle == 'edit'?entity.ID = this.$route.query.id:'';
 
 					let emps = [];
 
@@ -202,17 +203,24 @@ export default {
 					})
 					.then(res => {
 						console.log(res);
-					})
-					.catch(error => {
-						console.log(error);
+						 this.$message({
+						showClose: true,
+						message: this.$route.query.handle =='add'?"新增成功":"修改成功",
+						type: "success",
+						center: true
 					});
-				}
-    },
-		},
-		created() {
-			this.getData();
-			
-		}
+					this.$router.push('bingzhou')
+							})
+							.catch(error => {
+								console.log(error);
+							});
+						}
+			        },
+			},
+			created() {
+				this.getData();
+				
+			}
 	}
 </script>
 

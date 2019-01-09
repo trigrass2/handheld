@@ -4,7 +4,7 @@
 		<div class="basic">
 			<div class="nonesBorder">
 				<div>上浆单</div>
-				<div class="rt sjCode" @click="$router.push('choiceShangJ')">
+				<div class="rt sjCode" @click="$router.push('choiceShangJ?jump='+'shang')">
 					<span style="color: #007EFF;" class="chooseSJ">{{chocecode || code || '选择上浆单'}}</span> <img src="../assets/img/824.png">
 				</div>
 			</div>
@@ -47,11 +47,11 @@
 				</div>
 				<div class="block">
 					<span class="demonstration">开始时间</span>
-					<el-date-picker v-model="startTime[index]" type="datetime" placeholder="选择日期" class="rt dates startTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+					<el-date-picker v-model="startTime[index]" type="datetime" placeholder="选择日期" class="rt dates startTime" size="small" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
 				</div>
 				<div class="block">
 					<span class="demonstration">结束时间</span>
-					<el-date-picker v-model="endTime[index]" type="datetime" placeholder="选择日期" class="rt dates endTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+					<el-date-picker v-model="endTime[index]" type="datetime" placeholder="选择日期" class="rt dates endTime" size="small" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
 				</div>
 				<div style="border-bottom: none;">
 					<div>班别</div>
@@ -128,9 +128,9 @@
 			//确认
 			confirm: function() {
 				//上浆工单id
-				let WarpSizingID = this.route.query.choceid || this.route.query.id;
+				let WarpSizingID = this.$route.query.choceid || this.$route.query.id;
 				//上浆工单编号
-				let WarpSizingCode = this.route.query.chocecode || this.route.query.code;
+				let WarpSizingCode = this.$route.query.chocecode || this.$route.query.code;
 				//整经单id
 				let WarpOrderID = localStorage.getItem("zjID");
 				//整经单编号

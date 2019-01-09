@@ -1,7 +1,7 @@
 <template>
   <div class="conntent">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
-    <div class="delatedetail"><img src="../assets/img/3314.png" alt=""></div>
+    <div class="delatedetail" @click="delatelist"><img src="../assets/img/3314.png" alt=""></div>
     <div>
       <!-- <div class="toptitle">轴信息</div> -->
       <div class="detailinfo">
@@ -11,7 +11,7 @@
         </div>
         <div>
           <div>原料批号</div>
-          <span>{{shaDetails.BatchNo}}</span>
+          <span>{{shaDetails.BatchNo}}</span> 
         </div>
         <div>
           <div>筒子个数</div>
@@ -86,6 +86,27 @@ export default {
     };
   },
   methods:{
+    // 删除
+     delatelist:function(){
+       this.$axios({
+					method: 'post',
+					url: 'api/WarpingOrder/DelWarYarnHung',
+					data:{
+						id:this.$route.query.id
+					}
+				}).then((res) => {
+          // console.log(res);
+          this.$router.push('guasha');
+          this.$message({
+              showClose: true,
+              message: "删除成功",
+              type: "success",
+              center: true
+            });
+				}).catch((error) => {
+					console.log(error);
+				});
+     },
 			shaList:function(){
 				this.$axios({
 					method: 'post',

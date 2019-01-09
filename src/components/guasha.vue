@@ -84,7 +84,9 @@ export default {
   position: relative;
   font-size: 0.17rem;
   padding-top: 0.12rem;
-  padding-bottom: 6.9rem;
+  padding-bottom: 0.6rem;
+  height: auto!important;
+  min-height: 100%;
   .body-item {
     width: 3.4rem;
     height: 1.5rem;
