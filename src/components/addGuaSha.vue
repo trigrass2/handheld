@@ -5,20 +5,20 @@
       <div>
         <div>原料名称</div>
         <div>
-          <input type="text" placeholder="请输入" class="yuanlName" :value="shaDetails?shaDetails.MName:''">
+          <input type="text" placeholder="请输入" class="yuanlName" v-model="shaDetails.MName">
         </div>
       </div>
       <div> 
         <div>原料批号</div>
         <div>
-          <input type="text" placeholder="请输入" class="yuanlCode" :value="shaDetails?shaDetails.BatchNo:''">
+          <input type="text" placeholder="请输入" class="yuanlCode" v-model="shaDetails.BatchNo">
         </div>
       </div>
       <div>
         <div>筒子确认者</div>
         <div class="rt">
           <select class="tzConfirmer">
-            <option v-if="shaDetails" :value="shaDetails.CheeseNumChekerID">{{shaDetails.CheeseNumChekerName}}</option>
+            <option v-if="$route.query.handle == 'edit'" :value="shaDetails.CheeseNumChekerID">{{shaDetails.CheeseNumChekerName}}</option>
             <option v-for="(item,i) in empList" :value="item.Value" :key="i">{{item.Text}}</option>
           </select>
           <img src="../assets/img/819.png">
@@ -28,7 +28,7 @@
         <div>垫圈确认者</div>
         <div class="rt">
           <select class="dqConfirmer">
-            <option v-if="shaDetails" :value="shaDetails.CloutCheckerID">{{shaDetails.CloutCheckerName}}</option>
+            <option v-if="$route.query.handle == 'edit'" :value="shaDetails.CloutCheckerID">{{shaDetails.CloutCheckerName}}</option>
             <option v-for="(item,x) in empList" :value="item.Value" :key="x">{{item.Text}}</option>
           </select>
           <img src="../assets/img/819.png">
@@ -37,13 +37,71 @@
       <div style="border: none;">
         <div>边丝颜色</div>
         <div>
-          <input type="text" placeholder="请输入" class="bsColor" :value="shaDetails?shaDetails.EdgWireColor:''">
+          <input type="text" placeholder="请输入" class="bsColor" v-model="shaDetails.EdgWireColor">
         </div>
       </div>
     </div>
-
+    <div class="add-item" v-for="(i , index)  in fuzeersLists">
+      <p>责任人{{index+1}}</p><div class="delateitem" @click="delateitem2(index)">删除</div>
+      <div class="basic" id="addsDetail">
+        <div>
+          <div>责任人</div>
+          <div class="rt">
+            <select class="zeren">
+              <option :value="i.EmpID">{{i.EmpName}}</option>
+              <option v-for="(item,tag) in empList" :value="item.Value" :key="tag">{{item.Text}}</option>
+            </select>
+            <img src="../assets/img/819.png">
+          </div>
+        </div>
+        <div>
+          <div id="tongNum">筒子个数</div>
+          <div class="rt">
+            <input
+              type="text"
+              placeholder="请输入"
+              class="tongzNum"
+              v-model="i.DoNum"
+              oninput="value=value.replace(/[^\d]/g,'')"
+            >
+          </div>
+        </div>
+        <div class="block">
+          <span class="demonstration">开始时间</span>
+          <el-date-picker
+            v-model="startRadios[index]" 
+            type="datetime"
+            placeholder="选择日期"
+            class="startTime"
+            value-format="yyyy-MM-dd HH:mm"
+            size="small"
+          ></el-date-picker>
+        </div>
+        <div class="block">
+          <span class="demonstration">结束时间</span>
+          <el-date-picker
+            v-model="endRadios[index]"
+            type="datetime"
+            placeholder="选择日期"
+            class="startTime"
+            value-format="yyyy-MM-dd HH:mm"
+            size="small"
+          ></el-date-picker>
+        </div>
+        <div style="border-bottom: none;">
+          <div>班别</div>
+          <div class="rt">
+            <select class="classBan">
+              <option :value="i.ClassBan">{{i.ClassBanName}}</option>
+              <option v-for="(item,flag) in drpList" :value="item.Value" :key="flag">{{item.Text}}</option>
+            </select>
+            <img src="../assets/img/819.png">
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="add-item" v-for="(i , index)  in num" :key="index">
-      <p>责任人{{index+1}}</p>
+      <p>责任人{{index+fuzeersLists.length+1}}</p><div class="delateitem" @click="delateitem(index)">删除</div>
       <div class="basic" id="addsDetail">
         <div>
           <div>责任人</div>
@@ -68,22 +126,22 @@
         <div class="block">
           <span class="demonstration">开始时间</span>
           <el-date-picker
-            v-model="startRadios[index]" 
+            v-model="startRadios[index+fuzeersLists.length]" 
             type="datetime"
             placeholder="选择日期"
             class="startTime"
-            value-format="yyyy-MM-dd HH:mm:ss"
+            value-format="yyyy-MM-dd HH:mm"
             size="small"
           ></el-date-picker>
         </div>
         <div class="block">
           <span class="demonstration">结束时间</span>
           <el-date-picker
-            v-model="endRadios[index]"
+            v-model="endRadios[index+fuzeersLists.length]"
             type="datetime"
             placeholder="选择日期"
             class="startTime"
-            value-format="yyyy-MM-dd HH:mm:ss"
+            value-format="yyyy-MM-dd HH:mm"
             size="small"
           ></el-date-picker>
         </div>
@@ -116,13 +174,13 @@ export default {
   data() {
     return {
       headerObj: {
-        title: "新增挂纱",
+        title: this.$route.query.handle == 'add'?"新增挂纱":"挂纱-编辑",
         img: "",
         text: ""
       },
       shaDetails:[],
       fuzeersLists:[],
-      num: 1,
+      num: this.$route.query.handle == 'add'?[1]:[],
       empList: [],
       drpList: [],
       pickerOptions1: {
@@ -130,13 +188,61 @@ export default {
           return time.getTime() > Date.now();
         }
       },
-      startRadios: [""],
-      endRadios: [""]
+      startRadios: [],
+      endRadios: []
     };
   },
   methods: {
     addNew: function() {
-      this.num++;
+      var i =1;
+      this.num.push(i);
+      console.log(this.num);
+    },
+    // 删除
+    delateitem:function(index){
+      this.$confirm('确定删除此责任人吗？', '',{
+          // confirmButtonText: '确定',
+          // cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            showClose: true,
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.num.splice(index,1);
+          console.log($(".add-item").length);
+    
+        }).catch(() => {
+          this.$message({
+            showClose: true,
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+        
+    },
+    delateitem2:function(index){
+      this.$confirm('确定删除此责任人吗？', '',{
+          // confirmButtonText: '确定',
+          // cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            showClose: true,
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.fuzeersLists.splice(index,1);
+
+          console.log(this.fuzeersLists)
+        }).catch(() => {
+          this.$message({
+            showClose: true,
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
     },
     confirms: function() {
       console.log(this.endRadios);
@@ -198,8 +304,8 @@ export default {
           emplisters.DoNum = $(".tongzNum")
             .eq(i)
             .val();
-          emplisters.BeginTime = this.value1;
-          emplisters.EndTime = this.value2;
+          emplisters.BeginTime = this.startRadios[i];
+					emplisters.EndTime = this.endRadios[i];
           emplisters.ClassBan = $(".classBan")
             .eq(i)
             .val();
@@ -271,21 +377,43 @@ export default {
 				}).then((res) => {
 					console.log(res.data.data);
 					this.shaDetails = res.data.data.detailentity;
-					this.fuzeersLists = res.data.data.emps;
+          this.fuzeersLists = res.data.data.emps;
+          for(let i = 0; i < this.fuzeersLists.length; i++){
+            this.startRadios.push(this.fuzeersLists[i].BeginTime);
+            this.endRadios.push(this.fuzeersLists[i].EndTime)
+          }
+          console.log(this.endRadios)
 				}).catch((error) => {
 					console.log(error);
 				});
 			}
+  },
+  updated(){
+    if($('.add-item').length == '1'){
+      $('.delateitem:eq(0)').addClass("disdelate");
+    }else{
+      $('.delateitem:eq(0)').removeClass("disdelate");
+    }
   }
 };
 </script>
 
 <style scoped lang="less">
+.disdelate{
+  display: none;
+}
 .bg1 {
   position: relative;
   font-size: 0.17rem;
   height: auto;
   padding-bottom: 1.3rem;
+  .delateitem{
+    position: absolute;
+    margin-top: -0.3rem;
+    margin-left: 3rem;
+    color: #666;
+    font-size: 0.15rem;
+  }
   .basic {
     background-color: white;
     line-height: 0.5rem;

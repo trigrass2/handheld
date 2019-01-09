@@ -5,19 +5,19 @@
       <div>
         <div>经轴编号</div>
         <div>
-          <input type="text" placeholder="请输入" class="jzbianhao">
+          <input type="text" placeholder="请输入" class="jzbianhao" v-model="shaDetails.BeamCode">
         </div>
       </div>
       <div>
         <div>断纱</div>
         <div>
-          <input type="text" placeholder="请输入" class="duansha">
+          <input type="text" placeholder="请输入" class="duansha" v-model="shaDetails.YarnBroken">
         </div>
       </div>
       <div>
         <div>毛羽数</div>
         <div>
-          <input type="text" placeholder="请输入" class="maoyunum">
+          <input type="text" placeholder="请输入" class="maoyunum" v-model="shaDetails.BeamHairinessNum">
         </div>
       </div>
       <div>
@@ -27,12 +27,75 @@
       <div id="remark">
         <div>备注</div>
         <div>
-          <textarea class="beizhu"></textarea>
+          <textarea class="beizhu" v-model="shaDetails.Remark"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="add-item" v-for="(i , index)  in fuzeersLists">
+      <p>责任人{{index+1}}</p><div class="delateitem" @click="delateitem2(index)">删除</div>
+      <div class="basic" id="addsDetail">
+        <div>
+          <div>责任人</div>
+          <div class="rt">
+            <select class="zrpeople">
+              <option :value="i.EmpID">{{i.EmpName}}</option>
+              <option v-for="(item,tag) in empList" :value="item.Value" :key="tag">{{item.Text}}</option>
+            </select>
+            <img src="../assets/img/819.png">
+          </div>
+        </div>
+        <div>
+          <div id="tongNum">米数</div>
+          <div class="rt">
+            <input type="text" placeholder="请输入" class="pemilength" v-model="i.Lenght">
+          </div>
+        </div>
+        <div>
+          <div id="tongNum">对头次数</div>
+          <div class="rt">
+            <input type="text" placeholder="请输入" class="duitou" v-model="i.DoNum">
+          </div>
+        </div>
+        <div>
+          <div>班别</div>
+          <div class="rt">
+            <select class="classBan">
+              <option :value="i.ClassBan">{{i.ClassBanName}}</option>
+              <option v-for="(item,flag) in drpList" :value="item.Value" :key="flag">{{item.Text}}</option>
+            </select>
+            <img src="../assets/img/819.png">
+          </div>
+        </div>
+        <div>
+          <div>开始时间</div>
+          <div class="rt">
+            <el-date-picker
+              v-model="startRadios[index]"
+              type="datetime"
+              size="small"
+              placeholder="选择日期"
+              class="startTime"
+              value-format="yyyy-MM-dd HH:mm"
+            ></el-date-picker>
+          </div>
+        </div>
+        <div style="border-bottom: none;">
+          <div>结束时间</div>
+          <div class="rt">
+            <el-date-picker
+              v-model="endRadios[index]"
+              type="datetime"
+              size="small"
+              placeholder="选择日期"
+              class="startTime"
+              value-format="yyyy-MM-dd HH:mm"
+            ></el-date-picker>
+          </div>
         </div>
       </div>
     </div>
     <div class="add-item" v-for="(i , index)  in num" :key="index">
-      <p>责任人{{index+1}}</p>
+      <p>责任人{{index+fuzeersLists.length+1}}</p><div class="delateitem" @click="delateitem(index)">删除</div>
       <div class="basic" id="addsDetail">
         <div>
           <div>责任人</div>
@@ -68,12 +131,12 @@
           <div>开始时间</div>
           <div class="rt">
             <el-date-picker
-              v-model="startRadios[index]"
+              v-model="startRadios[index+fuzeersLists.length]"
               type="datetime"
               size="small"
               placeholder="选择日期"
               class="startTime"
-              value-format="yyyy-MM-dd HH:mm:ss"
+              value-format="yyyy-MM-dd HH:mm"
             ></el-date-picker>
           </div>
         </div>
@@ -81,12 +144,12 @@
           <div>结束时间</div>
           <div class="rt">
             <el-date-picker
-              v-model="endRadios[index]"
+              v-model="endRadios[index+fuzeersLists.length]"
               type="datetime"
               size="small"
               placeholder="选择日期"
               class="startTime"
-              value-format="yyyy-MM-dd HH:mm:ss"
+              value-format="yyyy-MM-dd HH:mm"
             ></el-date-picker>
           </div>
         </div>
@@ -110,11 +173,13 @@ export default {
   data() {
     return {
       headerObj: {
-        title: "整经-新增轴",
+        title: this.$route.query.handle == 'add'?"整经-新增轴":"整经-编辑",
         img: "",
         text: ""
       },
-      num: 1,
+      shaDetails:[],
+      fuzeersLists:[],
+      num: this.$route.query.handle == 'add'?[1]:[],
       empList: [],
       drpList: [],
       startRadios: [""],
@@ -123,7 +188,54 @@ export default {
   },
   methods: {
     aa: function() {
-      this.num++;
+       var i =1;
+      this.num.push(i);
+    },
+    // 删除
+    delateitem:function(index){
+      this.$confirm('确定删除此责任人吗？', '',{
+          // confirmButtonText: '确定',
+          // cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            showClose: true,
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.num.splice(index,1);
+          console.log($(".add-item").length);
+    
+        }).catch(() => {
+          this.$message({
+            showClose: true,
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+        
+    },
+    delateitem2:function(index){
+      this.$confirm('确定删除此责任人吗？', '',{
+          // confirmButtonText: '确定',
+          // cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            showClose: true,
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.fuzeersLists.splice(index,1);
+
+          console.log(this.fuzeersLists)
+        }).catch(() => {
+          this.$message({
+            showClose: true,
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
     },
     confirms: function() {
       //非空验证
@@ -144,6 +256,17 @@ export default {
           type: "error",
           center: true
         });
+        for (var i = 0; i < $("input.el-input__inner").length; i++) {
+          console.log($("input.el-input__inner").val());
+          if ($("input.el-input__inner").val() == "") {
+            this.$message({
+              showClose: true,
+              message: "请完善信息",
+              type: "error",
+              center: true
+            });
+          }
+        }
       } else {
         //不为空之后
         console.log();
@@ -186,8 +309,8 @@ export default {
 
           emps.push(emplisters);
         }
-        console.log(entity);
-        console.log(emps);
+        // console.log(entity);
+        // console.log(emps);
         this.$axios({
           method: "post",
           url: "api/WarpingOrder/SaveWarpingDetail",
@@ -219,7 +342,7 @@ export default {
         url: "api/WarpingOrder/GetEmpDropDownList"
       })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           this.empList = res.data.data;
         })
         .catch(error => {
@@ -231,7 +354,7 @@ export default {
         url: "api/WarpingOrder/GetBShiftDrpDownList"
       })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           this.drpList = res.data.data;
         })
         .catch(error => {
@@ -241,17 +364,53 @@ export default {
   },
   created() {
     this.tzConfirmerList();
+    if(this.$route.query.handle == 'edit'){
+				this.$axios({
+					method: 'post',
+					url: 'api/WarpingOrder/GetWarpingDetailByID',
+					data:{
+						id:this.$route.query.id
+					}
+				}).then((res) => {
+					console.log(res);
+					this.shaDetails = res.data.data;
+          this.fuzeersLists = res.data.emps;
+          for(let i = 0; i < this.fuzeersLists.length; i++){
+            this.startRadios[i] = this.fuzeersLists[i].BeginTime;
+            this.endRadios[i] = this.fuzeersLists[i].EndTime
+          }
+				}).catch((error) => {
+					console.log(error);
+				});
+			}
+  },
+  updated(){
+    if($('.add-item').length == '1'){
+      $('.delateitem:eq(0)').addClass("disdelate");
+    }else{
+      $('.delateitem:eq(0)').removeClass("disdelate");
+    }
   }
 };
 </script>
 
 <style scoped lang="less">
+.disdelate{
+  display: none;
+}
 .bg1 {
   position: relative;
   font-size: 0.17rem;
   height: auto;
   min-height: 6.7rem;
   padding-bottom: 0.7rem;
+  .delateitem{
+    position: absolute;
+    margin-top: -0.3rem;
+    margin-left: 3rem;
+    color: #666;
+    font-size: 0.15rem;
+  }
   .basic {
     background-color: white;
     line-height: 0.5rem;

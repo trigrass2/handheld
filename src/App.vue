@@ -18,6 +18,7 @@
 	#app {
 		height: 100%;
 		overflow-y: auto;
+		overflow-x:hidden;
 	}
 	body,
 	textarea {

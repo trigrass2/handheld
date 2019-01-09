@@ -8,11 +8,14 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 import { Message} from 'element-ui';
 import {DatePicker} from 'element-ui';
+import {MessageBox} from 'element-ui';
 
-Vue.component(Message)
-Vue.use(DatePicker)
+Vue.component(Message);
+Vue.component(MessageBox);
+Vue.use(DatePicker);
 
 Vue.prototype.$message = Message;
+Vue.prototype.$confirm = MessageBox;
 
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */

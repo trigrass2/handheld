@@ -29,7 +29,7 @@
 		
 		
 		<div class="add-item" v-for="(i , index)  in num">
-			<p>责任人{{index+1}}</p>
+			<p>责任人{{index+1}}</p><div class="delateitem" @click="delateitem(index)">删除</div>
 			<div class="basic" id="addsDetail">
 				<div>
 					<div>责任人</div>
@@ -47,11 +47,11 @@
 				</div>
 				<div class="block">
 					<span class="demonstration">开始时间</span>
-					<el-date-picker v-model="startTime[index]" type="datetime" placeholder="选择日期" class="rt dates startTime" size="small" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+					<el-date-picker v-model="startTime[index]" type="datetime" placeholder="选择日期" class="rt dates startTime" size="small" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 				</div>
 				<div class="block">
 					<span class="demonstration">结束时间</span>
-					<el-date-picker v-model="endTime[index]" type="datetime" placeholder="选择日期" class="rt dates endTime" size="small" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+					<el-date-picker v-model="endTime[index]" type="datetime" placeholder="选择日期" class="rt dates endTime" size="small" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 				</div>
 				<div style="border-bottom: none;">
 					<div>班别</div>
@@ -70,7 +70,7 @@
 		<div class="posit" @click="confirm">
 			<p>确定</p>
 		</div>
-	</div>
+	</div> 
 </template>
 
 <script>
@@ -87,7 +87,9 @@
 			},   
 			    code:this.$route.query.code,
 			    chocecode:this.$route.query.chocecode,
-				num:1,
+				shaDetails:[],
+				fuzeersLists:[],
+				num: localStorage.getItem('handle') == 'add'?[1]:[],
 				empList:[],
 				drpList:[],
 				startTime:[''],
@@ -101,8 +103,55 @@
 		},
 		methods:{
 			aa:function(){
-				this.num++
+				var i =1;
+      this.num.push(i);
 			},
+			// 删除
+    delateitem:function(index){
+      this.$confirm('确定删除此责任人吗？', '',{
+          // confirmButtonText: '确定',
+          // cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            showClose: true,
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.num.splice(index,1);
+          console.log($(".add-item").length);
+    
+        }).catch(() => {
+          this.$message({
+            showClose: true,
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+        
+    },
+    delateitem2:function(index){
+      this.$confirm('确定删除此责任人吗？', '',{
+          // confirmButtonText: '确定',
+          // cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            showClose: true,
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.fuzeersLists.splice(index,1);
+
+          console.log(this.fuzeersLists)
+        }).catch(() => {
+          this.$message({
+            showClose: true,
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+    },
 			tzConfirmerList: function() {
 				//筒子确认者列表
 				this.$axios({
@@ -191,18 +240,54 @@
 		},
 		created() {
 			this.tzConfirmerList();
-			localStorage.setItem('handle',this.$route.query.handle)
-		}
+			localStorage.setItem('handle',this.$route.query.handle);
+			if(localStorage.getItem('handle') == 'edit'){
+				this.$axios({
+					method: 'post',
+					url: 'api/WarpingOrder/GetWarpsizingDataByID',
+					data:{
+						id:this.$route.query.ids
+					}
+				}).then((res) => {
+					console.log(res.data.data);
+					this.shaDetails = res.data.data.detailentity;
+                    this.fuzeersLists = res.data.data.emps;
+					for(let i = 0; i < this.fuzeersLists.length; i++){
+						this.startRadios.push(this.fuzeersLists[i].BeginTime);
+						this.endRadios.push(this.fuzeersLists[i].EndTime)
+					}
+				}).catch((error) => {
+					console.log(error);
+				});
+			}
+		},
+		updated(){
+			if($('.add-item').length == '1'){
+			$('.delateitem:eq(0)').addClass("disdelate");
+			}else{
+			$('.delateitem:eq(0)').removeClass("disdelate");
+			}
+        }
 	}
 </script>
 
 <style scoped lang="less">
+.disdelate{
+  display: none;
+}
 	.bg1{
 		position: relative;
 		font-size: .17rem;
 		height: auto;
 		min-height: 6.7rem;
 		padding-bottom: 1.3rem;
+		.delateitem{
+    position: absolute;
+    margin-top: -0.3rem;
+    margin-left: 3rem;
+    color: #666;
+    font-size: 0.15rem;
+  }
 		.basic{
 			background-color: white;
 			line-height: .5rem;

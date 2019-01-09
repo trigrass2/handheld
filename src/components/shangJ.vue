@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="edit rt">
-          <span @click="$router.push('addZhouShang?handle='+'edit&code='+item.WarpSizingCode+'&id='+item.WarpSizingID)">编<br>辑
+          <span @click="$router.push('addZhouShang?handle='+'edit&code='+item.WarpSizingCode+'&id='+item.WarpSizingID+'&ids='+item.ID)">编<br>辑
           </span>
         </div>
       </div>
