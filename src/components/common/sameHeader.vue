@@ -23,6 +23,8 @@ export default {
         this.$router.push('bingzhou')
       }else if(text == "addGuaSha"){
         this.$router.push('guasha')
+      }else if(text == "toplist"){
+        this.$router.push('/')
       }else{
         this.$router.go(-1);
       }

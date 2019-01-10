@@ -68,7 +68,7 @@ export default {
       headerObj: {
         title: "整浆并工单",
         img: "",
-        text: ""
+        text: "toplist"
       },
       listdata: {}
     };
