@@ -3,7 +3,7 @@
     <span class="title">{{headerObj.title}}</span>
     <img :src="headerObj.img" alt="" class="share" @click="handleClickRight(headerObj.text)" v-if="headerObj.img!==''">
     <div class="back">
-      <img src="../../assets/img/818.png" alt="" @click="gobackClick(headerObj.type)">
+      <img src="../../assets/img/818.png" alt="" @click="gobackClick(headerObj.text)">
     </div>
   </div>
 </template>
@@ -12,8 +12,21 @@
 export default {
   props: ["headerObj"], 
   methods: {
-    gobackClick: function(type) {
+    gobackClick: function(text) {
+      if(text == "firstlist"){
+        this.$router.push('zhengJSingle')
+      }else if(text == "addZhouShang"){
+        this.$router.push('shangJ')
+      }else if(text == "addZhou"){
+        this.$router.push('zhengJ')
+      }else if(text == "addZhouBing"){
+        this.$router.push('bingzhou')
+      }else if(text == "addGuaSha"){
+        this.$router.push('guasha')
+      }else{
         this.$router.go(-1);
+      }
+        
     }
   }
 };

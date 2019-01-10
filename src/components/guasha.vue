@@ -44,7 +44,7 @@ export default {
       headerObj: {
         title: "挂纱",
         img: "",
-        text: ""
+        text: "firstlist"
       },
       shaLists: []
     };

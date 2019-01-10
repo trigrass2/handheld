@@ -3,7 +3,7 @@
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="body-item" v-for="item in zjList">
       <span class="lf" @click="$router.push('shangJcondition?id='+item.ID)">上浆单：{{item.Code}}</span>
-      <span class="rt"  @click="jumpback(item.Code,item.ID)">选择</span>
+      <span class="rt" @click="jumpback(item.Code,item.ID)">选择</span>
     </div>
   </div>
 </template>
@@ -24,9 +24,24 @@ export default {
     };
   },
   methods: {
-    jumpback:function(Code,ID){
-
-      this.$route.query.jump == 'bing'?this.$router.push('addZhouBing?chocecode='+Code+'&choceid='+ID):this.$router.push('addZhouShang?chocecode='+Code+'&choceid='+ID)
+    jumpback: function(Code, ID) {
+      this.$route.query.jump == "bing"
+        ? this.$router.push(
+            "addZhouBing?chocecode=" +
+              Code +
+              "&choceid=" +
+              ID +
+              "&handle=" +
+              localStorage.getItem("handle")+'&ids='+localStorage.getItem('ids')
+          )
+        : this.$router.push(
+            "addZhouShang?chocecode=" +
+              Code +
+              "&choceid=" +
+              ID +
+              "&handle=" +
+              localStorage.getItem("handle")+'&ids='+localStorage.getItem('ids')
+          );
     },
     lists: function() {
       this.$axios({

@@ -52,7 +52,7 @@ export default {
       headerObj: {
         title: "整经",
         img: "",
-        text: ""
+        text: "firstlist"
       },
       lists: []
     };

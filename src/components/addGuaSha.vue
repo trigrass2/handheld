@@ -176,7 +176,7 @@ export default {
       headerObj: {
         title: this.$route.query.handle == 'add'?"新增挂纱":"挂纱-编辑",
         img: "",
-        text: ""
+        text: "addGuaSha"
       },
       shaDetails:[],
       fuzeersLists:[],

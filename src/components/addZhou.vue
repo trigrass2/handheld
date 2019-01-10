@@ -175,15 +175,15 @@ export default {
       headerObj: {
         title: this.$route.query.handle == 'add'?"整经-新增轴":"整经-编辑",
         img: "",
-        text: ""
+        text: "addZhou"
       },
       shaDetails:[],
       fuzeersLists:[],
       num: this.$route.query.handle == 'add'?[1]:[],
       empList: [],
       drpList: [],
-      startRadios: [""],
-      endRadios: [""]
+      startRadios: [],
+      endRadios: []
     };
   },
   methods: {

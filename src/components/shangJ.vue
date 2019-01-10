@@ -49,7 +49,7 @@ export default {
       headerObj: {
         title: "上浆",
         img: "",
-        text: ""
+        text: "firstlist"
       },
       shaLists: []
     };

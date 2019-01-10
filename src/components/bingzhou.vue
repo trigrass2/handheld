@@ -4,8 +4,8 @@
     <div class="item-detail" v-for="(item,index) in getDatalist" :key="index">
       <div class="item-title">
         <span>上浆单</span>
-        <span>{{item.AddDate}}</span>
-      </div>
+        <span>{{item.WarpRisingCode}}</span> 
+      </div> 
       <div class="details">
         <div class="codes" @click="$router.push('mergeBill?id='+item.ID)">
           <span>{{item.BeamCode}}</span>
@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="edit">
-          <span @click="$router.push('addZhouBing?handle='+'edit&code='+item.WarpSizingCode+'&id='+item.WarpSizingID)">编<br>辑
+          <span @click="$router.push('addZhouBing?handle='+'edit&code='+item.WarpRisingCode+'&id='+item.WarpRisingID+'&ids='+item.ID)">编<br>辑
           </span>
         </div>
       </div>
@@ -49,7 +49,7 @@ export default {
       headerObj: {
         title: "并轴",
         img: "",
-        text: ""
+        text: "firstlist"
       },
       getDatalist: []
     };
@@ -69,7 +69,7 @@ export default {
         }
       })
         .then(res => {
-          console.log(res.data.data);
+          // console.log(res.data.data);
           this.getDatalist = res.data.data;
         })
         .catch(error => {

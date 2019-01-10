@@ -1,6 +1,9 @@
 <template>
   <div class="conntent" style="margin-top:0.5rem;">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="delatedetail" @click="delatelist">
+      <img src="../assets/img/3314.png" alt>
+    </div>
     <div>
       <div class="toptitle">轴信息</div>
       <div class="detailinfo">
@@ -19,7 +22,7 @@
         <div>
           <div>套扣个数</div>
           <span>{{getDatalist.entity.STCount}}</span>
-        </div>
+        </div> 
         <div>
           <div>备注</div>
           <span>{{getDatalist.entity.Remark}}</span> 
@@ -77,6 +80,29 @@ export default {
     };
   },
   methods: {
+    // 删除
+    delatelist: function() {
+      this.$axios({
+        method: "post",
+        url: "api/WarpingOrder/DelWarpReBeamDetail",
+        data: {
+          id: this.$route.query.id
+        }
+      })
+        .then(res => {
+          // console.log(res);
+          this.$router.push("bingzhou");
+          this.$message({
+            showClose: true,
+            message: "删除成功",
+            type: "success",
+            center: true
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     getData:function(){
 				this.$axios({
 					method: 'post',
@@ -100,6 +126,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.delatedetail{
+  position: absolute;
+  margin-left: 3.25rem;
+  margin-top: -0.38rem;
+  z-index: 99999;
+  >img{
+    height: 0.2rem;
+  }
+}
 .conntent {
   font-size: 0.17rem;
   .toptitle {
