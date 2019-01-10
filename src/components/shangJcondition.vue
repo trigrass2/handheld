@@ -5,7 +5,7 @@
 	    	<div class="zhengjing">
 	    		<p>上浆条件</p>
 	    	</div>
-	        <div class="list-detail">
+	        <div class="list-detail"> 
 	        	<div>
 	        		<span>条件设定者</span>
 	        		<span class="rt">{{Sizingcondition.SettingUserName}}</span>
