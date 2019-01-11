@@ -45,13 +45,13 @@
 				<div>
 					<div>开始时间</div>
 					<div class="rt">
-						<el-date-picker v-model="startRadios[index]" type="datetime" size="small" placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+						<el-date-picker v-model="startRadios[index]" type="datetime" size="small" placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 					</div>
 				</div>
 				<div>
 					<div>结束时间</div>
 					<div class="rt">
-						<el-date-picker v-model="endRadios[index]" type="datetime" size="small"  placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+						<el-date-picker v-model="endRadios[index]" type="datetime" size="small"  placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 					</div>
 				</div>
 				<div style="border-bottom: none;">
@@ -85,13 +85,13 @@
 				<div>
 					<div>开始时间</div>
 					<div class="rt">
-						<el-date-picker v-model="startRadios[index+fuzeersLists.length]" type="datetime" size="small" placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+						<el-date-picker v-model="startRadios[index+fuzeersLists.length]" type="datetime" size="small" placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 					</div>
 				</div>
 				<div>
 					<div>结束时间</div>
 					<div class="rt">
-						<el-date-picker v-model="endRadios[index+fuzeersLists.length]" type="datetime" size="small"  placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+						<el-date-picker v-model="endRadios[index+fuzeersLists.length]" type="datetime" size="small"  placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 					</div>
 				</div>
 				<div style="border-bottom: none;">
@@ -152,7 +152,7 @@ export default {
       this.$confirm("确定删除此责任人吗？", "", {
         // confirmButtonText: '确定',
         // cancelButtonText: '取消',
-        type: "warning"
+        type: ""
       })
         .then(() => {
           this.$message({
@@ -160,7 +160,9 @@ export default {
             type: "success",
             message: "删除成功!"
           });
-          this.num.splice(index, 1);
+		  this.num.splice(index, 1);
+		   this.startRadios[index] ==''?'':this.startRadios.splice(index,1);
+          this.endRadios[index] ==''?'':this.endRadios.splice(index,1);
         })
         .catch(() => {
           this.$message({
@@ -174,7 +176,7 @@ export default {
       this.$confirm("确定删除此责任人吗？", "", {
         // confirmButtonText: '确定',
         // cancelButtonText: '取消',
-        type: "warning"
+        type: ""
       })
         .then(() => {
           this.$message({
@@ -182,7 +184,9 @@ export default {
             type: "success",
             message: "删除成功!"
           });
-          this.fuzeersLists.splice(index, 1);
+		  this.fuzeersLists.splice(index, 1);
+		   this.startRadios[index] ==''?'':this.startRadios.splice(index,1);
+          this.endRadios[index] ==''?'':this.endRadios.splice(index,1);
 
           console.log(this.fuzeersLists);
         })
@@ -227,12 +231,14 @@ export default {
         $(".jzbianhao").val() == "" ||
         $(".jzlength").val() == "" ||
         $(".milength").val() == "" ||
-        $(".zrpeople").val() == "" ||
+		$(".zrpeople").val() == "" ||
+		$(".zrpeople").val() == null ||
         $(".pemilength").val() == "" ||
         $(".taosuo").val() == "" ||
         this.startRadios == "" ||
         this.endRadios == "" ||
-        $(".classBan").val() == ""
+		$(".classBan").val() == "" ||
+		$(".classBan").val() == null
       ) {
         this.$message({
           showClose: true,
@@ -341,7 +347,6 @@ export default {
     }
   },
   updated() {
-	  console.log($(".add-item").length);
     if ($(".add-item").length == "1") {
       $(".delateitem:eq(0)").addClass("disdelate");
     } else {

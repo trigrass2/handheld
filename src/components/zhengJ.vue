@@ -107,25 +107,27 @@ export default {
         vertical-align: top;
       }
       .left-item {
+        width: 1.55rem;
+        height: 0.6rem;
+        padding-top: 0.15rem;
         span {
           display: block;
         }
         span:first-child {
-          font-size: 0.25rem; /*************正确字号为55*************/
+          text-align: center;
+          font-size: 0.45rem; /*************正确字号为55*************/
           color: #ffa237;
           font-weight: bold;
           font-family: "dig"; /*---------------字体要改-------------------*/
-          padding: 0.15rem 0 0 0.45rem;
         }
         span:last-child {
-          margin-left: 0.52rem;
+          text-align: center;
           font-size: 0.13rem;
           color: #333;
         }
       }
       .right-item {
         > div {
-          margin-left: 0.4rem;
           margin-top: 0.04rem;
           div:first-child {
             color: #999;

@@ -17,11 +17,11 @@
             <span class="top-one">上浆轴号</span>
             <span class="top-two">{{item.ToBeamCode}}</span>
           </div>
-          <div>
+          <div class="rightnum">
             <span>米数</span>
             <span>{{item.Length}}</span>
           </div>
-          <div>
+          <div class="rightnum">
             <span>时间</span>
             <span>{{item.WarpDate}}</span>
           </div>
@@ -114,22 +114,31 @@ export default {
       }
       .tails {
         font-size: 0.16rem;
+        .rightnum{
+          color: #999;
+          >span{
+             margin-right: 0.1rem;
+          }
+        }
         div {
           margin-top: 0.08rem;
           margin-left: 0.15rem;
           .top-one {
-            width: 0.75rem;
+            // width: 0.75rem;
             display: inline-block;
-            color: #999;
+            // color: #999;
           }
           .top-two {
+            display: inline-block;
+            width: 0.55rem;
+            text-align: center;
             color: #333;
             font-weight: bold;
           }
           img {
             width: 0.16rem;
             vertical-align: middle;
-            margin: 0 0.1rem 0 0.1rem;
+            // margin: 0 0.1rem 0 0.1rem;
           }
         }
         div:first-child {

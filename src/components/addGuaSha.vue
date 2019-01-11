@@ -8,7 +8,7 @@
           <input type="text" placeholder="请输入" class="yuanlName" v-model="shaDetails.MName">
         </div>
       </div>
-      <div> 
+      <div>
         <div>原料批号</div>
         <div>
           <input type="text" placeholder="请输入" class="yuanlCode" v-model="shaDetails.BatchNo">
@@ -18,7 +18,10 @@
         <div>筒子确认者</div>
         <div class="rt">
           <select class="tzConfirmer">
-            <option v-if="$route.query.handle == 'edit'" :value="shaDetails.CheeseNumChekerID">{{shaDetails.CheeseNumChekerName}}</option>
+            <option
+              v-if="$route.query.handle == 'edit'"
+              :value="shaDetails.CheeseNumChekerID"
+            >{{shaDetails.CheeseNumChekerName}}</option>
             <option v-for="(item,i) in empList" :value="item.Value" :key="i">{{item.Text}}</option>
           </select>
           <img src="../assets/img/819.png">
@@ -28,7 +31,10 @@
         <div>垫圈确认者</div>
         <div class="rt">
           <select class="dqConfirmer">
-            <option v-if="$route.query.handle == 'edit'" :value="shaDetails.CloutCheckerID">{{shaDetails.CloutCheckerName}}</option>
+            <option
+              v-if="$route.query.handle == 'edit'"
+              :value="shaDetails.CloutCheckerID"
+            >{{shaDetails.CloutCheckerName}}</option>
             <option v-for="(item,x) in empList" :value="item.Value" :key="x">{{item.Text}}</option>
           </select>
           <img src="../assets/img/819.png">
@@ -42,7 +48,8 @@
       </div>
     </div>
     <div class="add-item" v-for="(i , index)  in fuzeersLists">
-      <p>责任人{{index+1}}</p><div class="delateitem" @click="delateitem2(index)">删除</div>
+      <p>责任人{{index+1}}</p>
+      <div class="delateitem" @click="delateitem2(index)">删除</div>
       <div class="basic" id="addsDetail">
         <div>
           <div>责任人</div>
@@ -69,7 +76,7 @@
         <div class="block">
           <span class="demonstration">开始时间</span>
           <el-date-picker
-            v-model="startRadios[index]" 
+            v-model="startRadios[index]"
             type="datetime"
             placeholder="选择日期"
             class="startTime"
@@ -101,7 +108,8 @@
       </div>
     </div>
     <div class="add-item" v-for="(i , index)  in num" :key="index">
-      <p>责任人{{index+fuzeersLists.length+1}}</p><div class="delateitem" @click="delateitem(index)">删除</div>
+      <p>责任人{{index+fuzeersLists.length+1}}</p>
+      <div class="delateitem" @click="delateitem(index)">删除</div>
       <div class="basic" id="addsDetail">
         <div>
           <div>责任人</div>
@@ -126,7 +134,7 @@
         <div class="block">
           <span class="demonstration">开始时间</span>
           <el-date-picker
-            v-model="startRadios[index+fuzeersLists.length]" 
+            v-model="startRadios[index+fuzeersLists.length]"
             type="datetime"
             placeholder="选择日期"
             class="startTime"
@@ -174,13 +182,13 @@ export default {
   data() {
     return {
       headerObj: {
-        title: this.$route.query.handle == 'add'?"新增挂纱":"挂纱-编辑",
+        title: this.$route.query.handle == "add" ? "新增挂纱" : "挂纱-编辑",
         img: "",
         text: "addGuaSha"
       },
-      shaDetails:[],
-      fuzeersLists:[],
-      num: this.$route.query.handle == 'add'?[1]:[],
+      shaDetails: [],
+      fuzeersLists: [],
+      num: this.$route.query.handle == "add" ? [1] : [],
       empList: [],
       drpList: [],
       pickerOptions1: {
@@ -194,54 +202,64 @@ export default {
   },
   methods: {
     addNew: function() {
-      var i =1;
+      var i = 1;
       this.num.push(i);
       console.log(this.num);
     },
     // 删除
-    delateitem:function(index){
-      this.$confirm('确定删除此责任人吗？', '',{
-          // confirmButtonText: '确定',
-          // cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
+    delateitem: function(index) {
+      this.$confirm("确定删除此责任人吗？", "", {
+        // confirmButtonText: '确定',
+        // cancelButtonText: '取消',
+        type: ""
+      })
+        .then(() => {
           this.$message({
             showClose: true,
-            type: 'success',
-            message: '删除成功!'
+            type: "success",
+            message: "删除成功!"
           });
-          this.num.splice(index,1);
+          this.num.splice(index, 1);
           console.log($(".add-item").length);
-    
-        }).catch(() => {
+          this.startRadios[index] == ""
+            ? ""
+            : this.startRadios.splice(index, 1);
+          this.endRadios[index] == "" ? "" : this.endRadios.splice(index, 1);
+        })
+        .catch(() => {
           this.$message({
             showClose: true,
-            type: 'info',
-            message: '已取消删除'
-          });          
-        });
-        
-    },
-    delateitem2:function(index){
-      this.$confirm('确定删除此责任人吗？', '',{
-          // confirmButtonText: '确定',
-          // cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            showClose: true,
-            type: 'success',
-            message: '删除成功!'
+            type: "info",
+            message: "已取消删除"
           });
-          this.fuzeersLists.splice(index,1);
-
-          console.log(this.fuzeersLists)
-        }).catch(() => {
+        });
+    },
+    delateitem2: function(index) {
+      this.$confirm("确定删除此责任人吗？", "", {
+        // confirmButtonText: '确定',
+        // cancelButtonText: '取消',
+        type: ""
+      })
+        .then(() => {
           this.$message({
             showClose: true,
-            type: 'info',
-            message: '已取消删除'
-          });          
+            type: "success",
+            message: "删除成功!"
+          });
+          this.fuzeersLists.splice(index, 1);
+          this.startRadios[index] == ""
+            ? ""
+            : this.startRadios.splice(index, 1);
+          this.endRadios[index] == "" ? "" : this.endRadios.splice(index, 1);
+
+          console.log(this.fuzeersLists);
+        })
+        .catch(() => {
+          this.$message({
+            showClose: true,
+            type: "info",
+            message: "已取消删除"
+          });
         });
     },
     confirms: function() {
@@ -254,16 +272,18 @@ export default {
         $(".dqConfirmer").val() == "" ||
         $(".bsColor").val() == "" ||
         $(".zeren").val() == "" ||
+        $(".zeren").val() == null ||
         $(".tongzNum").val() == "" ||
-        $(".classBan").val() == ""
+        $(".classBan").val() == "" ||
+        $(".classBan").val() == null
       ) {
         this.$message({
           showClose: true,
           message: "请完善信息",
           type: "error",
           center: true
-		});
-		for (var i = 0; i < $("input.el-input__inner").length; i++) {
+        });
+        for (var i = 0; i < $("input.el-input__inner").length; i++) {
           console.log($("input.el-input__inner").val());
           if ($("input.el-input__inner").val() == "") {
             this.$message({
@@ -286,13 +306,14 @@ export default {
         entity.CloutCheckerName = $(".dqConfirmer option:selected").text();
         entity.EdgWireColor = $(".bsColor").val();
         entity.WarpOrderID = localStorage.getItem("zjID");
-				entity.WarpOrderCode = localStorage.getItem("zjCODE");
-        this.$route.query.handle == 'edit'?entity.ID = this.$route.query.id:'';
+        entity.WarpOrderCode = localStorage.getItem("zjCODE");
+        this.$route.query.handle == "edit"
+          ? (entity.ID = this.$route.query.id)
+          : "";
 
         let emplist = [];
 
         for (let i = 0; i < $(".add-item").length; i++) {
-			
           let emplisters = {};
 
           emplisters.EmpID = $(".zeren")
@@ -305,7 +326,7 @@ export default {
             .eq(i)
             .val();
           emplisters.BeginTime = this.startRadios[i];
-					emplisters.EndTime = this.endRadios[i];
+          emplisters.EndTime = this.endRadios[i];
           emplisters.ClassBan = $(".classBan")
             .eq(i)
             .val();
@@ -327,11 +348,12 @@ export default {
             console.log(res);
             this.$message({
               showClose: true,
-              message: this.$route.query.handle =='add'?"新增成功":"修改成功",
+              message:
+                this.$route.query.handle == "add" ? "新增成功" : "修改成功",
               type: "success",
               center: true
             });
-            this.$router.push('guasha')
+            this.$router.push("guasha");
           })
           .catch(error => {
             console.log(error);
@@ -367,39 +389,41 @@ export default {
   },
   created() {
     this.tzConfirmerList();
-    if(this.$route.query.handle == 'edit'){
-				this.$axios({
-					method: 'post',
-					url: 'api/WarpingOrder/GetWarpYarnHungByID',
-					data:{
-						id:this.$route.query.id
-					}
-				}).then((res) => {
-					console.log(res.data.data);
-					this.shaDetails = res.data.data.detailentity;
+    if (this.$route.query.handle == "edit") {
+      this.$axios({
+        method: "post",
+        url: "api/WarpingOrder/GetWarpYarnHungByID",
+        data: {
+          id: this.$route.query.id
+        }
+      })
+        .then(res => {
+          console.log(res.data.data);
+          this.shaDetails = res.data.data.detailentity;
           this.fuzeersLists = res.data.data.emps;
-          for(let i = 0; i < this.fuzeersLists.length; i++){
+          for (let i = 0; i < this.fuzeersLists.length; i++) {
             this.startRadios.push(this.fuzeersLists[i].BeginTime);
-            this.endRadios.push(this.fuzeersLists[i].EndTime)
+            this.endRadios.push(this.fuzeersLists[i].EndTime);
           }
-          console.log(this.endRadios)
-				}).catch((error) => {
-					console.log(error);
-				});
-			}
+          console.log(this.endRadios);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   },
-  updated(){
-    if($('.add-item').length == '1'){
-      $('.delateitem:eq(0)').addClass("disdelate");
-    }else{
-      $('.delateitem:eq(0)').removeClass("disdelate");
+  updated() {
+    if ($(".add-item").length == 1) {
+      $(".delateitem:eq(0)").addClass("disdelate");
+    } else {
+      $(".delateitem:eq(0)").removeClass("disdelate");
     }
   }
 };
 </script>
 
 <style scoped lang="less">
-.disdelate{
+.disdelate {
   display: none;
 }
 .bg1 {
@@ -407,7 +431,7 @@ export default {
   font-size: 0.17rem;
   height: auto;
   padding-bottom: 1.3rem;
-  .delateitem{
+  .delateitem {
     position: absolute;
     margin-top: -0.3rem;
     margin-left: 3rem;
@@ -449,7 +473,7 @@ export default {
       appearance: none;
       -moz-appearance: none;
       -webkit-appearance: none;
-      text-indent: 0.02rem;
+      // text-indent: 0.02rem;
       background-color: transparent;
       font-size: 0.17rem;
       color: #999;

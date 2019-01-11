@@ -116,8 +116,9 @@ export default {
         display: inline-block;
       }
       .codes {
-        width: 0.8rem;
-        padding: 0.2rem 0 0 0.22rem;
+        width: 0.9rem;
+        text-align: center;
+        padding: 0.2rem 0 0 0rem;
         span:first-child {
           color: #ffa237;
           font-size: 0.35rem;

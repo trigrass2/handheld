@@ -204,7 +204,9 @@ export default {
             message: '删除成功!'
           });
           this.num.splice(index,1);
-          console.log($(".add-item").length);
+          console.log(this.startRadios[index]);
+          this.startRadios[index] ==''?'':this.startRadios.splice(index,1);
+          this.endRadios[index] ==''?'':this.endRadios.splice(index,1);
     
         }).catch(() => {
           this.$message({
@@ -216,10 +218,9 @@ export default {
         
     },
     delateitem2:function(index){
-      this.$confirm('确定删除此责任人吗？', '',{
-          // confirmButtonText: '确定',
-          // cancelButtonText: '取消',
-          type: 'warning'
+      this.$confirm('  确定删除此责任人吗？', '',{
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
         }).then(() => {
           this.$message({
             showClose: true,
@@ -227,8 +228,10 @@ export default {
             message: '删除成功!'
           });
           this.fuzeersLists.splice(index,1);
-
-          console.log(this.fuzeersLists)
+          console.log(this.startRadios[index] =='');
+          this.startRadios[index] ==''?'':this.startRadios.splice(index,1);
+          this.endRadios[index] ==''?'':this.endRadios.splice(index,1);
+          // console.log(this.fuzeersLists)
         }).catch(() => {
           this.$message({
             showClose: true,
@@ -245,10 +248,12 @@ export default {
         $(".maoyunum").val() == "" ||
         $(".pemilength").val() == "" ||
         $(".zrpeople").val() == "" ||
-        $(".taosuo").val() == "" ||
+        $(".zrpeople").val() == null ||
+        $(".duitou").val() == "" ||
         this.startRadios == "" ||
         this.endRadios == "" ||
-        $(".classBan").val() == ""
+        $(".classBan").val() == ""||
+        $(".classBan").val() == null
       ) {
         this.$message({
           showClose: true,
@@ -257,7 +262,6 @@ export default {
           center: true
         });
         for (var i = 0; i < $("input.el-input__inner").length; i++) {
-          console.log($("input.el-input__inner").val());
           if ($("input.el-input__inner").val() == "") {
             this.$message({
               showClose: true,
@@ -295,7 +299,7 @@ export default {
           emplisters.Lenght = $(".pemilength")
             .eq(i)
             .val();
-          emplisters.DTCount = $(".duitou")
+          emplisters.DoNum = $(".duitou")
             .eq(i)
             .val();
           emplisters.BeginTime = this.startRadios[i];
@@ -372,7 +376,7 @@ export default {
 						id:this.$route.query.id
 					}
 				}).then((res) => {
-					console.log(res);
+					// console.log(res);
 					this.shaDetails = res.data.data;
           this.fuzeersLists = res.data.emps;
           for(let i = 0; i < this.fuzeersLists.length; i++){

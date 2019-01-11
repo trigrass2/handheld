@@ -513,7 +513,7 @@
 	border-bottom:1px solid #D5D5D5 ;
 	div{
 		margin-top: .17rem;
-		width: 1.04rem;
+		width: 1rem;
 		height: .29rem;
 		line-height: .29rem;
 		border-radius:1.36rem;

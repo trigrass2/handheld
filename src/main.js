@@ -15,7 +15,7 @@ Vue.component(MessageBox);
 Vue.use(DatePicker);
 
 Vue.prototype.$message = Message;
-Vue.prototype.$confirm = MessageBox;
+Vue.prototype.$confirm = MessageBox.confirm;
 
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */

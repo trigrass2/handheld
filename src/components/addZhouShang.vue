@@ -148,7 +148,7 @@ export default {
       this.$confirm("确定删除此责任人吗？", "", {
         // confirmButtonText: '确定',
         // cancelButtonText: '取消',
-        type: "warning"
+        type: ""
       })
         .then(() => {
           this.$message({
@@ -158,6 +158,8 @@ export default {
           });
           this.num.splice(index, 1);
           console.log($(".add-item").length);
+		  this.startTime[index] ==''?'':this.startRadios.splice(index,1);
+          this.endTime[index] ==''?'':this.endRadios.splice(index,1);
         })
         .catch(() => {
           this.$message({
@@ -171,7 +173,7 @@ export default {
       this.$confirm("确定删除此责任人吗？", "", {
         // confirmButtonText: '确定',
         // cancelButtonText: '取消',
-        type: "warning"
+        type: ""
       })
         .then(() => {
           this.$message({
@@ -179,7 +181,9 @@ export default {
             type: "success",
             message: "删除成功!"
           });
-          this.fuzeersLists.splice(index, 1);
+		  this.fuzeersLists.splice(index, 1);
+		  this.startTime[index] ==''?'':this.startRadios.splice(index,1);
+          this.endTime[index] ==''?'':this.endRadios.splice(index,1);
 
           console.log(this.fuzeersLists);
         })
@@ -234,10 +238,12 @@ export default {
         $(".zjZhou").val() == "" ||
         $(".sjZhou").val() == "" ||
         $(".zeren").val() == "" ||
+        $(".zeren").val() == null ||
         $(".length").val() == "" ||
         $(".tcNum").val() == "" ||
         $(".el-input__inner").val() == "" ||
-        $(".classBan").val() == ""
+        $(".classBan").val() == "" ||
+        $(".classBan").val() == null
       ) {
         this.$message({
           showClose: true,
