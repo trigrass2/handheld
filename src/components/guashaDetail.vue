@@ -33,10 +33,10 @@
           <div>时间</div>
           <span>{{shaDetails.OprationDate}}</span>
         </div>
-        <div>
+        <!-- <div>
           <div>时间</div>
           <span><input type="datetime-local"></span>
-        </div>
+        </div> -->
       </div>
     </div>
     
