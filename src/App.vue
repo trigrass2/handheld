@@ -11,7 +11,7 @@
 </script>
 
 <style>
-	@import url("assets/font/font.css");
+	@import url("../src/assets/font/font.css");
 	/*初始化样式*/
 	html,
 	body,

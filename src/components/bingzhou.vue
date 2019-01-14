@@ -17,10 +17,10 @@
             <span>经轴长度</span>
             <span>{{item.BeamLength}}</span>
           </div>
-          <div>
+          <!-- <div>
             <span>米数</span>
             <span>{{item.Length}}</span>
-          </div>
+          </div> -->
           <div>
             <span>时间</span>
             <span>{{item.AddDate}}</span>
@@ -65,11 +65,11 @@ export default {
         data: {
           orderid: localStorage.getItem("zjID"),
           pageindex: "0",
-          pagesize: "20"
+          pagesize: "4"
         }
       })
         .then(res => {
-          // console.log(res.data.data);
+          console.log(res.data.data);
           this.getDatalist = res.data.data;
         })
         .catch(error => {
@@ -116,7 +116,7 @@ export default {
         display: inline-block;
       }
       .codes {
-        width: 0.9rem;
+        width: 1rem;
         text-align: center;
         padding: 0.2rem 0 0 0rem;
         span:first-child {
@@ -129,12 +129,13 @@ export default {
         }
       }
       .tails {
+        margin-top: 0.15rem;
         width: 2rem;
         font-size: 0.16rem;
         div {
           margin-top: 0.08rem;
           span:first-child {
-            width: 0.82rem;
+            width: 0.8rem;
             display: inline-block;
             color: #999;
           }

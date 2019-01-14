@@ -95,6 +95,7 @@ export default {
   min-height: 100%;
   height: auto;
   padding-bottom: 0.5rem;
+  font-family: 'ionicons';
   .body-item {
     width: 3.4rem;
     height: 1.65rem;
@@ -118,7 +119,7 @@ export default {
           font-size: 0.45rem; /*************正确字号为55*************/
           color: #ffa237;
           font-weight: bold;
-          font-family: "dig"; /*---------------字体要改-------------------*/
+          font-family: 'ionicons'; /*---------------字体要改-------------------*/
         }
         span:last-child {
           text-align: center;

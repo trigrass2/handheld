@@ -1,9 +1,13 @@
 <template>
   <div>
     <div class="tabItem">
-    <slot></slot>
+      <slot></slot>
     </div>
     <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <div class="delatedetail" @click="$router.push('ipSettings')">
+      <img src="../assets/img/setting.png" alt>
+    </div>
+
     <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" class="bg1">
       <div class="body-item" v-for="item in listdata">
         <div class="item-title">
@@ -12,7 +16,8 @@
         </div>
         <div class="item-body">
           <div class="productName">
-            <div>品<span class="spaces"></span>番
+            <div>品
+              <span class="spaces"></span>番
             </div>
             <div>{{item.PNO}}</div>
           </div>
@@ -59,14 +64,12 @@ export default {
     $(".back").css("display", "none");
   },
   methods: {
-  	watchDetail:function(id , code){
-			this.$router.push('zhengJSingle');
-  		localStorage.setItem("zjID" , id);
-  		localStorage.setItem("zjCODE" , code);
-  	},
-  	
-  	
-  	
+    watchDetail: function(id, code) {
+      this.$router.push("zhengJSingle");
+      localStorage.setItem("zjID", id);
+      localStorage.setItem("zjCODE", code);
+    },
+
     getList() {
       let vm = this;
       this.$axios({
@@ -129,13 +132,23 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.yo-scroll{
-	top: -0.6rem;
+.delatedetail{
+  position: absolute;
+  margin-left: 3.25rem;
+  margin-top: 0.13rem;
+  z-index: 99999;
+  >img{
+    height: 0.2rem;
+  }
+}
+.yo-scroll {
+  top: -0.6rem;
 }
 .bg1 {
   padding-top: 0.12rem;
   padding-bottom: 0.2rem;
   font-size: 0.17rem;
+  font-family: 'ionicons';
   min-height: 6.7rem;
   height: auto;
   margin-top: 0.48rem;

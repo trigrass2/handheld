@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import ipjudge from '@/components/ipjudge' //首页ip判断
 import index from '@/components/index' //首页
+import ipSettings from '@/components/ipSettings' //设置
+import reviseip from '@/components/reviseip' //设置Ip
 import zhengJSingle from '@/components/zhengJSingle' //整经单
 import zhengJ from '@/components/zhengJ' //整经
 import workOrderDetail from '@/components/workOrderDetail' //工单详情
@@ -22,8 +25,30 @@ import pullRefresh from '@/components/pullRefresh'     //注册组件
 Vue.use(Router)
 
 export default new Router({
-		routes: [{
+		routes: [
+			{
 				path: '/',
+				name: 'ipjudge',
+				component: ipjudge,
+				meta: {
+					title: '前道'
+				}
+			},{
+				path: '/ipSettings',
+				name: 'ipjuipSettingsdge',
+				component: ipSettings,
+				meta: {
+					title: '设置'
+				}
+			},{
+				path: '/reviseip',
+				name: 'reviseip',
+				component: reviseip,
+				meta: {
+					title: '修改ip'
+				}
+			}, {
+				path: '/index',
 				name: 'index',
 				component: index,
 				meta: {

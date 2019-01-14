@@ -1,4 +1,4 @@
 @font-face {
-  font-family: "dig";
-  src: url('./ionicons.ttf');
+  font-family: 'ionicons';
+  src: url('/src/assets/font/ionicons.ttf')format('truetype');
 }

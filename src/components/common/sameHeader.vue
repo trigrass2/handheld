@@ -13,6 +13,7 @@ export default {
   props: ["headerObj"], 
   methods: {
     gobackClick: function(text) {
+      //swich break语法
       if(text == "firstlist"){
         this.$router.push('zhengJSingle')
       }else if(text == "addZhouShang"){
@@ -24,7 +25,7 @@ export default {
       }else if(text == "addGuaSha"){
         this.$router.push('guasha')
       }else if(text == "toplist"){
-        this.$router.push('/')
+        this.$router.push('/index')
       }else{
         this.$router.go(-1);
       }
@@ -60,7 +61,7 @@ export default {
   .back {
     height: 100%;
     position: absolute;
-    left: 0.3rem;
+    left: 0.15rem;
     display: flex;
     justify-content: center;
     flex-direction: column;
