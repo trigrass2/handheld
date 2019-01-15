@@ -3,7 +3,7 @@
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="content">
       <div class="titletip">请输入IP地址</div>
-      <input placeholder="请输入">
+      <input placeholder="请输入" class="ipadress">
       <div class="login" @click="login">登 录</div>
     </div>
   </div>
@@ -28,7 +28,26 @@ export default {
   },
   methods: {
     login:function(){
+      var pattern = /(2(5[0-5]{1}|[0-4]\d{1})|[0-1]?\d{1,2})(\.(2(5[0-5]{1}|[0-4]\d{1})|[0-1]?\d{1,2})){3}/g;
+    if(pattern.test($('.ipadress').val())){
+      this.$message({
+          showClose: true,
+          message: "IP地址正确",
+          type: "success",
+          center: true
+        });
       this.$router.push('index')
+    }else{
+      this.$message({
+          showClose: true,
+          message: "IP地址错误",
+          type: "error",
+          center: true
+        });
+    };
+     
+
+      
     }
   },
   created() {}

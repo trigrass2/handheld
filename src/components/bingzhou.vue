@@ -1,37 +1,45 @@
 <template>
-  <div class="bg1">
+  <div class="bg1" @scroll="handleScroll1()">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
-    <div class="item-detail" v-for="(item,index) in getDatalist" :key="index">
-      <div class="item-title">
-        <span>上浆单</span>
-        <span>{{item.WarpRisingCode}}</span> 
-      </div> 
-      <div class="details">
-        <div class="codes" @click="$router.push('mergeBill?id='+item.ID)">
-          <span>{{item.BeamCode}}</span>
-          <br>
-          <span>经轴编号</span>
+    <loadList @scrollEnd="scrollEnd" :page="pageindex">
+      <div class="storeList">
+      <div class="item-detail" v-for="(item,index) in getDatalist" :key="index">
+        <div class="item-title">
+          <span>上浆单</span>
+          <span>{{item.WarpRisingCode}}</span>
         </div>
-        <div class="tails" @click="$router.push('mergeBill?id='+item.ID)">
-          <div>
-            <span>经轴长度</span>
-            <span>{{item.BeamLength}}</span>
+        <div class="details">
+          <div class="codes" @click="$router.push('mergeBill?id='+item.ID)">
+            <span>{{item.BeamCode}}</span>
+            <br>
+            <span>经轴编号</span>
           </div>
-          <!-- <div>
+          <div class="tails" @click="$router.push('mergeBill?id='+item.ID)">
+            <div>
+              <span>经轴长度</span>
+              <span>{{item.BeamLength}}</span>
+            </div>
+            <!-- <div>
             <span>米数</span>
             <span>{{item.Length}}</span>
-          </div> -->
-          <div>
-            <span>时间</span>
-            <span>{{item.AddDate}}</span>
+            </div>-->
+            <div>
+              <span>时间</span>
+              <span>{{item.AddDate}}</span>
+            </div>
+          </div>
+          <div class="edit">
+            <span
+              @click="$router.push('addZhouBing?handle='+'edit&code='+item.WarpRisingCode+'&id='+item.WarpRisingID+'&ids='+item.ID)"
+            >编
+              <br>辑
+            </span>
           </div>
         </div>
-        <div class="edit">
-          <span @click="$router.push('addZhouBing?handle='+'edit&code='+item.WarpRisingCode+'&id='+item.WarpRisingID+'&ids='+item.ID)">编<br>辑
-          </span>
-        </div>
       </div>
-    </div>
+      <div v-if="show" style="font-size: 0.16rem;color: #444444;text-align: center;padding:0.1rem 0">没有更多啦</div>
+   </div>
+    </loadList>
 
     <div class="posit">
       <span @click="returnGD">返回工单</span><span @click="$router.push('addZhouBing?handle='+'add')">新增轴</span>
@@ -41,8 +49,9 @@
 
 <script>
 import HeaderSame from "./common/sameHeader.vue";
+import loadList from "./common/load.vue";
 export default {
-  components: { HeaderSame },
+  components: { HeaderSame,loadList },
   name: "applydetail",
   data() {
     return {
@@ -51,12 +60,44 @@ export default {
         img: "",
         text: "firstlist"
       },
-      getDatalist: []
+      getDatalist: [],
+      show: false,
+      pageindex:0,
+      scrollStatus: true,
     };
   },
   methods: {
+
     aa: function() {
       this.num++;
+    },
+     scrollEnd: function(num) {
+      this.pageindex = num;
+      if (this.scrollStatus) {
+        this.$axios({
+        method: "post",
+        url: "api/WarpingOrder/GetReBeamDetailListData",
+        data: {
+          orderid: localStorage.getItem("zjID"),
+          pageindex: this.pageindex,
+          pagesize: "5"
+        }
+      })
+          .then(res => {
+            
+            if (res.status == 200) {
+              for (var i in res.data.data) {
+                this.getDatalist.push(res.data.data[i]);
+              }
+              console.log(this.getDatalist);
+              if (res.data.data.length < 5) {
+               this.show=true;
+               this.scrollStatus = false
+              }
+
+            }
+          });
+      }
     },
     getData: function() {
       this.$axios({
@@ -64,8 +105,8 @@ export default {
         url: "api/WarpingOrder/GetReBeamDetailListData",
         data: {
           orderid: localStorage.getItem("zjID"),
-          pageindex: "0",
-          pagesize: "4"
+          pageindex: this.pageindex,
+          pagesize: "5"
         }
       })
         .then(res => {
@@ -78,7 +119,7 @@ export default {
     },
     //点击返回工单
     returnGD: function() {
-      this.$router.push('zhengJSingle');
+      this.$router.push("zhengJSingle");
     }
   },
   created() {
@@ -88,11 +129,15 @@ export default {
 </script>
 
 <style scoped lang="less">
+.storeList {
+    position: relative;
+    // background: #fff;
+}
 .bg1 {
   font-family: "Microsoft YaHei UI";
   font-size: 0.17rem;
-  height: auto;
-  padding-bottom: 0.7rem;
+  // height: auto;
+  padding-bottom: 0.4rem;
   min-height: 100%;
   .item-detail {
     .item-title {
