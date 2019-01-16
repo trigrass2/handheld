@@ -1,6 +1,7 @@
 <template>
   <div class="bg1">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
+    <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" style="padding-bottom:0.2rem;">
     <div class="bodys" v-for="item in shaLists"> 
       <div class="body-item">
         <!--上方具体数据部分-->
@@ -27,7 +28,7 @@
         </div>
       </div>
     </div>
-
+</v-scroll>
     <div class="posit">
       <span @click="returnGD">返回工单</span><span @click="$router.push('addGuaSha?handle='+'add')">新增轴</span>
     </div>
@@ -35,9 +36,10 @@
 </template>
 
 <script>
+import Scroll from "./pullRefresh";
 import HeaderSame from "./common/sameHeader.vue";
 export default {
-  components: { HeaderSame },
+  components: { HeaderSame, "v-scroll": Scroll  },
   name: "applydetail",
   data() {
     return {
@@ -46,8 +48,19 @@ export default {
         img: "",
         text: "firstlist"
       },
+      counter: 1, //默认已经显示出5条数据 count等于一是让从6条开始加载
+      num: "5", // 一次显示多少条
+      pageStart: 0, // 开始页数
+      pageEnd: 0, // 结束页数
+      // listdata: [], // 下拉更新数据存放数组
+      scrollData: {
+        noFlag: false //暂无更多数据显示
+      },
       shaLists: []
     };
+  },
+  updated() {
+    $(".nullData").css("padding-bottom", "0.7rem");
   },
   methods: {
     shaList: function() {
@@ -57,11 +70,11 @@ export default {
         data: {
           orderid:localStorage.getItem("zjID"),
           pageindex: "0",
-          pagesize: "20"
+          pagesize: this.num
         }
       })
         .then(res => {
-          console.log(res);
+          console.log(res.data);
           this.shaLists = res.data.data;
         })
         .catch(error => {
@@ -71,8 +84,58 @@ export default {
     //点击返回工单
     returnGD: function() {
       this.$router.push('zhengJSingle');
-    }
+    },
+    // 下拉刷新
+    onRefresh(done) {
+      this.shaList();
+      done();
+      this.counter= 1; //默认已经显示出5条数据 count等于一是让从6条开始加载
+      this.num= "5"; // 一次显示多少条
+      this.pageStart= 0; // 开始页数
+      this.pageEnd= 0; // 结束页数
+      this.shaLists= []; // 下拉更新数据存放数组
+      this.shaLists= {
+        noFlag: false //暂无更多数据显示
+      }
+    },
+    //上拉加载更多
+    onInfinite(done) {
+      let end = (this.pageEnd = this.num * this.counter);
+      let i = (this.pageStart = this.pageEnd - this.num);
+      let counters = String(this.counter++);
+
+      let more = this.$el.querySelector(".load-more");
+      if (i >= 10) {
+        more.style.display = "none"; //隐藏加载条
+        //走完数据调用方法
+        this.scrollData.noFlag = true;
+      } else {
+        this.$axios({
+          method: "post",
+          url: "api/WarpingOrder/GetWarpYarnHungListData",
+          data: {
+            orderid:localStorage.getItem("zjID"),
+            pageindex: counters,
+            pagesize: this.num
+          }
+        })
+          .then(res => {
+            console.log(res.data.data);
+            for (var i = 0; i < res.data.data.length; i++) {
+              this.shaLists.push(res.data.data[i]);
+            }
+            console.log(this.shaLists);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+        more.style.display = "none"; //隐藏加载条
+      }
+      done();
+    },
   },
+  
   created() {
     this.shaList();
   }
@@ -80,11 +143,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.yo-scroll {
+  top: -0.6rem;
+}
 .bg1 {
   position: relative;
   font-size: 0.17rem;
-  padding-top: 0.12rem;
-  padding-bottom: 0.6rem;
+  margin-top: 0.52rem;
+    // margin-bottom: 0.8rem;
   height: auto!important;
   min-height: 100%;
   .body-item {

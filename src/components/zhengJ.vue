@@ -2,7 +2,8 @@
   <div class="bg1">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="bodys">
-      <div class="body-item" v-for="item in lists">
+       <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" class="bg1">
+      <div class="body-item" v-for="item in listdata">
         <!--上方具体数据部分-->
         <div class="top-item">
           <div class="left-item">
@@ -34,6 +35,7 @@
           <span @click="$router.push('addZhou?handle='+'edit&id='+item.ID)">编辑</span>
         </div>
       </div>
+      </v-scroll>
     </div>
 
     <div class="posit">
@@ -43,9 +45,10 @@
 </template>
 
 <script>
+import Scroll from "./pullRefresh";
 import HeaderSame from "./common/sameHeader.vue";
 export default {
-  components: { HeaderSame },
+  components: { HeaderSame, "v-scroll": Scroll  },
   name: "applydetail",
   data() {
     return {
@@ -54,10 +57,69 @@ export default {
         img: "",
         text: "firstlist"
       },
-      lists: []
-    };
+        counter: 1, //默认已经显示出5条数据 count等于一是让从6条开始加载
+        num: "5", // 一次显示多少条
+        pageStart: 0, // 开始页数
+        pageEnd: 0, // 结束页数
+        listdata: [], // 下拉更新数据存放数组
+        scrollData: {
+          noFlag: false //暂无更多数据显示
+        }
+      };
+  },
+  updated() {
+    $(".nullData").css("padding-bottom", "0.7rem");
   },
   methods: {
+     //下拉刷新
+    onRefresh(done) {
+      this.dataList();
+      done();
+      this.counter= 1; //默认已经显示出5条数据 count等于一是让从6条开始加载
+      this.num= "5"; // 一次显示多少条
+      this.pageStart= 0; // 开始页数
+      this.pageEnd= 0; // 结束页数
+      this.listdata= []; // 下拉更新数据存放数组
+      this.scrollData= {
+        noFlag: false //暂无更多数据显示
+      }
+    },
+    //上拉加载更多
+    onInfinite(done) {
+      let end = (this.pageEnd = this.num * this.counter);
+      let i = (this.pageStart = this.pageEnd - this.num);
+      let counters = String(this.counter++);
+
+      let more = this.$el.querySelector(".load-more");
+      if (i >= 10) {
+        more.style.display = "none"; //隐藏加载条
+        //走完数据调用方法
+        this.scrollData.noFlag = true;
+      } else {
+        this.$axios({
+          method: "post",
+          url: "api/WarpingOrder/GetWarpingDetailListData",
+          data: {
+            orderid: localStorage.getItem("zjID"),
+            pageindex: counters,
+            pagesize: this.num
+          }
+        })
+          .then(res => {
+            console.log(res.data.data);
+            for (var i = 0; i < res.data.data.length; i++) {
+              this.listdata.push(res.data.data[i]);
+            }
+            console.log(this.listdata);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+        more.style.display = "none"; //隐藏加载条
+      }
+      done();
+    },
     dataList: function() {
       this.$axios({
         method: "post",
@@ -65,12 +127,12 @@ export default {
         data: {
           orderid: localStorage.getItem("zjID"),
           pageindex: "0",
-          pagesize: "20"
+          pagesize: this.num
         }
       })
         .then(res => {
           console.log(res);
-          this.lists = res.data.data;
+          this.listdata = res.data.data;
         })
         .catch(error => {
           console.log(error);
@@ -88,13 +150,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.yo-scroll {
+  top: -0.6rem;
+}
 .bg1 {
-  position: relative;
+  // position: relative;
   font-size: 0.17rem;
-  padding-top: 0.1rem;
+  margin-top: 0.6rem;
+    // margin-bottom: 0.8rem;
   min-height: 100%;
   height: auto;
-  padding-bottom: 0.5rem;
+  // padding-bottom: 0.5rem;
   font-family: 'ionicons';
   .body-item {
     width: 3.4rem;

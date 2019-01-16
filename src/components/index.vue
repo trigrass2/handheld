@@ -92,6 +92,14 @@ export default {
     onRefresh(done) {
       this.getList();
       done();
+      this.counter= 1; //默认已经显示出5条数据 count等于一是让从6条开始加载
+      this.num= "5"; // 一次显示多少条
+      this.pageStart= 0; // 开始页数
+      this.pageEnd= 0; // 结束页数
+      this.listdata= []; // 下拉更新数据存放数组
+      this.scrollData= {
+        noFlag: false //暂无更多数据显示
+      }
     },
     //上拉加载更多
     onInfinite(done) {
