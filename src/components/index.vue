@@ -47,7 +47,7 @@ export default {
         img: "",
         text: ""
       },
-      counter: 1, //默认已经显示出15条数据 count等于一是让从16条开始加载
+      counter: 1, //默认已经显示出5条数据 count等于一是让从6条开始加载
       num: "5", // 一次显示多少条
       pageStart: 0, // 开始页数
       pageEnd: 0, // 结束页数
