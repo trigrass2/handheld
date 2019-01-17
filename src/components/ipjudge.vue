@@ -6,6 +6,7 @@
       <input placeholder="请输入" class="ipadress">
       <div class="login" @click="login">登 录</div>
     </div>
+     <!-- <input type="text" class="inps" /> -->
   </div>
 </template>
 
@@ -23,10 +24,22 @@ export default {
       }
     };
   },
+  mounted(){
+
+  },
   updated() {
     $(".back").css("display", "none");
   },
   methods: {
+
+    javaAll:function(str){
+          this.$message({
+          showClose: true,
+          message: str,
+          type: "error",
+          center: true
+        });
+    },
     login:function(){
       var pattern = /(2(5[0-5]{1}|[0-4]\d{1})|[0-1]?\d{1,2})(\.(2(5[0-5]{1}|[0-4]\d{1})|[0-1]?\d{1,2})){3}/g;
     if(pattern.test($('.ipadress').val())){
@@ -50,13 +63,24 @@ export default {
       
     }
   },
-  created() {}
+  created() {
+   window.javaAll = this.javaAll;
+  }
 };
 </script>
 
 <style scoped lang="less">
 .disdelate {
   display: none;
+}
+.inps{
+  position: absolute;
+  opacity: 0.5;
+	width: 3rem;
+	height: 1rem;
+  border:2px solid red;
+  left: 0.3rem;
+  top: 2rem;
 }
 .bg1 {
   position: relative;

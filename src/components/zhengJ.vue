@@ -68,7 +68,7 @@ export default {
       };
   },
   updated() {
-    $(".nullData").css("padding-bottom", "0.7rem");
+    $(".nullData").css("padding-bottom", "0.5rem");
   },
   methods: {
      //下拉刷新
@@ -162,6 +162,9 @@ export default {
   height: auto;
   // padding-bottom: 0.5rem;
   font-family: 'ionicons';
+  .body-item:not(:last-child){
+    margin-bottom: 0.1rem;
+  }
   .body-item {
     width: 3.4rem;
     height: 1.65rem;

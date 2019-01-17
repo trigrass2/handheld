@@ -1,7 +1,7 @@
 <template>
   <div class="bg1">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
-    <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" style="padding-bottom:0.2rem;">
+    <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData">
     <div class="bodys" v-for="item in shaLists"> 
       <div class="body-item">
         <!--上方具体数据部分-->
@@ -52,7 +52,6 @@ export default {
       num: "5", // 一次显示多少条
       pageStart: 0, // 开始页数
       pageEnd: 0, // 结束页数
-      // listdata: [], // 下拉更新数据存放数组
       scrollData: {
         noFlag: false //暂无更多数据显示
       },
@@ -60,7 +59,7 @@ export default {
     };
   },
   updated() {
-    $(".nullData").css("padding-bottom", "0.7rem");
+    $(".nullData").css("padding-bottom", "0.5rem");
   },
   methods: {
     shaList: function() {
@@ -144,14 +143,14 @@ export default {
 
 <style lang="less" scoped>
 .yo-scroll {
-  top: -0.6rem;
+  top: -0.1rem;
 }
 .bg1 {
-  position: relative;
+  // position: relative;
   font-size: 0.17rem;
-  margin-top: 0.52rem;
+  margin-top: 0.9rem;
     // margin-bottom: 0.8rem;
-  height: auto!important;
+  height: auto;
   min-height: 100%;
   .body-item {
     width: 3.4rem;

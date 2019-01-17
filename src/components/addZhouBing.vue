@@ -9,7 +9,7 @@
 				</div>
 			</div>
 			<div style="color: #333;">
-				<div>经轴编号</div><div class="jzCode"><input type="text" v-model="shaDetails.BeamCode" class="jzbianhao" placeholder="请输入"><span>确定</span> </div><div><img src="../assets/img/3906.png" class="saoma"></div>
+				<div>经轴编号</div><div class="jzCode"><input type="text" v-model="shaDetails.BeamCode" class="jzbianhao" placeholder="请输入"></div><div><img src="../assets/img/3906.png" class="saoma"></div>
 			</div>
 			<div>
 				<div>经轴长度</div><div><input type="text" class="jzlength" v-model="shaDetails.BeamLength" placeholder="请输入"></div>
@@ -143,6 +143,9 @@ export default {
     };
   },
   methods: {
+    javaAll:function(str){
+      $('.jzbianhao').val();
+    },
     aa: function() {
       var i = 1;
       this.num.push(i);
@@ -319,8 +322,10 @@ export default {
     }
   },
   created() {
-	this.getData();
-	localStorage.setItem("handle", this.$route.query.handle);
+    // 接收安卓方法
+    window.javaAll = this.javaAll;
+	  this.getData();
+	  localStorage.setItem("handle", this.$route.query.handle);
     if (localStorage.getItem("handle") == "edit") {
       localStorage.setItem("ids", this.ids);
       this.$axios({
@@ -487,7 +492,7 @@ export default {
   width: 2rem;
   display: inline-block;
   input {
-    width: 1.35rem !important;
+    width: 1.8rem !important;
   }
   span {
     width: 0.55rem;

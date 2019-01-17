@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-      <div v-if="show" style="font-size: 0.16rem;color: #444444;text-align: center;padding:0.1rem 0">没有更多啦</div>
+      <div v-if="show" style="font-size: 0.16rem;color: #444444;text-align: center;padding:0.1rem 0 1.1rem 0">没有更多啦</div>
    </div>
     </loadList>
 

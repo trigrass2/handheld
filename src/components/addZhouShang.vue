@@ -10,14 +10,15 @@
 			</div>
 			<div class="nonesBorder" style="padding: .05rem 0 .05rem 0;">
 				<div class="gongxu" style="width: 3.3rem;">
-					<span>整经轴</span><span>整经轴</span><span>→</span><span>整经轴</span><span>整经轴</span>
+					<span>整经轴</span><span class="zjZhousure">{{shaDetails.FromBeamCode||'请选择'}}</span><span>→</span><span>上浆轴</span><span class="sjZhousure">{{shaDetails.ToBeamCode||'请选择'}}</span>
 				</div>
 			</div>
 			<div style="color: #333;">
-				<div>整经轴</div><div class="jzCode"><input type="text" v-model="shaDetails.FromBeamCode" placeholder="请输入" class="zjZhou"><span>确定</span> </div><div><img src="../assets/img/3906.png" class="saoma"></div>
+				<div>整经轴</div><div class="jzCode"><input type="text" :value="shaDetails.FromBeamCode" placeholder="请输入" class="zjZhou"><span @click="ensure('.zjZhou','.zjZhousure','整经')">确定</span> </div><div><img src="../assets/img/3906.png" class="saoma"></div>
 			</div>
 			<div style="color: #333;">
-				<div>上浆轴</div><div class="jzCode"><input v-model="shaDetails.ToBeamCode" type="text" placeholder="请输入" class="sjZhou"><span>确定</span> </div><div><img src="../assets/img/3906.png" class="saoma"></div>
+				<div>上浆轴</div><div class="jzCode"><input :value="shaDetails.ToBeamCode" type="text" placeholder="请输入" class="sjZhou"><span @click="ensure('.sjZhou','.sjZhousure','上浆')">确定</span> </div>
+        <!-- <div><img src="../assets/img/3906.png" class="saoma"></div> -->
 			</div>
 			<div>
 				<div>索套个数</div><div class="rt" style="margin-right: .15rem;">请在责任人中输入</div>
@@ -139,9 +140,23 @@ export default {
     };
   },
   methods: {
+     javaAll:function(str){
+         $('.zjZhou').val(str);
+    },
     aa: function() {
       var i = 1;
       this.num.push(i);
+    },
+    ensure:function(tag,fag,text){
+      if( $(tag).val() == ''){
+           this.$message({
+            showClose: true,
+            type: "error",
+            message: "请输入"+text+"轴号"
+          });
+        }else{
+          $(fag).text($(tag).val());
+        }
     },
     // 删除
     delateitem: function(index) {
@@ -235,8 +250,10 @@ export default {
       //非空验证
       if (
         $(".chooseSJ").text() == "选择上浆单" ||
-        $(".zjZhou").val() == "" ||
-        $(".sjZhou").val() == "" ||
+        $(".zjZhousure").text() == "" ||
+        $(".sjZhousure").text() == "" ||
+        $(".zjZhousure").text() == "请选择" ||
+        $(".sjZhousure").text() == "请选择" ||
         $(".zeren").val() == "" ||
         $(".zeren").val() == null ||
         $(".length").val() == "" ||
@@ -259,8 +276,8 @@ export default {
         entity.WarpSizingCode = WarpSizingCode;
         entity.WarpOrderID = WarpOrderID;
         entity.WarpOrderCode = WarpOrderCode;
-        entity.FromBeamCode = $(".zjZhou").val();
-        entity.ToBeamCode = $(".sjZhou").val();
+        entity.FromBeamCode = $(".zjZhousure").text();
+        entity.ToBeamCode = $(".sjZhousure").text();
         entity.Remark = $(".remarks").val();
         localStorage.getItem("handle") == "edit"
           ? (entity.ID = localStorage.getItem("ids"))
@@ -319,6 +336,9 @@ export default {
     }
   },
   created() {
+    // 接收安卓方法
+    window.javaAll = this.javaAll;
+
     this.tzConfirmerList();
     localStorage.setItem("handle", this.$route.query.handle);
     if (localStorage.getItem("handle") == "edit") {
@@ -366,6 +386,10 @@ export default {
   height: auto;
   min-height: 6.7rem;
   padding-bottom: 1.3rem;
+  .zjZhousure,.sjZhousure{
+    width: 0.6rem;
+    // border: 1px solid red;
+  }
   .delateitem {
     position: absolute;
     margin-top: -0.3rem;
@@ -508,7 +532,7 @@ export default {
   span {
     color: white;
     display: inline-block;
-    margin-right: 0.1rem;
+    margin-right: 0.05rem;
   }
   span:nth-child(2),
   :nth-child(5) {
@@ -516,7 +540,7 @@ export default {
   }
   span:nth-child(3) {
     vertical-align: bottom;
-    margin: 0 0.25rem 0 0.25rem;
+    margin:0 0.2rem;
   }
 }
 .nonesBorder {

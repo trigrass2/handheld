@@ -14,7 +14,6 @@
           <div>{{listdata.PF}}</div>
         </div>
       </div>
-	    <input type="text" class="inps" />
       <div class="watchAll" @click="watchAll()">
         <span style="color: #007EFF;">查看全部参数></span>
       </div>
@@ -74,11 +73,6 @@ export default {
     };
   },
   methods: {
-  	javaAll:function(str){
-  		$('.inps').text(str)
-  	},
-  	
-  	
   	
     //获取页面数据
     lists: function() {
@@ -125,15 +119,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.inps{
-  position: absolute;
-  opacity: 0.5;
-	width: 3rem;
-	height: 1rem;
-  border:2px solid red;
-  left: 0.3rem;
-  top: 5.2rem;
-}
 .bg1 {
   font-size: 0.17rem;
   .body-item {
