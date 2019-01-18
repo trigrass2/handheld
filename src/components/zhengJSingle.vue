@@ -72,9 +72,9 @@ export default {
       listdata: {}
     };
   },
-  updated(){
-    $('#app').css('overflow-y','hidden')
-  },
+  // updated(){
+  //   $('#app').css('overflow-y','hidden')
+  // },
   methods: {
   	
     //获取页面数据
@@ -115,6 +115,9 @@ export default {
       }
     }
   },
+  // mounted(){
+  //   $('#app').css('overflow-y','hidden')
+  // },
   created() {
     this.lists();
   },

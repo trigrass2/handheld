@@ -141,9 +141,9 @@ export default {
 </script>
 <style lang="less" scoped>
 .delatedetail{
-  position: absolute;
-  margin-left: 3.25rem;
-  margin-top: 0.13rem;
+  position: fixed;
+  left: 3.25rem;
+  top: 0.12rem;
   z-index: 99999;
   >img{
     height: 0.2rem;
@@ -153,11 +153,11 @@ export default {
   top: -0.6rem;
 }
 .bg1 {
-  padding-top: 0.12rem;
+  padding-top: 0.06rem;
   padding-bottom: 0.2rem;
   font-size: 0.17rem;
   font-family: 'ionicons';
-  min-height: 6.7rem;
+  min-height: 100%;
   height: auto;
   margin-top: 0.48rem;
   .body-item {

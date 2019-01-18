@@ -161,8 +161,8 @@ export default {
     // 删除
     delateitem: function(index) {
       this.$confirm("确定删除此责任人吗？", "", {
-        // confirmButtonText: '确定',
-        // cancelButtonText: '取消',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
         type: ""
       })
         .then(() => {
@@ -173,8 +173,8 @@ export default {
           });
           this.num.splice(index, 1);
           console.log($(".add-item").length);
-		  this.startTime[index] ==''?'':this.startRadios.splice(index,1);
-          this.endTime[index] ==''?'':this.endRadios.splice(index,1);
+		      this.startTime[index] ==''?'':this.startTime.splice(index,1);
+          this.endTime[index] ==''?'':this.endTime.splice(index,1);
         })
         .catch(() => {
           this.$message({
@@ -186,19 +186,19 @@ export default {
     },
     delateitem2: function(index) {
       this.$confirm("确定删除此责任人吗？", "", {
-        // confirmButtonText: '确定',
-        // cancelButtonText: '取消',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
         type: ""
       })
-        .then(() => {
+      .then(() => {
           this.$message({
             showClose: true,
             type: "success",
             message: "删除成功!"
           });
 		  this.fuzeersLists.splice(index, 1);
-		  this.startTime[index] ==''?'':this.startRadios.splice(index,1);
-          this.endTime[index] ==''?'':this.endRadios.splice(index,1);
+		  this.startTime[index] ==''?'':this.startTime.splice(index,1);
+          this.endTime[index] ==''?'':this.endTime.splice(index,1);
 
           console.log(this.fuzeersLists);
         })

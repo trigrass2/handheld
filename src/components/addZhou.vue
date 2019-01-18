@@ -32,7 +32,7 @@
       </div>
     </div>
     <div class="add-item" v-for="(i , index)  in fuzeersLists">
-      <p>责任人{{index+1}}</p><div class="delateitem" @click="delateitem2(index)">删除</div>
+      <p>责任人{{index+1}}</p><div class="delateitem" @click="delateitem(index,'1')">删除</div>
       <div class="basic" id="addsDetail">
         <div>
           <div>责任人</div>
@@ -95,7 +95,7 @@
       </div>
     </div>
     <div class="add-item" v-for="(i , index)  in num" :key="index">
-      <p>责任人{{index+fuzeersLists.length+1}}</p><div class="delateitem" @click="delateitem(index)">删除</div>
+      <p>责任人{{index+fuzeersLists.length+1}}</p><div class="delateitem" @click="delateitem(index,'2')">删除</div>
       <div class="basic" id="addsDetail">
         <div>
           <div>责任人</div>
@@ -191,19 +191,24 @@ export default {
        var i =1;
       this.num.push(i);
     },
-    // 删除
-    delateitem:function(index){
+    // 删除责任人
+    delateitem:function(index,tag){
       this.$confirm('确定删除此责任人吗？', '',{
           // confirmButtonText: '确定',
           // cancelButtonText: '取消',
-          type: 'warning'
+          // type: 'warning'
         }).then(() => {
           this.$message({
             showClose: true,
             type: 'success',
             message: '删除成功!'
           });
-          this.num.splice(index,1);
+          if(tag == '1'){
+            this.fuzeersLists.splice(index,1);
+          }else if(tag == '2'){
+            this.num.splice(index,1);
+          }
+          
           console.log(this.startRadios[index]);
           this.startRadios[index] ==''?'':this.startRadios.splice(index,1);
           this.endRadios[index] ==''?'':this.endRadios.splice(index,1);
@@ -216,29 +221,6 @@ export default {
           });          
         });
         
-    },
-    delateitem2:function(index){
-      this.$confirm('  确定删除此责任人吗？', '',{
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-        }).then(() => {
-          this.$message({
-            showClose: true,
-            type: 'success',
-            message: '删除成功!'
-          });
-          this.fuzeersLists.splice(index,1);
-          console.log(this.startRadios[index] =='');
-          this.startRadios[index] ==''?'':this.startRadios.splice(index,1);
-          this.endRadios[index] ==''?'':this.endRadios.splice(index,1);
-          // console.log(this.fuzeersLists)
-        }).catch(() => {
-          this.$message({
-            showClose: true,
-            type: 'info',
-            message: '已取消删除'
-          });          
-        });
     },
     confirms: function() {
       //非空验证

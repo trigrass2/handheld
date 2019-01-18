@@ -154,7 +154,7 @@
 			},
 
 			infiniteDone() {
-				this.infiniteLoading = false
+				this.infiniteLoading = false 
 			},
 
 			onScroll(e) {
