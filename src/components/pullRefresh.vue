@@ -11,7 +11,7 @@
 			<slot></slot>
 			<footer class="load-more">
 				<slot name="load-more">
-					<span v-show="downFlag === false">上啦加载更多</span>
+					<span v-show="downFlag === false">上拉加载更多</span>
                     <span v-show="downFlag === true">加载中……</span>
 				</slot>
 			</footer>
@@ -184,7 +184,7 @@
 	}
 	.yo-scroll .inner {
 		position: absolute;
-		top: -.4rem;
+		/* top: -0.1rem; */
 		width: 100%;
 		transition-duration: 300ms;
 	}
@@ -194,7 +194,7 @@
 		left: 0;
 		top: 0;
 		width: 100%;
-		height: 1rem;
+		height: 0.6rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
