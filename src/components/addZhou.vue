@@ -212,8 +212,8 @@ export default {
             this.endRadios.splice(index, 1);
             this.fuzeersLists.splice(index,1);
           }else if(tag == '2'){
-             this.startRadios[index] == ""? "": this.startRadios.splice(index, 1);
-             this.endRadios[index] == "" ? "" : this.endRadios.splice(index, 1);
+             this.startRadios[index+this.fuzeersLists.length] == ""? "": this.startRadios.splice(index+this.fuzeersLists.length, 1);
+             this.endRadios[index+this.fuzeersLists.length] == "" ? "" : this.endRadios.splice(index+this.fuzeersLists.length, 1);
             this.num.splice(index,1);
           }
           
@@ -300,7 +300,7 @@ export default {
         }
         this.$axios({
           method: "post",
-          url: "API/WarpingOrder/SaveWarpingDetail",
+          url: localStorage.getItem("IP")+"/WarpingOrder/SaveWarpingDetail",
           data: {
             entity: entity,
             empjson: emps
@@ -327,7 +327,7 @@ export default {
       //筒子确认者列表
       this.$axios({
         method: "post",
-        url: "API/WarpingOrder/GetEmpDropDownList"
+        url: localStorage.getItem("IP")+"/WarpingOrder/GetEmpDropDownList"
       })
         .then(res => {
           // console.log(res);
@@ -339,7 +339,7 @@ export default {
       //垫圈确认者列表
       this.$axios({
         method: "post",
-        url: "API/WarpingOrder/GetBShiftDrpDownList"
+        url: localStorage.getItem("IP")+"/WarpingOrder/GetBShiftDrpDownList"
       })
         .then(res => {
           // console.log(res);
@@ -355,7 +355,7 @@ export default {
     if(this.$route.query.handle == 'edit'){
 				this.$axios({
 					method: 'post',
-					url: 'API/WarpingOrder/GetWarpingDetailByID',
+					url: localStorage.getItem("IP")+'/WarpingOrder/GetWarpingDetailByID',
 					data:{
 						id:this.$route.query.id
 					}

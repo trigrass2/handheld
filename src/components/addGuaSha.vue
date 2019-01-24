@@ -41,7 +41,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="add-item" v-for="(i , index)  in fuzeersLists">
+		<div class="add-item pristin" v-for="(i , index)  in fuzeersLists">
 			<p>责任人{{index+1}}</p>
 			<div class="delateitem" @click="delateitem(index,'1')">删除</div>
 			<div class="basic" id="addsDetail">
@@ -49,7 +49,7 @@
 					<div>责任人</div>
 					<div class="rt">
 						<select class="zeren">
-							<option :value="i.EmpID">{{i.EmpName}}</option>
+							<!-- <option :value="i.EmpID">{{i.EmpName}}</option> -->
 							<option v-for="(item,tag) in empList" :value="item.Value" :key="tag">{{item.Text}}</option>
 						</select>
 						<img src="../assets/img/819.png">
@@ -73,7 +73,7 @@
 					<div>班别</div>
 					<div class="rt">
 						<select class="classBan">
-							<option :value="i.ClassBan">{{i.ClassBanName}}</option>
+							<!-- <option :value="i.ClassBan">{{i.ClassBanName}}</option> -->
 							<option v-for="(item,flag) in drpList" :value="item.Value" :key="flag">{{item.Text}}</option>
 						</select>
 						<img src="../assets/img/819.png">
@@ -161,6 +161,8 @@
 			},
 			// 删除
 			delateitem: function(index, tag) {
+				console.log(this.startRadios);
+				console.log(tag,index+this.fuzeersLists.length);
 				this.$confirm("确定删除此责任人吗？", "", {
 						// confirmButtonText: '确定',
 						// cancelButtonText: '取消',
@@ -177,8 +179,8 @@
 							this.startRadios.splice(index, 1);
 							this.endRadios.splice(index, 1);
 						} else if(tag == "2") {
-							this.startRadios[index] == "" ? "" : this.startRadios.splice(index, 1);
-							this.endRadios[index] == "" ? "" : this.endRadios.splice(index, 1);
+							this.startRadios[index+this.fuzeersLists.length] == "" ? "" : this.startRadios.splice(index+this.fuzeersLists.length, 1);
+							this.endRadios[index+this.fuzeersLists.length] == "" ? "" : this.endRadios.splice(index+this.fuzeersLists.length, 1);
 							this.num.splice(index, 1);
 						}
 						console.log($(".add-item").length);
@@ -265,7 +267,7 @@
 					}
 					this.$axios({
 							method: "post",
-							url: "API/WarpingOrder/SaveWarYarnHung",
+							url: localStorage.getItem("IP")+"/WarpingOrder/SaveWarYarnHung",
 							data: {
 								entity: entity,
 								empjson: emplist
@@ -292,17 +294,18 @@
 				//筒子确认者列表
 				this.$axios({
 						method: "post",
-						url: "API/WarpingOrder/GetEmpDropDownList"
+						url: localStorage.getItem("IP")+"/WarpingOrder/GetEmpDropDownList"
 					}).then(res => {
 						this.empList = res.data.data;
+						console.log(this.empList);
 					})
 					.catch(error => {
 						console.log(error);
 					});
-				//垫圈确认者列表
+				//班别列表
 				this.$axios({
 						method: "post",
-						url: "API/WarpingOrder/GetBShiftDrpDownList"
+						url: localStorage.getItem("IP")+"/WarpingOrder/GetBShiftDrpDownList"
 					}).then(res => {
 						this.drpList = res.data.data;
 					})
@@ -316,7 +319,7 @@
 			if(this.$route.query.handle == "edit") {
 				this.$axios({
 						method: "post",
-						url: "API/WarpingOrder/GetWarpYarnHungByID",
+						url: localStorage.getItem("IP")+"/WarpingOrder/GetWarpYarnHungByID",
 						data: {
 							id: this.$route.query.id
 						}
@@ -327,16 +330,21 @@
 						$('.dqConfirmer').val(res.data.data.detailentity.CloutCheckerID)
 
 						this.fuzeersLists = res.data.data.emps;
-						
+						console.log(this.fuzeersLists);
+						$(".original .zeren option:selected").val(this.fuzeersLists[0].EmpID);
+							$(".original1").val(this.fuzeersLists[1].EmpID);
 						//循环输出时间，并赋值
 						for(let i = 0; i < this.fuzeersLists.length; i++) {
 							this.startRadios.push(this.fuzeersLists[i].BeginTime);
 							this.endRadios.push(this.fuzeersLists[i].EndTime);
 //							this.empers.push(this.fuzeersLists[i].EmpID)
 //							this.banbies.push(this.fuzeersLists[i].ClassBan)
-						}
-						
-						
+							$(".pristin .zeren").eq(i).val(this.fuzeersLists[i].EmpID);
+							// $(".original1").val(this.fuzeersLists[1].EmpID);
+							// console.log($('.zeren:eq('+i+')').value);
+							console.log(this.fuzeersLists[i].EmpID);
+							// $('.classBan')[i].val(this.fuzeersLists[i].ClassBan);
+						}						
 					})
 					.catch(error => {
 						console.log(error);

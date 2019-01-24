@@ -207,7 +207,7 @@ export default {
       //责任人
       this.$axios({
         method: "post",
-        url: "API/WarpingOrder/GetEmpDropDownList"
+        url: localStorage.getItem("IP")+"/WarpingOrder/GetEmpDropDownList"
       })
         .then(res => {
           this.empList = res.data.data;
@@ -219,7 +219,7 @@ export default {
       //班别
       this.$axios({
         method: "post",
-        url: "API/WarpingOrder/GetBShiftDrpDownList"
+        url: localStorage.getItem("IP")+"/WarpingOrder/GetBShiftDrpDownList"
       })
         .then(res => {
           this.drpList = res.data.data;
@@ -229,7 +229,7 @@ export default {
           console.log(error);
         });
     },
-    confirms: function() {
+    confirms: function() { 
 	  //先移除点击日期控件创建的干扰元素
       $('.el-picker-panel').remove();
     	//循环遍历判断这个日期控件使用的input值
@@ -297,7 +297,7 @@ export default {
 	        console.log(emps);
 	        this.$axios({
 	          method: "post",
-	          url: "API/WarpingOrder/SaveWarpReBeamDetailData",
+	          url: localStorage.getItem("IP")+"/WarpingOrder/SaveWarpReBeamDetailData",
 	          data: {
 	            entity: entity,
 	            emps: emps
@@ -331,7 +331,7 @@ export default {
       localStorage.setItem("ids", this.ids);
       this.$axios({
         method: "post",
-        url: "API/WarpingOrder/GetReBeamDetailDataByID",
+        url: localStorage.getItem("IP")+"/WarpingOrder/GetReBeamDetailDataByID",
         data: {
           id: localStorage.getItem("ids")
         }

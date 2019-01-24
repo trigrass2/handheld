@@ -115,7 +115,7 @@ export default {
       } else {
         this.$axios({
           method: "post",
-          url: "API/WarpingOrder/GetWarpingDetailListData",
+          url: localStorage.getItem("IP")+"/WarpingOrder/GetWarpingDetailListData",
           data: {
             orderid: localStorage.getItem("zjID"),
             pageindex: counters,
@@ -140,7 +140,7 @@ export default {
     dataList: function() {
       this.$axios({
         method: "post",
-        url: "API/WarpingOrder/GetWarpingDetailListData",
+        url: localStorage.getItem("IP")+"/WarpingOrder/GetWarpingDetailListData",
         data: {
           orderid: localStorage.getItem("zjID"),
           pageindex: "0",

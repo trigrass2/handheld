@@ -393,7 +393,7 @@
 				// console.log(tag);
                 	this.$axios({
 		      	    method: 'post',
-		      	    url: 'API/WarpingOrder/GetWarpSizingConditionByID',
+		      	    url: localStorage.getItem("IP")+'/WarpingOrder/GetWarpSizingConditionByID',
 		      	    data:{
 		      	    	id:tag,
 		      	    }
@@ -409,7 +409,7 @@
         	listData:function(){
         		this.$axios({
 		      	    method: 'post',
-		      	    url: 'API/WarpingOrder/GetWarpOrderByID',
+		      	    url: localStorage.getItem("IP")+'/WarpingOrder/GetWarpOrderByID',
 		      	    data:{
 		      	    	id:localStorage.getItem("zjID"),
 						type:"1"
@@ -426,7 +426,7 @@
 		      	
 		      	this.$axios({
 		      	    method: 'post',
-		      	    url: 'API/WarpingOrder/GetWarpSizingConditionByOrderid',
+		      	    url: localStorage.getItem("IP")+'/WarpingOrder/GetWarpSizingConditionByOrderid',
 		      	    data:{
 		      	    	orderid:localStorage.getItem("zjID")
 		      	    }

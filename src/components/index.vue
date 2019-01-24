@@ -76,7 +76,7 @@ export default {
       let vm = this;
       this.$axios({
         method: "post",
-        url: "API/WarpingOrder/GetWarpOrderListData",
+        url: API+"/WarpingOrder/GetWarpOrderListData",
         data: {
           pageindex: "0",
           pagesize: this.num
@@ -117,7 +117,7 @@ export default {
       } else {
         this.$axios({
           method: "post",
-          url: "API/WarpingOrder/GetWarpOrderListData",
+          url: localStorage.getItem("IP")+"/WarpingOrder/GetWarpOrderListData",
           data: {
             pageindex: counters,
             pagesize: this.num

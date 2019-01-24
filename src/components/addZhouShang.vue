@@ -88,7 +88,7 @@
 				</div>
 				<div class="block">
 					<span class="demonstration">结束时间</span>
-					<el-date-picker v-model="endTime[index+fuzeersLists.lengthex]" type="datetime" placeholder="选择日期" :editable="false" class="rt dates endTime" size="small" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
+					<el-date-picker v-model="endTime[index+fuzeersLists.length]" type="datetime" placeholder="选择日期" :editable="false" class="rt dates endTime" size="small" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 				</div>
 				<div style="border-bottom: none;">
 					<div>班别</div>
@@ -214,7 +214,7 @@ export default {
       //筒子确认者列表
       this.$axios({
         method: "post",
-        url: "API/WarpingOrder/GetEmpDropDownList"
+        url: localStorage.getItem("IP")+"/WarpingOrder/GetEmpDropDownList"
       })
         .then(res => {
           // console.log(res);
@@ -226,7 +226,7 @@ export default {
       //班别列表
       this.$axios({
         method: "post",
-        url: "API/WarpingOrder/GetBShiftDrpDownList"
+        url: localStorage.getItem("IP")+"/WarpingOrder/GetBShiftDrpDownList"
       })
         .then(res => {
           // console.log(res);
@@ -311,7 +311,7 @@ export default {
 	        }
 	        this.$axios({
 	          method: "post",
-	          url: "API/WarpingOrder/SaveWarpsizingData",
+	          url: localStorage.getItem("IP")+"/WarpingOrder/SaveWarpsizingData",
 	          data: {
 	            entity: entity,
 	            emplist: emplist
@@ -332,97 +332,7 @@ export default {
 	            console.log(error);
 	          });
 		}
-      
-      
 
-
-      
-      //非空验证
-      if (
-        $(".chooseSJ").text() == "选择上浆单" ||
-        $(".zjZhou").val() == "" ||
-        $(".sjZhou").val() == "" ||
-        // $(".zjZhou").text() == "请选择" ||
-        // $(".sjZhou").text() == "请选择" ||
-        $(".zeren").val() == "" ||
-        $(".zeren").val() == null ||
-        $(".length").val() == "" ||
-        $(".tcNum").val() == "" ||
-        $(".el-input__inner").val() == "" ||
-        $(".classBan").val() == "" ||
-        $(".classBan").val() == null
-      ) {
-        this.$message({
-          showClose: true,
-          message: "请完善信息",
-          type: "error",
-          center: true
-        });
-      } else {
-        //不为空之后
-
-        let entity = {};
-        entity.WarpSizingID = WarpSizingID;
-        entity.WarpSizingCode = WarpSizingCode;
-        entity.WarpOrderID = WarpOrderID;
-        entity.WarpOrderCode = WarpOrderCode;
-        entity.FromBeamCode = $(".zjZhou").val();
-        entity.ToBeamCode = $(".sjZhou").val();
-        entity.Remark = $(".remarks").val();
-        localStorage.getItem("handle") == "edit"
-          ? (entity.ID = localStorage.getItem("ids"))
-          : "";
-
-        let emplist = [];
-
-        for (let i = 0; i < $(".add-item").length; i++) {
-          let emplisters = {};
-          emplisters.EmpID = $(".zeren")
-            .eq(i)
-            .val();
-          emplisters.EmpName = $(".zeren option:selected")
-            .eq(i)
-            .text();
-          emplisters.Lenght = $(".length")
-            .eq(i)
-            .val();
-          emplisters.DoNum = $(".tcNum")
-            .eq(i)
-            .val();
-          emplisters.BeginTime = this.startTime[i];
-          emplisters.EndTime = this.endTime[i];
-          emplisters.ClassBan = $(".classBan")
-            .eq(i)
-            .val();
-          emplisters.ClassBanName = $(".classBan option:selected")
-            .eq(i)
-            .text();
-
-          emplist.push(emplisters);
-        }
-        this.$axios({
-          method: "post",
-          url: "API/WarpingOrder/SaveWarpsizingData",
-          data: {
-            entity: entity,
-            emplist: emplist
-          }
-        })
-          .then(res => {
-            console.log(res);
-            this.$message({
-              showClose: true,
-              message:
-                this.$route.query.handle == "add" ? "新增成功" : "修改成功",
-              type: "success",
-              center: true
-            });
-            this.$router.push("shangJ");
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      }
     }
   },
   created() {
@@ -435,7 +345,7 @@ export default {
       localStorage.setItem("ids", this.ids);
       this.$axios({
         method: "post",
-        url: "API/WarpingOrder/GetWarpsizingDataByID",
+        url: localStorage.getItem("IP")+"/WarpingOrder/GetWarpsizingDataByID",
         data: {
           id: localStorage.getItem("ids")
         }
