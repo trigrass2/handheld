@@ -9,22 +9,21 @@
       </div>
       <div class="details">
         <div class="tails" @click="$router.push('shangJDetail?id='+item.ID)">
+          <div class="rightnum">
+            <div class="top-one">整经轴号<span></span></div>
+            <div class="top-two">{{item.FromBeamCode}}</div>
+          </div>
+          <div class="rightnum">
+            <div class="top-one">上浆轴号<span></span></div>
+            <div class="top-two">{{item.ToBeamCode}}</div>
+          </div>
           <div>
-            <span class="top-one">整经轴号</span>
-            <span class="top-two">{{item.FromBeamCode}}</span>
-            <span>
-              <img src="../assets/img/821.png">
-            </span>
-            <span class="top-one">上浆轴号</span>
-            <span class="top-two">{{item.ToBeamCode}}</span>
+            <div>米数<span></span></div>
+            <div>{{item.Length}}</div>
           </div>
-          <div class="rightnum">
-            <span>米数</span>
-            <span>{{item.Length}}</span>
-          </div>
-          <div class="rightnum">
-            <span>时间</span>
-            <span>{{item.WarpDate}}</span>
+          <div>
+            <div>时间<span></span></div>
+            <div>{{item.WarpDate}}</div>
           </div>
         </div>
         <div class="edit rt">
@@ -91,7 +90,7 @@ export default {
       } else {
         this.$axios({
           method: "post",
-          url: "api/WarpingOrder/GetWarpsizingList",
+          url: "API/WarpingOrder/GetWarpsizingList",
           data: {
             orderid:localStorage.getItem("zjID"),
             pageindex: counters,
@@ -116,7 +115,7 @@ export default {
     lists: function() {
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/GetWarpsizingList",
+        url: "API/WarpingOrder/GetWarpsizingList",
         data: {
           orderid: localStorage.getItem("zjID"),
           pageindex: "0",
@@ -138,6 +137,9 @@ export default {
   },
   created() {
     this.lists();
+  },
+  mounted() {
+    $("#app").css("overflow-y", "auto");
   },
   updated() {
     $(".nullData").css("padding-bottom", "0.5rem");
@@ -170,52 +172,52 @@ export default {
     .details {
       background-color: white;
       width: 3.4rem;
-      height: 1.03rem;
+      height: 1.29rem;
       margin: 0 auto;
       margin-top: 0.1rem;
-      > div {
-        display: inline-block;
-      }
+      display: flex;
       .tails {
-        font-size: 0.16rem;
-        .rightnum{
+        padding: 0.1rem 0.15rem;
+        // background: pink;
+        font-size: 0.17rem;
+        width: 2.7rem;
+        > div {
+          display: flex;
+          width: 2.65rem;
+          margin-bottom: 0.05rem;
+          font-size: 0.17rem;
           color: #999;
-          >span{
-             margin-right: 0.1rem;
+          height: 0.18rem;
+          > div:first-child {
+            width: 0.7rem;
+            text-align: justify;
+            margin-right: 0.16rem;
+            > span {
+              display: inline-block /* Opera */;
+              padding-left: 100%;
+            }
           }
+          // > div:last-child {
+          //   color: #333;
+          // }
         }
-        div {
-          margin-top: 0.08rem;
-          margin-left: 0.15rem;
-          .top-one {
-            // width: 0.75rem;
-            display: inline-block;
-            // color: #999;
-          }
-          .top-two {
-            display: inline-block;
-            width: 0.55rem;
-            text-align: center;
-            color: #333;
+        .rightnum{
+          height: 0.25rem;
+          color: #333;
+          >div:last-child{
+            color: #FFA237;
             font-weight: bold;
           }
-          img {
-            width: 0.16rem;
-            vertical-align: middle;
-            // margin: 0 0.1rem 0 0.1rem;
-          }
         }
-        div:first-child {
-          margin-top: 0.12rem;
-        }
+     
       }
       .edit {
         background-color: #4cbec0;
         width: 0.45rem;
-        height: 0.73rem;
+        height: 0.841rem;
         text-align: center;
         color: white;
-        padding-top: 0.3rem;
+        padding-top: 0.45rem;
       }
     }
   }

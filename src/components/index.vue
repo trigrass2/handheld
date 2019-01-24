@@ -59,6 +59,7 @@ export default {
   },
   mounted: function() {
     this.getList();
+    $(".back").css("display", "none");
   },
   updated() {
     $(".back").css("display", "none");
@@ -71,10 +72,11 @@ export default {
     },
 
     getList() {
+    	var API = localStorage.getItem("IP");
       let vm = this;
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/GetWarpOrderListData",
+        url: "API/WarpingOrder/GetWarpOrderListData",
         data: {
           pageindex: "0",
           pagesize: this.num
@@ -115,7 +117,7 @@ export default {
       } else {
         this.$axios({
           method: "post",
-          url: "api/WarpingOrder/GetWarpOrderListData",
+          url: "API/WarpingOrder/GetWarpOrderListData",
           data: {
             pageindex: counters,
             pagesize: this.num
@@ -154,15 +156,15 @@ export default {
 }
 .bg1 {
   padding-top: 0.06rem;
-  padding-bottom: 0.2rem;
+  // padding-bottom: 0.2rem;
   font-size: 0.17rem;
-  font-family: 'ionicons';
+  font-family: '';
   min-height: 100%;
   height: auto;
   margin-top: 0.48rem;
   .body-item {
     width: 3.4rem;
-    height: 1.54rem;
+    height: 1.6rem;
     background-color: white;
     margin: 0 auto;
     margin-top: 0.12rem;

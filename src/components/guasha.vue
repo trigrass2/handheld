@@ -61,11 +61,14 @@ export default {
   updated() {
     $(".nullData").css("padding-bottom", "0.5rem");
   },
+  mounted() {
+    $("#app").css("overflow-y", "auto");
+  },
   methods: {
     shaList: function() {
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/GetWarpYarnHungListData",
+        url: "API/WarpingOrder/GetWarpYarnHungListData",
         data: {
           orderid:localStorage.getItem("zjID"),
           pageindex: "0",
@@ -111,7 +114,7 @@ export default {
       } else {
         this.$axios({
           method: "post",
-          url: "api/WarpingOrder/GetWarpYarnHungListData",
+          url: "API/WarpingOrder/GetWarpYarnHungListData",
           data: {
             orderid:localStorage.getItem("zjID"),
             pageindex: counters,

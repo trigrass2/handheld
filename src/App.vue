@@ -115,4 +115,9 @@
 		width: .34rem;
 		height: .01rem;
 	}
+	select{
+		width: auto;
+	}
+
+
 </style>

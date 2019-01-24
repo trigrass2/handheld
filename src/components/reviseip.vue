@@ -23,10 +23,33 @@ export default {
       }
     };
   },
+  mounted(){
+    $('#app').css('overflow-y','hidden');
+  },
   updated() {
     $(".back").css("display", "none");
   },
-  methods: {},
+  methods: {
+    login: function() {
+      var pattern = /(2(5[0-5]{1}|[0-4]\d{1})|[0-1]?\d{1,2})(\.(2(5[0-5]{1}|[0-4]\d{1})|[0-1]?\d{1,2})){3}/g;
+      if (pattern.test($(".ipadress").val())) {
+        this.$message({
+          showClose: true,
+          message: "IP地址正确",
+          type: "success",
+          center: true
+        });
+        this.$router.push("index");
+      } else {
+        this.$message({
+          showClose: true,
+          message: "IP地址错误",
+          type: "error",
+          center: true
+        });
+      }
+    }
+  },
   created() {}
 };
 </script>
@@ -61,6 +84,7 @@ export default {
       padding: 0 0.1rem;
       border-radius: 0.02rem;
       margin-bottom: 0.26rem;
+      padding-bottom: 0.03rem;
     }
     input:focus{
       border: 1px solid rgb(138, 175, 255);

@@ -233,7 +233,7 @@ export default {
   	details:function(){
   		this.$axios({
       	    method: 'post',
-      	    url: 'api/WarpingOrder/GetWarpSizingConditionByID',
+      	    url: 'API/WarpingOrder/GetWarpSizingConditionByID',
       	    data:{
       	    	id:this.$route.query.id,
       	    }

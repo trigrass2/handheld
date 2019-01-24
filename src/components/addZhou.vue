@@ -22,7 +22,7 @@
       </div>
       <div>
         <div>对头次数</div>
-        <div>请在责任人中输入</div>
+        <div class="rt">请在责任人中输入</div>
       </div>
       <div id="remark">
         <div>备注</div>
@@ -76,6 +76,7 @@
               placeholder="选择日期"
               class="startTime"
               value-format="yyyy-MM-dd HH:mm"
+              :editable="false"
             ></el-date-picker>
           </div>
         </div>
@@ -89,6 +90,7 @@
               placeholder="选择日期"
               class="startTime"
               value-format="yyyy-MM-dd HH:mm"
+              :editable="false"
             ></el-date-picker>
           </div>
         </div>
@@ -137,6 +139,7 @@
               placeholder="选择日期"
               class="startTime"
               value-format="yyyy-MM-dd HH:mm"
+              :editable="false"
             ></el-date-picker>
           </div>
         </div>
@@ -150,6 +153,7 @@
               placeholder="选择日期"
               class="startTime"
               value-format="yyyy-MM-dd HH:mm"
+              :editable="false"
             ></el-date-picker>
           </div>
         </div>
@@ -204,14 +208,23 @@ export default {
             message: '删除成功!'
           });
           if(tag == '1'){
+            this.startRadios.splice(index, 1);
+            this.endRadios.splice(index, 1);
             this.fuzeersLists.splice(index,1);
           }else if(tag == '2'){
+             this.startRadios[index] == ""? "": this.startRadios.splice(index, 1);
+             this.endRadios[index] == "" ? "" : this.endRadios.splice(index, 1);
             this.num.splice(index,1);
           }
           
           console.log(this.startRadios[index]);
-          this.startRadios[index] ==''?'':this.startRadios.splice(index,1);
-          this.endRadios[index] ==''?'':this.endRadios.splice(index,1);
+          // if(this.$route.query.handle == "add"){
+          //    this.startRadios[index] == ""? "": this.startRadios.splice(index, 1);
+          //    this.endRadios[index] == "" ? "" : this.endRadios.splice(index, 1);
+          // }else{
+          //   this.startRadios.splice(index, 1);
+          //   this.endRadios.splice(index, 1);
+          // }
     
         }).catch(() => {
           this.$message({
@@ -223,40 +236,30 @@ export default {
         
     },
     confirms: function() {
-      //非空验证
-      if (
-        $(".jzbianhao").val() == "" ||
-        $(".duansha").val() == "" ||
-        $(".maoyunum").val() == "" ||
-        $(".pemilength").val() == "" ||
-        $(".zrpeople").val() == "" ||
-        $(".zrpeople").val() == null ||
-        $(".duitou").val() == "" ||
-        this.startRadios == "" ||
-        this.endRadios == "" ||
-        $(".classBan").val() == ""||
-        $(".classBan").val() == null
-      ) {
-        this.$message({
-          showClose: true,
-          message: "请完善信息",
-          type: "error",
-          center: true
-        });
-        for (var i = 0; i < $("input.el-input__inner").length; i++) {
-          if ($("input.el-input__inner").val() == "") {
-            this.$message({
-              showClose: true,
-              message: "请完善信息",
-              type: "error",
-              center: true
-            });
-          }
-        }
-      } else {
-        //不为空之后
-        console.log();
-        let entity = {};
+    //先移除点击日期控件创建的干扰元素
+    $('.el-picker-panel').remove();
+    //循环遍历判断这个日期控件使用的input值
+		if($(".jzbianhao").val() == "" || $(".duansha").val() == "" || $(".maoyunum").val() == "" ){
+				this.$message({
+					showClose: true,
+					message: "请完善信息",
+					type: "error",
+					center: true
+				});
+		}else{
+			for(var i=0;i<$('.add-item').length;i++){
+				if($('.zrpeople')[i].value == "" || $('.pemilength')[i].value==""|| $('.duitou')[i].value=="" || $("input.el-input__inner[readonly='readonly']")[2*i].value == "" || $("input.el-input__inner[readonly='readonly']")[2*i+1].value == ""){
+					this.$message({
+						showClose: true,
+						message: "请完善信息",
+						type: "error",
+						center: true
+					});
+					return;
+				}
+			}
+			//不为空之后
+			let entity = {};
         entity.WarpOrderID = localStorage.getItem("zjID");
         entity.WarpOrderCode = localStorage.getItem("zjCODE");
         entity.BeamCode = $(".jzbianhao").val();
@@ -295,11 +298,9 @@ export default {
 
           emps.push(emplisters);
         }
-        // console.log(entity);
-        // console.log(emps);
         this.$axios({
           method: "post",
-          url: "api/WarpingOrder/SaveWarpingDetail",
+          url: "API/WarpingOrder/SaveWarpingDetail",
           data: {
             entity: entity,
             empjson: emps
@@ -319,13 +320,14 @@ export default {
           .catch(error => {
             console.log(error);
           });
-      }
+		}
+		
     },
     tzConfirmerList: function() {
       //筒子确认者列表
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/GetEmpDropDownList"
+        url: "API/WarpingOrder/GetEmpDropDownList"
       })
         .then(res => {
           // console.log(res);
@@ -337,7 +339,7 @@ export default {
       //垫圈确认者列表
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/GetBShiftDrpDownList"
+        url: "API/WarpingOrder/GetBShiftDrpDownList"
       })
         .then(res => {
           // console.log(res);
@@ -348,12 +350,12 @@ export default {
         });
     }
   },
-  created() {
+  created:function() {
     this.tzConfirmerList();
     if(this.$route.query.handle == 'edit'){
 				this.$axios({
 					method: 'post',
-					url: 'api/WarpingOrder/GetWarpingDetailByID',
+					url: 'API/WarpingOrder/GetWarpingDetailByID',
 					data:{
 						id:this.$route.query.id
 					}
@@ -370,6 +372,9 @@ export default {
 				});
 			}
   },
+  mounted(){
+    $('#app').css('overflow-y','auto')
+  },
   updated(){
     if($('.add-item').length == '1'){
       $('.delateitem:eq(0)').addClass("disdelate");
@@ -385,17 +390,18 @@ export default {
   display: none;
 }
 .bg1 {
-  position: relative;
+  // position: relative;
   font-size: 0.17rem;
   height: auto;
-  min-height: 6.7rem;
+  min-height: 100%;
   padding-bottom: 0.7rem;
   .delateitem{
-    position: absolute;
+    position: relative;
     margin-top: -0.3rem;
     margin-left: 3rem;
     color: #666;
     font-size: 0.15rem;
+    padding-bottom: 0.1rem
   }
   .basic {
     background-color: white;
@@ -436,7 +442,6 @@ export default {
       background-color: transparent;
       font-size: 0.17rem;
       color: #999;
-      width: 0.8rem;
     }
     img {
       margin-right: 0.15rem;

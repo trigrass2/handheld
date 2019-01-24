@@ -31,19 +31,19 @@
 	        	</div>
 	        	<div>
 	        		<span>筒子个数</span>
-	        		<span class="rt">{{gdList.CheesNum}}</span>
+	        		<span class="rt">{{gdList.CheesNum}} 个</span>
 	        	</div>
 	        	<div>
-	        		<span>卷数长度</span>
-	        		<span class="rt">{{gdList.RollLength}}</span>
+	        		<span>卷取长度</span>
+	        		<span class="rt">{{gdList.RollLength}} 米</span>
 	        	</div>
 	        	<div>
 	        		<span>经纱总根数</span>
-	        		<span class="rt">{{gdList.YarnNum}}</span>
+	        		<span class="rt">{{gdList.YarnNum}} 根</span>
 	        	</div>
 	        	<div style="border: 0;">
 	        		<span>并轴个数</span>
-	        		<span class="rt">{{gdList.SpoolNum}}</span>
+	        		<span class="rt">{{gdList.SpoolNum}} 个</span>
 	        	</div>
 	        </div>
         	<div class="zhengjing workers">
@@ -90,35 +90,35 @@
 	        	</div>
 	        	<div>
 	        		<span>卷取速度</span>
-	        		<span class="rt">{{zjList.RollingSpeed}} 米/分钟</span>
+	        		<span class="rt">{{zjList.RollingSpeed}} m/min</span>
 	        	</div>
 	        	<div>
 	        		<span>总卷取张力</span>
-	        		<span class="rt">{{zjList.ToatalRollingtension}} 公斤</span>
+	        		<span class="rt">{{zjList.ToatalRollingtension}} kg</span>
 	        	</div>
 	        	<div>
 	        		<span>单纱卷取张力</span>
-	        		<span class="rt">{{zjList.YarnRollingtension}} G</span>
+	        		<span class="rt">{{zjList.YarnRollingtension}} g</span>
 	        	</div>
 	        	<div>
 	        		<span>单纱筒子卷取张力</span>
-	        		<span class="rt">{{zjList.BobbinFrameTension}} G</span>
+	        		<span class="rt">{{zjList.BobbinFrameTension}} g</span>
 	        	</div>
-	        	<div>
+	        	<!-- <div>
 	        		<span>总长度</span>
-	        		<span class="rt">{{zjList.TotalLength}} 米</span>
+	        		<span class="rt">{{zjList.TotalLength}} m</span>
 	        	</div>
 	        	<div>
 	        		<span>总羽毛数</span>
 	        		<span class="rt">{{zjList.TotalHairiness}} 个</span>
-	        	</div>
+	        	</div> -->
 	        	<div>
 	        		<span>卷取张力按钮刻度</span>
 	        		<span class="rt">{{zjList.RollTButScale}}</span>
 	        	</div>
 	        	<div style="border: 0;">
 	        		<span>经轴压纱辊压力</span>
-	        		<span class="rt">{{zjList.GauzerollerPress}} 公斤</span>
+	        		<span class="rt">{{zjList.GauzerollerPress}} kg</span>
 	        	</div>
 	        </div>
         </div>
@@ -143,7 +143,7 @@
 	        	<div class="halfs">
 	        		<div>
 	        			<span>卷取速度</span>
-	        			<span class="rt">{{Sizingcondition == null?'':Sizingcondition.RollSpeed}}</span>
+	        			<span class="rt">{{Sizingcondition == null?'':Sizingcondition.RollingSpeed}} m/min</span>
 	        		</div>
 	        		<div style="border-right: none;">
 	        			<span style="margin-left: .15rem;">第一锡林</span>
@@ -205,7 +205,7 @@
 	        	</div>
 	        	<div style="border-bottom: 0;">
 	        		<span>后上油蜡辊转速</span>
-	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.Rollerspeed}} 转</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.Rollerspeed}} rpm</span>
 	        	</div>
 	        </div>
 	        <div class="zhengjing">
@@ -222,19 +222,19 @@
 	        	</div>
 	        	<div>
 	        		<span>压浆辊压力</span>
-	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.PRollerpress}} 公斤</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.PRollerpress}} kg</span>
 	        	</div>
 	        	<div>
 	        		<span>SD部分压力</span>
-	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.SDPartTension}} 公斤</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.SDPartTension}} kg</span>
 	        	</div>
 	        	<div>
 	        		<span>浸没辊压力</span>
-	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.IRollerpress}} 公斤</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.IRollerpress}} kg</span>
 	        	</div>
 	        	<div>
 	        		<span>卷取张力</span>
-	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.RollingTension}} 公斤</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.RollingTension}} kg</span>
 	        	</div>
 	        	<div>
 	        		<span>上浆部分拉伸</span>
@@ -242,7 +242,7 @@
 	        	</div>
 	        	<div>
 	        		<span>经轴最后卷径</span>
-	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.WarpLastRadius}} 厘米</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.WarpLastRadius}} cm</span>
 	        	</div>
 	        	<div>
 	        		<span>烘箱部分拉升</span>
@@ -251,7 +251,8 @@
 	        	<div>
 	        		<span>梳子上浆料附着</span>
 	        		<span class="rt" v-if="Sizingcondition == null?'':Sizingcondition.IsSizeAdhere == 0">是</span>
-	        		<span class="rt" v-else>否</span>
+					<span class="rt" v-if="Sizingcondition == null?'':Sizingcondition.IsSizeAdhere == 1">否</span>
+	        		<span class="rt" v-if="Sizingcondition == null">是/否</span>
 	        	</div>
 	        	<div>
 	        		<span>上浆率</span>
@@ -285,7 +286,7 @@
 	        	</div>
 	        	<div>
 	        		<span>卷取速度</span>
-	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.RollSpeed}} 米/分钟</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.RollSpeed}} m/min</span>
 	        	</div>
 	        	<div>
 	        		<span>经轴幅宽</span>
@@ -293,7 +294,7 @@
 	        	</div>
 	        	<div>
 	        		<span>匹长</span>
-	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.Length}} 米</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.Length}} m</span>
 	        	</div>
 	        </div>
 	        <div class="zhengjing">
@@ -306,7 +307,7 @@
 	        	</div>
 	        	<div>
 	        		<span>经轴最初卷径</span>
-	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.BeamBRadius}} 厘米</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.BeamBRadius}} cm</span>
 	        	</div>
 	        	<div>
 	        		<span>维度(电器粗刻度)</span>
@@ -319,15 +320,15 @@
 	        <div class="list-detail">
 	        	<div>
 	        		<span>卷取张力</span>
-	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.RollingTension}} 公斤</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.BeamRollingTension}} kg</span>
 	        	</div>
 	        	<div>
 	        		<span>单个经轴张力</span>
-	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.BeamTension}} 公斤</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.BeamTension}} kg</span>
 	        	</div>
 	        	<div>
 	        		<span>经轴单纱张力</span>
-	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.YarnTension}} G</span>
+	        		<span class="rt">{{Sizingcondition == null?'':Sizingcondition.YarnTension}} g</span>
 	        	</div>
 	        	<div>
 	        		<span>其他备注</span>
@@ -361,7 +362,10 @@
             SizingCodes:[],
             Sizingcondition:{}
           }
-        },
+		},
+		mounted(){
+		   $('#app').css('overflow-y','auto')
+		},
         methods:{
         	details:function(index){
         		this.isactive=index
@@ -389,7 +393,7 @@
 				// console.log(tag);
                 	this.$axios({
 		      	    method: 'post',
-		      	    url: 'api/WarpingOrder/GetWarpSizingConditionByID',
+		      	    url: 'API/WarpingOrder/GetWarpSizingConditionByID',
 		      	    data:{
 		      	    	id:tag,
 		      	    }
@@ -405,7 +409,7 @@
         	listData:function(){
         		this.$axios({
 		      	    method: 'post',
-		      	    url: 'api/WarpingOrder/GetWarpOrderByID',
+		      	    url: 'API/WarpingOrder/GetWarpOrderByID',
 		      	    data:{
 		      	    	id:localStorage.getItem("zjID"),
 						type:"1"
@@ -422,7 +426,7 @@
 		      	
 		      	this.$axios({
 		      	    method: 'post',
-		      	    url: 'api/WarpingOrder/GetWarpSizingConditionByOrderid',
+		      	    url: 'API/WarpingOrder/GetWarpSizingConditionByOrderid',
 		      	    data:{
 		      	    	orderid:localStorage.getItem("zjID")
 		      	    }

@@ -1,45 +1,35 @@
 <template>
   <div class="bg1" @scroll="handleScroll1()">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
-    <loadList @scrollEnd="scrollEnd" :page="pageindex">
-      <div class="storeList">
+    <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData">
       <div class="item-detail" v-for="(item,index) in getDatalist" :key="index">
         <div class="item-title">
           <span>上浆单</span>
           <span>{{item.WarpRisingCode}}</span>
         </div>
         <div class="details">
-          <div class="codes" @click="$router.push('mergeBill?id='+item.ID)">
-            <span>{{item.BeamCode}}</span>
-            <br>
-            <span>经轴编号</span>
-          </div>
           <div class="tails" @click="$router.push('mergeBill?id='+item.ID)">
-            <div>
-              <span>经轴长度</span>
-              <span>{{item.BeamLength}}</span>
+            <div @click="$router.push('mergeBill?id='+item.ID)">
+              <div>经轴编号<span></span></div>
+              <div>{{item.BeamCode}}</div>
             </div>
-            <!-- <div>
-            <span>米数</span>
-            <span>{{item.Length}}</span>
-            </div>-->
             <div>
-              <span>时间</span>
-              <span>{{item.AddDate}}</span>
+              <div>经轴长度<span></span></div>
+              <div>{{item.BeamLength}}</div>
+            </div>
+
+            <div>
+              <div>时间<span></span></div>
+              <div>{{item.AddDate}}</div>
             </div>
           </div>
-          <div class="edit">
-            <span
-              @click="$router.push('addZhouBing?handle='+'edit&code='+item.WarpRisingCode+'&id='+item.WarpRisingID+'&ids='+item.ID)"
-            >编
-              <br>辑
-            </span>
+          <div class="edit" @click="$router.push('addZhouBing?handle='+'edit&code='+item.WarpRisingCode+'&id='+item.WarpRisingID+'&ids='+item.ID)">
+            <div>编</div>
+            <div>辑</div>
           </div>
         </div>
       </div>
-      <div v-if="show" style="font-size: 0.16rem;color: #444444;text-align: center;padding:0.1rem 0 1.1rem 0">没有更多啦</div>
-   </div>
-    </loadList>
+    </v-scroll>
 
     <div class="posit">
       <span @click="returnGD">返回工单</span><span @click="$router.push('addZhouBing?handle='+'add')">新增轴</span>
@@ -49,9 +39,9 @@
 
 <script>
 import HeaderSame from "./common/sameHeader.vue";
-import loadList from "./common/load.vue";
+import Scroll from "./pullRefresh";
 export default {
-  components: { HeaderSame,loadList },
+  components: { HeaderSame, "v-scroll": Scroll },
   name: "applydetail",
   data() {
     return {
@@ -61,52 +51,79 @@ export default {
         text: "firstlist"
       },
       getDatalist: [],
-      show: false,
-      pageindex:0,
-      scrollStatus: true,
+      counter: 1, //默认已经显示出5条数据 count等于一是让从6条开始加载
+      num: "5", // 一次显示多少条
+      pageStart: 0, // 开始页数
+      pageEnd: 0, // 结束页数
+      scrollData: {
+        noFlag: false //暂无更多数据显示
+      }
     };
   },
+  updated() {
+    $(".nullData").css("padding-bottom", "0.5rem");
+  },
+  mounted() {
+    $("#app").css("overflow-y", "auto");
+  },
   methods: {
-
-    aa: function() {
-      this.num++;
+    // 下拉刷新
+    onRefresh(done) {
+      this.getData();
+      done();
+      this.counter = 1; //默认已经显示出5条数据 count等于一是让从6条开始加载
+      this.num = "5"; // 一次显示多少条
+      this.pageStart = 0; // 开始页数
+      this.pageEnd = 0; // 结束页数
+      this.getDatalist = []; // 下拉更新数据存放数组
+      this.shaLists = {
+        noFlag: false //暂无更多数据显示
+      };
     },
-     scrollEnd: function(num) {
-      this.pageindex = num;
-      if (this.scrollStatus) {
-        this.$axios({
-        method: "post",
-        url: "api/WarpingOrder/GetReBeamDetailListData",
-        data: {
-          orderid: localStorage.getItem("zjID"),
-          pageindex: this.pageindex,
-          pagesize: "5"
-        }
-      })
-          .then(res => {
-            
-            if (res.status == 200) {
-              for (var i in res.data.data) {
-                this.getDatalist.push(res.data.data[i]);
-              }
-              console.log(this.getDatalist);
-              if (res.data.data.length < 5) {
-               this.show=true;
-               this.scrollStatus = false
-              }
+    //上拉加载更多
+    onInfinite(done) {
+      let end = (this.pageEnd = this.num * this.counter);
+      let i = (this.pageStart = this.pageEnd - this.num);
+      let counters = String(this.counter++);
 
+      let more = this.$el.querySelector(".load-more");
+      if (i >= 10) {
+        more.style.display = "none"; //隐藏加载条
+        //走完数据调用方法
+        this.scrollData.noFlag = true;
+      } else {
+        this.$axios({
+          method: "post",
+          url: "API/WarpingOrder/GetReBeamDetailListData",
+          data: {
+            orderid: localStorage.getItem("zjID"),
+            pageindex: counters,
+            pagesize: this.num
+          }
+        })
+          .then(res => {
+            console.log(res.data.data);
+            for (var i = 0; i < res.data.data.length; i++) {
+              this.getDatalist.push(res.data.data[i]);
             }
+            console.log(this.shaLists);
+          })
+          .catch(error => {
+            console.log(error);
           });
+
+        more.style.display = "none"; //隐藏加载条
       }
+      done();
     },
     getData: function() {
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/GetReBeamDetailListData",
+        url: "API/WarpingOrder/GetReBeamDetailListData",
         data: {
           orderid: localStorage.getItem("zjID"),
-          pageindex: this.pageindex,
-          pagesize: "5"
+          pageindex: "0",
+          pagesize: this.num
         }
       })
         .then(res => {
@@ -129,14 +146,17 @@ export default {
 </script>
 
 <style scoped lang="less">
+.yo-scroll {
+  top: -0.1rem;
+}
 .storeList {
-    position: relative;
-    // background: #fff;
+  position: relative;
+  // background: #fff;
 }
 .bg1 {
   font-family: "Microsoft YaHei UI";
   font-size: 0.17rem;
-  // height: auto;
+  height: auto;
   padding-bottom: 0.4rem;
   min-height: 100%;
   .item-detail {
@@ -154,50 +174,45 @@ export default {
     .details {
       background-color: white;
       width: 3.4rem;
-      height: 1.03rem;
+      height: 1.2rem;
       margin: 0 auto;
       display: flex;
-      > div {
-        display: inline-block;
-      }
-      .codes {
-        width: 1rem;
-        text-align: center;
-        padding: 0.2rem 0 0 0rem;
-        span:first-child {
-          color: #ffa237;
-          font-size: 0.35rem;
-        }
-        span:last-child {
-          color: #333;
-          font-size: 0.13rem;
-        }
-      }
       .tails {
-        margin-top: 0.15rem;
-        width: 2rem;
-        font-size: 0.16rem;
-        div {
-          margin-top: 0.08rem;
-          span:first-child {
-            width: 0.8rem;
-            display: inline-block;
+        width: 2.55rem;
+        padding: 0.15rem 0.2rem;
+        >div{
+          color: #333;
+          display: flex;
+          height: 0.27rem;
+          >div:first-child{
             color: #999;
+            width: 0.7rem;
+            text-align: justify;
+            margin-right: 0.16rem;
+            > span {
+              display: inline-block /* Opera */;
+              padding-left: 100%;
+            }
           }
-          span:last-child {
+        }
+        >div:first-child{
+          // font-family:Microsoft YaHei UI;
+           height: 0.33rem;
+          >div:first-child{
             color: #333;
           }
-        }
-        div:first-child {
-          margin-top: 0.12rem;
+          >div:last-child{
+            color: #FFA237;
+            font-weight: bold;
+          }
         }
       }
       .edit {
+        width: 0.45rem;
         background-color: #4cbec0;
-        flex: 1;
         text-align: center;
         color: white;
-        padding-top: 0.3rem;
+        padding-top: 0.33rem;
       }
     }
   }

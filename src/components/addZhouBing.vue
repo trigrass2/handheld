@@ -9,14 +9,15 @@
 				</div>
 			</div>
 			<div style="color: #333;">
-				<div>经轴编号</div><div class="jzCode"><input type="text" v-model="shaDetails.BeamCode" class="jzbianhao" placeholder="请输入"></div><div><img src="../assets/img/3906.png" class="saoma"></div>
+				<div>经轴编号</div><div class="jzCode"><input type="text" class="jzbianhao" v-model="shaDetails.BeamCode" placeholder="请输入"></div><div><img src="../assets/img/3906.png" class="saoma"></div>
 			</div>
 			<div>
-				<div>经轴长度</div><div><input type="text" class="jzlength" v-model="shaDetails.BeamLength" placeholder="请输入"></div>
+				<div>经轴长度</div><div class="rt" style="margin-right: .15rem;">请在责任人中输入</div>
+        <!-- <div><input type="text" class="jzlength" v-model="shaDetails.BeamLength" placeholder="请输入"></div> -->
 			</div>
-			<div>
+			<!-- <div>
 				<div>米数</div><div><input type="text" class="milength" v-model="shaDetails.Length" placeholder="请输入"></div>
-			</div>
+			</div> -->
 			<div>
 				<div>索套个数</div><div class="rt" style="margin-right: .15rem;">请在责任人中输入</div>
 			</div>
@@ -45,13 +46,13 @@
 				<div>
 					<div>开始时间</div>
 					<div class="rt">
-						<el-date-picker v-model="startRadios[index]" type="datetime" size="small" placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
+						<el-date-picker v-model="startRadios[index]" type="datetime" size="small" placeholder="选择日期" class="startTime" :editable="false" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 					</div>
 				</div>
 				<div>
 					<div>结束时间</div>
 					<div class="rt">
-						<el-date-picker v-model="endRadios[index]" type="datetime" size="small"  placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
+						<el-date-picker v-model="endRadios[index]" type="datetime" size="small"  placeholder="选择日期" class="startTime" :editable="false" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 					</div>
 				</div>
 				<div style="border-bottom: none;">
@@ -85,13 +86,13 @@
 				<div>
 					<div>开始时间</div>
 					<div class="rt">
-						<el-date-picker v-model="startRadios[index+fuzeersLists.length]" type="datetime" size="small" placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
+						<el-date-picker v-model="startRadios[index+fuzeersLists.length]" type="datetime" size="small" placeholder="选择日期" :editable="false" class="startTime" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 					</div>
 				</div>
 				<div>
 					<div>结束时间</div>
 					<div class="rt">
-						<el-date-picker v-model="endRadios[index+fuzeersLists.length]" type="datetime" size="small"  placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
+						<el-date-picker v-model="endRadios[index+fuzeersLists.length]" type="datetime" size="small"  placeholder="选择日期" :editable="false" class="startTime" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 					</div>
 				</div>
 				<div style="border-bottom: none;">
@@ -144,7 +145,8 @@ export default {
   },
   methods: {
     javaAll:function(str){
-      $('.jzbianhao').val();
+      $('.jzbianhao').val(str);
+      this.shaDetails.BeamCode = str;
     },
     aa: function() {
       var i = 1;
@@ -163,9 +165,9 @@ export default {
             type: "success",
             message: "删除成功!"
           });
-		  this.num.splice(index, 1);
-		   this.startRadios[index] ==''?'':this.startRadios.splice(index,1);
-          this.endRadios[index] ==''?'':this.endRadios.splice(index,1);
+		      this.num.splice(index, 1);
+          this.startRadios[index] == ""? "": this.startRadios.splice(index, 1);
+          this.endRadios[index] == "" ? "" : this.endRadios.splice(index, 1);
         })
         .catch(() => {
           this.$message({
@@ -187,9 +189,9 @@ export default {
             type: "success",
             message: "删除成功!"
           });
-		  this.fuzeersLists.splice(index, 1);
-		   this.startRadios[index] ==''?'':this.startRadios.splice(index,1);
-          this.endRadios[index] ==''?'':this.endRadios.splice(index,1);
+		       this.fuzeersLists.splice(index, 1);
+            this.startRadios.splice(index, 1);
+            this.endRadios.splice(index, 1);
 
           console.log(this.fuzeersLists);
         })
@@ -205,7 +207,7 @@ export default {
       //责任人
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/GetEmpDropDownList"
+        url: "API/WarpingOrder/GetEmpDropDownList"
       })
         .then(res => {
           this.empList = res.data.data;
@@ -217,7 +219,7 @@ export default {
       //班别
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/GetBShiftDrpDownList"
+        url: "API/WarpingOrder/GetBShiftDrpDownList"
       })
         .then(res => {
           this.drpList = res.data.data;
@@ -228,98 +230,97 @@ export default {
         });
     },
     confirms: function() {
-      //非空验证
-      if (
-		$(".chooseSJ").text() == "选择上浆单" ||
-        $(".jzbianhao").val() == "" ||
-        $(".jzlength").val() == "" ||
-        $(".milength").val() == "" ||
-		$(".zrpeople").val() == "" ||
-		$(".zrpeople").val() == null ||
-        $(".pemilength").val() == "" ||
-        $(".taosuo").val() == "" ||
-        this.startRadios == "" ||
-        this.endRadios == "" ||
-		$(".classBan").val() == "" ||
-		$(".classBan").val() == null
-      ) {
-        this.$message({
-          showClose: true,
-          message: "请完善信息",
-          type: "error",
-          center: true
-        });
-      } else {
-        //不为空之后
-        console.log();
-        let entity = {};
-        entity.WarpRisingID = this.$route.query.choceid || this.$route.query.id;
-        entity.WarpRisingCode =
-          this.$route.query.chocecode || this.$route.query.code;
-        entity.WarpOrderID = localStorage.getItem("zjID");
-        entity.WarpOrderCode = localStorage.getItem("zjCODE");
-        entity.BeamCode = $(".jzbianhao").val();
-        entity.BeamLength = $(".jzlength").val();
-        entity.Length = $(".milength").val();
-        entity.Remark = $(".beizhu").val();
-        this.$route.query.handle == "edit"
-          ? (entity.ID = localStorage.getItem("ids"))
-          : "";
+	  //先移除点击日期控件创建的干扰元素
+      $('.el-picker-panel').remove();
+    	//循环遍历判断这个日期控件使用的input值
+		if($(".chooseSJ").text() == "选择上浆单" || $(".jzbianhao").val() == "" ){
+			this.$message({
+				showClose: true,
+				message: "请完善信息",
+				type: "error",
+				center: true
+			});
+			
+		}else{
+			for(var i=0;i<$('.add-item').length;i++){
+				if($('.zrpeople')[i].value == "" || $('.pemilength')[i].value==""|| $('.taosuo')[i].value=="" || $("input.el-input__inner[readonly='readonly']")[2*i].value == "" || $("input.el-input__inner[readonly='readonly']")[2*i+1].value == "" || $('.classBan')[i].value == ""){
+					this.$message({
+						showClose: true,
+						message: "请完善信息",
+						type: "error",
+						center: true
+					});
+					return;
+				}
+			}
+			//不为空之后
+			let entity = {};
+	        entity.WarpRisingID = this.$route.query.choceid || this.$route.query.id;
+	        entity.WarpRisingCode = this.$route.query.chocecode || this.$route.query.code;
+	        entity.WarpOrderID = localStorage.getItem("zjID");
+	        entity.WarpOrderCode = localStorage.getItem("zjCODE");
+	        entity.BeamCode = $(".jzbianhao").val();
+	        // entity.BeamLength = $(".jzlength").val();
+	        entity.Length = $(".milength").val();
+	        entity.Remark = $(".beizhu").val();
+	        this.$route.query.handle == "edit"? (entity.ID = localStorage.getItem("ids")): "";
+	
+	        let emps = [];
+	
+	        for (let i = 0; i < $(".add-item").length; i++) {
+	          let emplisters = {};
+	
+	          emplisters.EmpID = $(".zrpeople")
+	            .eq(i)
+	            .val();
+	          emplisters.EmpName = $(".zrpeople option:selected")
+	            .eq(i)
+	            .text();
+	          emplisters.Lenght = $(".pemilength")
+	            .eq(i)
+	            .val();
+	          emplisters.DoNum = $(".taosuo")
+	            .eq(i)
+	            .val();
+	          emplisters.BeginTime = this.startRadios[i];
+	          emplisters.EndTime = this.endRadios[i];
+	          emplisters.ClassBan = $(".classBan")
+	            .eq(i)
+	            .val();
+	          emplisters.ClassBanName = $(".classBan option:selected")
+	            .eq(i)
+	            .text();
+	
+	          emps.push(emplisters);
+	        }
+	        console.log(entity);
+	        console.log(emps);
+	        this.$axios({
+	          method: "post",
+	          url: "API/WarpingOrder/SaveWarpReBeamDetailData",
+	          data: {
+	            entity: entity,
+	            emps: emps
+	          }
+	        })
+	          .then(res => {
+	            console.log(res);
+	            this.$message({
+	              showClose: true,
+	              message:
+	                this.$route.query.handle == "add" ? "新增成功" : "修改成功",
+	              type: "success",
+	              center: true
+	            });
+	            this.$router.push("bingzhou");
+	          })
+	          .catch(error => {
+	            console.log(error);
+	          });
+		}
 
-        let emps = [];
-
-        for (let i = 0; i < $(".add-item").length; i++) {
-          let emplisters = {};
-
-          emplisters.EmpID = $(".zrpeople")
-            .eq(i)
-            .val();
-          emplisters.EmpName = $(".zrpeople option:selected")
-            .eq(i)
-            .text();
-          emplisters.Lenght = $(".pemilength")
-            .eq(i)
-            .val();
-          emplisters.DoNum = $(".taosuo")
-            .eq(i)
-            .val();
-          emplisters.BeginTime = this.startRadios[i];
-          emplisters.EndTime = this.endRadios[i];
-          emplisters.ClassBan = $(".classBan")
-            .eq(i)
-            .val();
-          emplisters.ClassBanName = $(".classBan option:selected")
-            .eq(i)
-            .text();
-
-          emps.push(emplisters);
-        }
-        console.log(entity);
-        console.log(emps);
-        this.$axios({
-          method: "post",
-          url: "api/WarpingOrder/SaveWarpReBeamDetailData",
-          data: {
-            entity: entity,
-            emps: emps
-          }
-        })
-          .then(res => {
-            console.log(res);
-            this.$message({
-              showClose: true,
-              message:
-                this.$route.query.handle == "add" ? "新增成功" : "修改成功",
-              type: "success",
-              center: true
-            });
-            this.$router.push("bingzhou");
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      }
     }
+    
   },
   created() {
     // 接收安卓方法
@@ -330,7 +331,7 @@ export default {
       localStorage.setItem("ids", this.ids);
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/GetReBeamDetailDataByID",
+        url: "API/WarpingOrder/GetReBeamDetailDataByID",
         data: {
           id: localStorage.getItem("ids")
         }
@@ -351,6 +352,9 @@ export default {
       localStorage.removeItem("ids");
     }
   },
+  mounted(){
+    $('#app').css('overflow-y','auto')
+  },
   updated() {
     if ($(".add-item").length == "1") {
       $(".delateitem:eq(0)").addClass("disdelate");
@@ -366,17 +370,18 @@ export default {
   display: none;
 }
 .bg1 {
-  position: relative;
+  // position: relative;
   font-size: 0.17rem;
   height: auto;
-  min-height: 6.7rem;
+  min-height: 100%;
   padding-bottom: 1.3rem;
   .delateitem {
-    position: absolute;
+    position: relative;
     margin-top: -0.3rem;
     margin-left: 3rem;
     color: #666;
     font-size: 0.15rem;
+    padding-bottom: 0.1rem
   }
   .basic {
     background-color: white;
@@ -417,7 +422,6 @@ export default {
       background-color: transparent;
       font-size: 0.17rem;
       color: #999;
-      width: 0.6rem;
     }
     img {
       margin-right: 0.15rem;

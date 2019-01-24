@@ -8,16 +8,16 @@
 					<span style="color: #007EFF;" class="chooseSJ">{{chocecode || code || '选择上浆单'}}</span> <img src="../assets/img/824.png">
 				</div>
 			</div>
-			<div class="nonesBorder" style="padding: .05rem 0 .05rem 0;">
+			<!-- <div class="nonesBorder" style="padding: .05rem 0 .05rem 0;">
 				<div class="gongxu" style="width: 3.3rem;">
 					<span>整经轴</span><span class="zjZhousure">{{shaDetails.FromBeamCode||'请选择'}}</span><span>→</span><span>上浆轴</span><span class="sjZhousure">{{shaDetails.ToBeamCode||'请选择'}}</span>
 				</div>
+			</div> -->
+			<div style="color: #333;">
+				<div>整经轴</div><div class="jzCode"><input type="text" v-model="shaDetails.FromBeamCode" placeholder="请输入" class="zjZhou"></div><div><img src="../assets/img/3906.png" class="saoma"></div>
 			</div>
 			<div style="color: #333;">
-				<div>整经轴</div><div class="jzCode"><input type="text" :value="shaDetails.FromBeamCode" placeholder="请输入" class="zjZhou"><span @click="ensure('.zjZhou','.zjZhousure','整经')">确定</span> </div><div><img src="../assets/img/3906.png" class="saoma"></div>
-			</div>
-			<div style="color: #333;">
-				<div>上浆轴</div><div class="jzCode"><input :value="shaDetails.ToBeamCode" type="text" placeholder="请输入" class="sjZhou"><span @click="ensure('.sjZhou','.sjZhousure','上浆')">确定</span> </div>
+				<div>上浆轴</div><div class="jzCode"><input v-model="shaDetails.ToBeamCode" type="text" placeholder="请输入" class="sjZhou"></div>
         <!-- <div><img src="../assets/img/3906.png" class="saoma"></div> -->
 			</div>
 			<div>
@@ -48,11 +48,11 @@
 				</div>
 				<div class="block">
 					<span class="demonstration">开始时间</span>
-					<el-date-picker v-model="startTime[index]" type="datetime" placeholder="选择日期" class="rt dates startTime" size="small" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
+					<el-date-picker v-model="startTime[index]" type="datetime" placeholder="选择日期" class="rt dates startTime" :editable="false" size="small" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 				</div>
 				<div class="block">
 					<span class="demonstration">结束时间</span>
-					<el-date-picker v-model="endTime[index]" type="datetime" placeholder="选择日期" class="rt dates endTime" size="small" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
+					<el-date-picker v-model="endTime[index]" type="datetime" placeholder="选择日期" class="rt dates endTime" size="small" :editable="false" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 				</div>
 				<div style="border-bottom: none;">
 					<div>班别</div>
@@ -84,11 +84,11 @@
 				</div>
 				<div class="block">
 					<span class="demonstration">开始时间</span>
-					<el-date-picker v-model="startTime[index+fuzeersLists.length]" type="datetime" placeholder="选择日期" class="rt dates startTime" size="small" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
+					<el-date-picker v-model="startTime[index+fuzeersLists.length]" type="datetime" placeholder="选择日期" :editable="false" class="rt dates startTime" size="small" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 				</div>
 				<div class="block">
 					<span class="demonstration">结束时间</span>
-					<el-date-picker v-model="endTime[index+fuzeersLists.lengthex]" type="datetime" placeholder="选择日期" class="rt dates endTime" size="small" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
+					<el-date-picker v-model="endTime[index+fuzeersLists.lengthex]" type="datetime" placeholder="选择日期" :editable="false" class="rt dates endTime" size="small" value-format="yyyy-MM-dd HH:mm"></el-date-picker>
 				</div>
 				<div style="border-bottom: none;">
 					<div>班别</div>
@@ -142,22 +142,23 @@ export default {
   methods: {
      javaAll:function(str){
          $('.zjZhou').val(str);
+         this.shaDetails.FromBeamCode = str;
     },
     aa: function() {
       var i = 1;
       this.num.push(i);
     },
-    ensure:function(tag,fag,text){
-      if( $(tag).val() == ''){
-           this.$message({
-            showClose: true,
-            type: "error",
-            message: "请输入"+text+"轴号"
-          });
-        }else{
-          $(fag).text($(tag).val());
-        }
-    },
+    // ensure:function(tag,fag,text){
+    //   if( $(tag).val() == ''){
+    //        this.$message({
+    //         showClose: true,
+    //         type: "error",
+    //         message: "请输入"+text+"轴号"
+    //       });
+    //     }else{
+    //       $(fag).text($(tag).val());
+    //     }
+    // },
     // 删除
     delateitem: function(index) {
       this.$confirm("确定删除此责任人吗？", "", {
@@ -196,10 +197,9 @@ export default {
             type: "success",
             message: "删除成功!"
           });
-		  this.fuzeersLists.splice(index, 1);
-		  this.startTime[index] ==''?'':this.startTime.splice(index,1);
-          this.endTime[index] ==''?'':this.endTime.splice(index,1);
-
+		      this.fuzeersLists.splice(index, 1);
+            this.startTime.splice(index, 1);
+            this.endTime.splice(index, 1);
           console.log(this.fuzeersLists);
         })
         .catch(() => {
@@ -214,7 +214,7 @@ export default {
       //筒子确认者列表
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/GetEmpDropDownList"
+        url: "API/WarpingOrder/GetEmpDropDownList"
       })
         .then(res => {
           // console.log(res);
@@ -226,7 +226,7 @@ export default {
       //班别列表
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/GetBShiftDrpDownList"
+        url: "API/WarpingOrder/GetBShiftDrpDownList"
       })
         .then(res => {
           // console.log(res);
@@ -238,22 +238,112 @@ export default {
     },
     //确认
     confirm: function() {
-      //上浆工单id
+    	//上浆工单id
       let WarpSizingID = this.$route.query.choceid || this.$route.query.id;
       //上浆工单编号
-      let WarpSizingCode =
-        this.$route.query.chocecode || this.$route.query.code;
+      let WarpSizingCode = this.$route.query.chocecode || this.$route.query.code;
       //整经单id
       let WarpOrderID = localStorage.getItem("zjID");
       //整经单编号
       let WarpOrderCode = localStorage.getItem("zjCODE");
+    	
+		//先移除点击日期控件创建的干扰元素
+      $('.el-picker-panel').remove();
+      if($(".chooseSJ").text() == "选择上浆单" || $(".zjZhou").val() == "" || $(".sjZhou").val() == ""){
+			this.$message({
+				showClose: true,
+				message: "请完善信息",
+				type: "error",
+				center: true
+			});
+			
+		}else{
+			for(var i=0;i<$('.add-item').length;i++){
+				if($('.zeren')[i].value == "" || $('.length')[i].value==""|| $('.tcNum')[i].value=="" || $("input.el-input__inner[readonly='readonly']")[2*i].value == "" || $("input.el-input__inner[readonly='readonly']")[2*i+1].value == "" || $('.classBan')[i].value == ""){
+					this.$message({
+						showClose: true,
+						message: "请完善信息",
+						type: "error",
+						center: true
+					});
+					return;
+				}
+			}
+			//不为空之后
+	        let entity = {};
+	        entity.WarpSizingID = WarpSizingID;
+	        entity.WarpSizingCode = WarpSizingCode;
+	        entity.WarpOrderID = WarpOrderID;
+	        entity.WarpOrderCode = WarpOrderCode;
+	        entity.FromBeamCode = $(".zjZhou").val();
+	        entity.ToBeamCode = $(".sjZhou").val();
+	        entity.Remark = $(".remarks").val();
+	        localStorage.getItem("handle") == "edit"
+	          ? (entity.ID = localStorage.getItem("ids"))
+	          : "";
+	
+	        let emplist = [];
+	
+	        for (let i = 0; i < $(".add-item").length; i++) {
+	          let emplisters = {};
+	          emplisters.EmpID = $(".zeren")
+	            .eq(i)
+	            .val();
+	          emplisters.EmpName = $(".zeren option:selected")
+	            .eq(i)
+	            .text();
+	          emplisters.Lenght = $(".length")
+	            .eq(i)
+	            .val();
+	          emplisters.DoNum = $(".tcNum")
+	            .eq(i)
+	            .val();
+	          emplisters.BeginTime = this.startTime[i];
+	          emplisters.EndTime = this.endTime[i];
+	          emplisters.ClassBan = $(".classBan")
+	            .eq(i)
+	            .val();
+	          emplisters.ClassBanName = $(".classBan option:selected")
+	            .eq(i)
+	            .text();
+	
+	          emplist.push(emplisters);
+	        }
+	        this.$axios({
+	          method: "post",
+	          url: "API/WarpingOrder/SaveWarpsizingData",
+	          data: {
+	            entity: entity,
+	            emplist: emplist
+	          }
+	        })
+	          .then(res => {
+	            console.log(res);
+	            this.$message({
+	              showClose: true,
+	              message:
+	                this.$route.query.handle == "add" ? "新增成功" : "修改成功",
+	              type: "success",
+	              center: true
+	            });
+	            this.$router.push("shangJ");
+	          })
+	          .catch(error => {
+	            console.log(error);
+	          });
+		}
+      
+      
+
+
+      
       //非空验证
       if (
         $(".chooseSJ").text() == "选择上浆单" ||
-        $(".zjZhousure").text() == "" ||
-        $(".sjZhousure").text() == "" ||
-        $(".zjZhousure").text() == "请选择" ||
-        $(".sjZhousure").text() == "请选择" ||
+        $(".zjZhou").val() == "" ||
+        $(".sjZhou").val() == "" ||
+        // $(".zjZhou").text() == "请选择" ||
+        // $(".sjZhou").text() == "请选择" ||
         $(".zeren").val() == "" ||
         $(".zeren").val() == null ||
         $(".length").val() == "" ||
@@ -276,8 +366,8 @@ export default {
         entity.WarpSizingCode = WarpSizingCode;
         entity.WarpOrderID = WarpOrderID;
         entity.WarpOrderCode = WarpOrderCode;
-        entity.FromBeamCode = $(".zjZhousure").text();
-        entity.ToBeamCode = $(".sjZhousure").text();
+        entity.FromBeamCode = $(".zjZhou").val();
+        entity.ToBeamCode = $(".sjZhou").val();
         entity.Remark = $(".remarks").val();
         localStorage.getItem("handle") == "edit"
           ? (entity.ID = localStorage.getItem("ids"))
@@ -312,7 +402,7 @@ export default {
         }
         this.$axios({
           method: "post",
-          url: "api/WarpingOrder/SaveWarpsizingData",
+          url: "API/WarpingOrder/SaveWarpsizingData",
           data: {
             entity: entity,
             emplist: emplist
@@ -345,7 +435,7 @@ export default {
       localStorage.setItem("ids", this.ids);
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/GetWarpsizingDataByID",
+        url: "API/WarpingOrder/GetWarpsizingDataByID",
         data: {
           id: localStorage.getItem("ids")
         }
@@ -366,6 +456,9 @@ export default {
       localStorage.removeItem("ids");
     }
   },
+  mounted(){
+    $('#app').css('overflow-y','auto')
+  },
   updated() {
     if ($(".add-item").length == "1") {
       $(".delateitem:eq(0)").addClass("disdelate");
@@ -381,21 +474,22 @@ export default {
   display: none;
 }
 .bg1 {
-  position: relative;
+  // position: relative;
   font-size: 0.17rem;
   height: auto;
-  min-height: 6.7rem;
+  min-height: 100%;
   padding-bottom: 1.3rem;
   .zjZhousure,.sjZhousure{
     width: 0.6rem;
     // border: 1px solid red;
   }
   .delateitem {
-    position: absolute;
+    position: relative;
     margin-top: -0.3rem;
     margin-left: 3rem;
     color: #666;
     font-size: 0.15rem;
+    padding-bottom: 0.1rem
   }
   .basic {
     background-color: white;
@@ -436,7 +530,6 @@ export default {
       background-color: transparent;
       font-size: 0.17rem;
       color: #999;
-      width: 0.8rem;
     }
     img {
       margin-right: 0.15rem;
@@ -507,7 +600,7 @@ export default {
   width: 2.1rem;
   display: inline-block;
   input {
-    width: 1.45rem !important;
+    width: 1.9rem !important;
   }
   span {
     width: 0.55rem;
@@ -548,6 +641,6 @@ export default {
 }
 .dates {
   margin-right: 0.15rem;
-  width: 2.16rem;
+  width: 2.1rem!important;
 }
 </style>

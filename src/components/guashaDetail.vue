@@ -44,7 +44,7 @@
       <div class="toptitle">责任人{{index+1}}</div>
       <div class="detailinfo">
         <div>
-          <div>责任人1</div>
+          <div>责任人</div>
           <span>{{item.EmpName}}</span>
         </div>
         <div>
@@ -90,7 +90,7 @@ export default {
      delatelist:function(){
        this.$axios({
 					method: 'post',
-					url: 'api/WarpingOrder/DelWarYarnHung',
+					url: 'API/WarpingOrder/DelWarYarnHung',
 					data:{
 						id:this.$route.query.id
 					}
@@ -110,7 +110,7 @@ export default {
 			shaList:function(){
 				this.$axios({
 					method: 'post',
-					url: 'api/WarpingOrder/GetWarpYarnHungByID',
+					url: 'API/WarpingOrder/GetWarpYarnHungByID',
 					data:{
 						id:this.$route.query.id
 					}

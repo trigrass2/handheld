@@ -2,39 +2,53 @@
   <div class="bg1">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="bodys">
-       <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" class="bg1">
-      <div class="body-item" v-for="item in listdata">
-        <!--上方具体数据部分-->
-        <div class="top-item">
-          <div class="left-item">
-            <span>{{item.BeamCode}}</span>
-            <span>经轴编号</span>
-          </div>
-          <div class="right-item">
-            <div style="margin-top: .08rem;">
-              <div>毛羽数</div>
-              <div>{{item.BeamHairinessNum}}</div>
+      <v-scroll
+        :on-refresh="onRefresh"
+        :on-infinite="onInfinite"
+        :dataList="scrollData"
+        class="bg1"
+      >
+        <div class="body-item" v-for="item in listdata">
+          <!--上方具体数据部分-->
+          <div class="top-item">
+            <div class="left-item" @click="$router.push('zjSingleDetail?id='+item.ID)"> 
+              <div>
+                <div>经轴编号
+                  <span></span>
+                </div>
+                <div>{{item.BeamCode}}</div>
+              </div>
+              <div style="margin-top: .08rem;">
+                <div>毛羽数
+                  <span></span>
+                </div>
+                <div>{{item.BeamHairinessNum}}</div>
+              </div>
+              <div>
+                <div>断纱
+                  <span></span>
+                </div>
+                <div>{{item.YarnBroken}}</div>
+              </div>
+              <div>
+                <div>米数
+                  <span></span>
+                </div>
+                <div>{{item.Length}}</div>
+              </div>
+              <div>
+                <div>时间
+                  <span></span>
+                </div>
+                <div>{{item.OprationDate}}</div>
+              </div>
             </div>
-            <div>
-              <div>断纱</div>
-              <div>{{item.YarnBroken}}</div>
+            <div class="right-item" @click="$router.push('addZhou?handle='+'edit&id='+item.ID)">
+              <div>编</div>
+              <div>辑</div>
             </div>
-            <div>
-              <div>米数</div>
-              <div>{{item.Length}}</div>
-            </div>
-            <div>
-              <div>时间</div>
-              <div>{{item.OprationDate}}</div>
-            </div> 
           </div>
         </div>
-        <!--下方操作按钮部分-->
-        <div class="watch-item">
-          <span @click="$router.push('zjSingleDetail?id='+item.ID)">查看</span>
-          <span @click="$router.push('addZhou?handle='+'edit&id='+item.ID)">编辑</span>
-        </div>
-      </div>
       </v-scroll>
     </div>
 
@@ -48,7 +62,7 @@
 import Scroll from "./pullRefresh";
 import HeaderSame from "./common/sameHeader.vue";
 export default {
-  components: { HeaderSame, "v-scroll": Scroll  },
+  components: { HeaderSame, "v-scroll": Scroll },
   name: "applydetail",
   data() {
     return {
@@ -57,32 +71,35 @@ export default {
         img: "",
         text: "firstlist"
       },
-        counter: 1, //默认已经显示出5条数据 count等于一是让从6条开始加载
-        num: "5", // 一次显示多少条
-        pageStart: 0, // 开始页数
-        pageEnd: 0, // 结束页数
-        listdata: [], // 下拉更新数据存放数组
-        scrollData: {
-          noFlag: false //暂无更多数据显示
-        }
-      };
+      counter: 1, //默认已经显示出5条数据 count等于一是让从6条开始加载
+      num: "5", // 一次显示多少条
+      pageStart: 0, // 开始页数
+      pageEnd: 0, // 结束页数
+      listdata: [], // 下拉更新数据存放数组
+      scrollData: {
+        noFlag: false //暂无更多数据显示
+      }
+    };
+  },
+  mounted() {
+    $("#app").css("overflow-y", "auto");
   },
   updated() {
     $(".nullData").css("padding-bottom", "0.5rem");
   },
   methods: {
-     //下拉刷新
+    //下拉刷新
     onRefresh(done) {
       this.dataList();
       done();
-      this.counter= 1; //默认已经显示出5条数据 count等于一是让从6条开始加载
-      this.num= "5"; // 一次显示多少条
-      this.pageStart= 0; // 开始页数
-      this.pageEnd= 0; // 结束页数
-      this.listdata= []; // 下拉更新数据存放数组
-      this.scrollData= {
+      this.counter = 1; //默认已经显示出5条数据 count等于一是让从6条开始加载
+      this.num = "5"; // 一次显示多少条
+      this.pageStart = 0; // 开始页数
+      this.pageEnd = 0; // 结束页数
+      this.listdata = []; // 下拉更新数据存放数组
+      this.scrollData = {
         noFlag: false //暂无更多数据显示
-      }
+      };
     },
     //上拉加载更多
     onInfinite(done) {
@@ -98,7 +115,7 @@ export default {
       } else {
         this.$axios({
           method: "post",
-          url: "api/WarpingOrder/GetWarpingDetailListData",
+          url: "API/WarpingOrder/GetWarpingDetailListData",
           data: {
             orderid: localStorage.getItem("zjID"),
             pageindex: counters,
@@ -123,7 +140,7 @@ export default {
     dataList: function() {
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/GetWarpingDetailListData",
+        url: "API/WarpingOrder/GetWarpingDetailListData",
         data: {
           orderid: localStorage.getItem("zjID"),
           pageindex: "0",
@@ -140,7 +157,7 @@ export default {
     },
     //点击返回工单
     returnGD: function() {
-      this.$router.push('zhengJSingle');
+      this.$router.push("zhengJSingle");
     }
   },
   created() {
@@ -157,78 +174,64 @@ export default {
   // position: relative;
   font-size: 0.17rem;
   margin-top: 0.6rem;
-    // margin-bottom: 0.8rem;
+  // margin-bottom: 0.8rem;
   min-height: 100%;
   height: auto;
   // padding-bottom: 0.5rem;
-  font-family: 'ionicons';
-  .body-item:not(:last-child){
+  font-family: "";
+  .body-item:not(:last-child) {
     margin-bottom: 0.1rem;
   }
   .body-item {
     width: 3.4rem;
-    height: 1.65rem;
+    height: 1.55rem;
     background-color: white;
     margin: 0 auto;
     margin-bottom: 0.1rem;
     .top-item {
-      > div {
-        display: inline-block;
-        vertical-align: top;
-      }
+      display: flex;
       .left-item {
-        width: 1.55rem;
-        height: 0.6rem;
-        padding-top: 0.15rem;
-        span {
-          display: block;
-        }
-        span:first-child {
-          text-align: center;
-          font-size: 0.45rem; /*************正确字号为55*************/
-          color: #ffa237;
-          font-weight: bold;
-          font-family: 'ionicons'; /*---------------字体要改-------------------*/
-        }
-        span:last-child {
-          text-align: center;
-          font-size: 0.13rem;
-          color: #333;
-        }
-      }
-      .right-item {
+        padding: 0.15rem 0.15rem;
         > div {
-          margin-top: 0.04rem;
-          div:first-child {
-            color: #999;
-            width: 0.65rem;
+          display: flex;
+          width: 2.65rem;
+          margin-bottom: 0.05rem;
+          font-size: 0.17rem;
+          height: 0.18rem;
+          line-height: 0.18rem;
+          color: #999;
+          > div:first-child {
+            width: 0.7rem;
+            text-align: justify;
+            margin-right: 0.16rem;
+            > span {
+              display: inline-block /* Opera */;
+              padding-left: 100%;
+            }
           }
-          div:last-child {
+          > div:last-child {
             color: #333;
           }
         }
-        > div div {
-          display: inline-block;
+        >div:first-child{
+          height: 0.28rem;
+          line-height: 0.28rem;
+          color: #333;
+          >div:last-child{
+            color: #FFA237;
+            font-weight: bold;
+          }
         }
       }
-    }
-    .watch-item {
-      margin-top: 0.08rem;
-      span {
+      .right-item{
+        width: 0.45rem;
+        height: 0.55rem;
         text-align: center;
-        width: 1.5rem;
-        height: 0.37rem;
-        line-height: 0.37rem;
-        color: white;
-        display: inline-block;
-        background-color: #4cbec0;
-        border-radius: 0.02rem;
-      }
-      span:first-child {
-        margin-left: 0.15rem;
-      }
-      span:last-child {
-        margin-left: 0.1rem;
+        font-size: 0.17rem;
+        background: #4CBEC0;
+        color: #fff;
+        padding: 0.5rem 0;
+        margin: 0 auto;
       }
     }
   }
@@ -251,12 +254,6 @@ export default {
     span:last-child {
       background-color: #007eff;
     }
-  }
-  .bodys {
-    margin-top: 0.1rem;
-  }
-  .bodys:first-child {
-    margin-top: 0;
   }
 }
 </style>

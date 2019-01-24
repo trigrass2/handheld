@@ -75,6 +75,9 @@ export default {
   // updated(){
   //   $('#app').css('overflow-y','hidden')
   // },
+  mounted:function(){
+    //  $('#app').css('overflow-y','hidden')
+  },
   methods: {
   	
     //获取页面数据
@@ -82,7 +85,7 @@ export default {
     	let id = localStorage.getItem("zjID");
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/GetWarpOrderByID",
+        url: "API/WarpingOrder/GetWarpOrderByID",
         data: {
           id: id,
           type: "0"
@@ -115,9 +118,9 @@ export default {
       }
     }
   },
-  // mounted(){
-  //   $('#app').css('overflow-y','hidden')
-  // },
+  mounted(){
+    $('#app').css('overflow-y','hidden')
+  },
   created() {
     this.lists();
   },

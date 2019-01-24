@@ -82,7 +82,7 @@ export default {
     delatelist: function() {
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/DelWarpingsizingData",
+        url: "API/WarpingOrder/DelWarpingsizingData",
         data: {
           id: this.$route.query.id
         }
@@ -104,7 +104,7 @@ export default {
     details: function() {
       this.$axios({
         method: "post",
-        url: "api/WarpingOrder/GetWarpsizingDataByID",
+        url: "API/WarpingOrder/GetWarpsizingDataByID",
         data: {
           id: this.$route.query.id
         }
