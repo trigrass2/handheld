@@ -48,8 +48,8 @@
 				<div>
 					<div>责任人</div>
 					<div class="rt">
-						<select class="zeren">
-							<!-- <option :value="i.EmpID">{{i.EmpName}}</option> -->
+						<select class="zeren" :class="'pristin' + index + index">
+							<option :value="i.EmpID">{{i.EmpName}}</option>
 							<option v-for="(item,tag) in empList" :value="item.Value" :key="tag">{{item.Text}}</option>
 						</select>
 						<img src="../assets/img/819.png">
@@ -73,7 +73,7 @@
 					<div>班别</div>
 					<div class="rt">
 						<select class="classBan">
-							<!-- <option :value="i.ClassBan">{{i.ClassBanName}}</option> -->
+							<option :value="i.ClassBan">{{i.ClassBanName}}</option>
 							<option v-for="(item,flag) in drpList" :value="item.Value" :key="flag">{{item.Text}}</option>
 						</select>
 						<img src="../assets/img/819.png">
@@ -184,14 +184,6 @@
 							this.num.splice(index, 1);
 						}
 						console.log($(".add-item").length);
-						// if(this.$route.query.handle == "add"){
-						//    this.startRadios[index] == ""? "": this.startRadios.splice(index, 1);
-						//    this.endRadios[index] == "" ? "" : this.endRadios.splice(index, 1);
-						// }else{
-						//   this.startRadios.splice(index, 1);
-						//   this.endRadios.splice(index, 1);
-						// }
-
 					})
 					.catch(() => {
 						this.$message({
@@ -326,10 +318,13 @@
 					}).then(res => {
 						this.shaDetails = res.data.data.detailentity;
 						//筒子确认者和垫圈确认者 下拉框分别赋值
-						$('.tzConfirmer').val(res.data.data.detailentity.CheeseNumChekerID)
-						$('.dqConfirmer').val(res.data.data.detailentity.CloutCheckerID)
-
+						$('.tzConfirmer').val(this.shaDetails.CheeseNumChekerID);
+						$('.dqConfirmer').val(this.shaDetails.CloutCheckerID);
+						
 						this.fuzeersLists = res.data.data.emps;
+						$('.pristin00').val('c94bec1e-162e-4e45-aa23-8a152afd2113');
+						console.log($('.pristin00').val());
+
 						console.log(this.fuzeersLists);
 						$(".original .zeren option:selected").val(this.fuzeersLists[0].EmpID);
 							$(".original1").val(this.fuzeersLists[1].EmpID);
@@ -339,9 +334,10 @@
 							this.endRadios.push(this.fuzeersLists[i].EndTime);
 //							this.empers.push(this.fuzeersLists[i].EmpID)
 //							this.banbies.push(this.fuzeersLists[i].ClassBan)
-							$(".pristin .zeren").eq(i).val(this.fuzeersLists[i].EmpID);
+							$('.pristin'+i).val('c94bec1e-162e-4e45-aa23-8a152afd2113');
+							$('.pristin'+i).text(this.fuzeersLists[i].EmpName);
 							// $(".original1").val(this.fuzeersLists[1].EmpID);
-							// console.log($('.zeren:eq('+i+')').value);
+							console.log($('.pristin'+i).val());
 							console.log(this.fuzeersLists[i].EmpID);
 							// $('.classBan')[i].val(this.fuzeersLists[i].ClassBan);
 						}						

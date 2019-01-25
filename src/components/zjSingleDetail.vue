@@ -81,31 +81,45 @@ export default {
   methods: {
     // 删除
     delatelist: function() {
-      this.$axios({
-        method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/DelWarpingDetail",
-        data: {
-          id: this.$route.query.id
-        }
+      this.$confirm("是否确认删除？", "", {
+        // confirmButtonText: '确定',
+        // cancelButtonText: '取消',
+        type: ""
       })
-        .then(res => {
-          // console.log(res);
-          this.$router.push("zhengJ");
+        .then(() => {
+          this.$axios({
+            method: "post",
+            url: localStorage.getItem("IP") + "/WarpingOrder/DelWarpingDetail",
+            data: {
+              id: this.$route.query.id
+            }
+          })
+            .then(res => {
+              // console.log(res);
+              this.$router.push("zhengJ");
+              this.$message({
+                showClose: true,
+                message: "删除成功",
+                type: "success",
+                center: true
+              });
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        })
+        .catch(() => {
           this.$message({
             showClose: true,
-            message: "删除成功",
-            type: "success",
-            center: true
+            type: "info",
+            message: "已取消删除"
           });
-        })
-        .catch(error => {
-          console.log(error);
         });
     },
     shaList: function() {
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/GetWarpingDetailByID",
+        url: localStorage.getItem("IP") + "/WarpingOrder/GetWarpingDetailByID",
         data: {
           id: this.$route.query.id
         }

@@ -166,8 +166,8 @@ export default {
             message: "删除成功!"
           });
 		      this.num.splice(index, 1);
-          this.startRadios[index] == ""? "": this.startRadios.splice(index, 1);
-          this.endRadios[index] == "" ? "" : this.endRadios.splice(index, 1);
+          this.startRadios[index+this.fuzeersLists.length] == ""? "": this.startRadios.splice(index+this.fuzeersLists.length, 1);
+          this.endRadios[index+this.fuzeersLists.length] == "" ? "" : this.endRadios.splice(index+this.fuzeersLists.length, 1);
         })
         .catch(() => {
           this.$message({

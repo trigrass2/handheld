@@ -18,10 +18,10 @@
               <div>{{item.BeamLength}}</div>
             </div>
 
-            <div>
+            <!-- <div>
               <div>时间<span></span></div>
               <div>{{item.AddDate}}</div>
-            </div>
+            </div> -->
           </div>
           <div class="edit" @click="$router.push('addZhouBing?handle='+'edit&code='+item.WarpRisingCode+'&id='+item.WarpRisingID+'&ids='+item.ID)">
             <div>编</div>
@@ -174,7 +174,7 @@ export default {
     .details {
       background-color: white;
       width: 3.4rem;
-      height: 1.2rem;
+      height: 1rem;
       margin: 0 auto;
       display: flex;
       .tails {
@@ -184,6 +184,7 @@ export default {
           color: #333;
           display: flex;
           height: 0.27rem;
+          line-height: 0.27rem;
           >div:first-child{
             color: #999;
             width: 0.7rem;
@@ -197,7 +198,7 @@ export default {
         }
         >div:first-child{
           // font-family:Microsoft YaHei UI;
-           height: 0.33rem;
+           height: 0.3rem;
           >div:first-child{
             color: #333;
           }

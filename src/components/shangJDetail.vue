@@ -80,31 +80,46 @@ export default {
   methods: {
     // 删除
     delatelist: function() {
-      this.$axios({
-        method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/DelWarpingsizingData",
-        data: {
-          id: this.$route.query.id
-        }
+      this.$confirm("是否确认删除？", "", {
+        // confirmButtonText: '确定',
+        // cancelButtonText: '取消',
+        type: ""
       })
-        .then(res => {
-          // console.log(res);
-          this.$router.push("shangJ");
+        .then(() => {
+          this.$axios({
+            method: "post",
+            url:
+              localStorage.getItem("IP") + "/WarpingOrder/DelWarpingsizingData",
+            data: {
+              id: this.$route.query.id
+            }
+          })
+            .then(res => {
+              // console.log(res);
+              this.$router.push("shangJ");
+              this.$message({
+                showClose: true,
+                message: "删除成功",
+                type: "success",
+                center: true
+              });
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        })
+        .catch(() => {
           this.$message({
             showClose: true,
-            message: "删除成功",
-            type: "success",
-            center: true
+            type: "info",
+            message: "已取消删除"
           });
-        })
-        .catch(error => {
-          console.log(error);
         });
     },
     details: function() {
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/GetWarpsizingDataByID",
+        url: localStorage.getItem("IP") + "/WarpingOrder/GetWarpsizingDataByID",
         data: {
           id: this.$route.query.id
         }
@@ -126,12 +141,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.delatedetail{
+.delatedetail {
   position: absolute;
   margin-left: 3.25rem;
   margin-top: -0.38rem;
   z-index: 99999;
-  >img{
+  > img {
     height: 0.2rem;
   }
 }

@@ -363,6 +363,7 @@ export default {
 					// console.log(res);
 					this.shaDetails = res.data.data;
           this.fuzeersLists = res.data.emps;
+        
           for(let i = 0; i < this.fuzeersLists.length; i++){
             this.startRadios[i] = this.fuzeersLists[i].BeginTime;
             this.endRadios[i] = this.fuzeersLists[i].EndTime

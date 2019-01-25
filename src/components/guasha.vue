@@ -5,9 +5,9 @@
     <div class="bodys" v-for="item in shaLists"> 
       <div class="body-item">
         <!--上方具体数据部分-->
-        <div class="top-item">
+        <div class="top-item" @click="$router.push('guashaDetail?id='+item.ID)">
           <div class="right-item">
-            <div style="margin-top: .1rem;">
+            <div>
               <div>原料名称</div>
               <div>{{item.MName}}</div> 
             </div>
@@ -22,9 +22,9 @@
           </div>
         </div>
         <!--下方操作按钮部分-->
-        <div class="watch-item">
-          <span @click="$router.push('guashaDetail?id='+item.ID)">查看</span>
-          <span @click="$router.push('addGuaSha?handle='+'edit&id='+item.ID)">编辑</span>
+        <div class="watch-item" @click="$router.push('addGuaSha?handle='+'edit&id='+item.ID)">
+          <div>编</div>
+          <div>辑</div>
         </div>
       </div>
     </div>
@@ -157,18 +157,21 @@ export default {
   min-height: 100%;
   .body-item {
     width: 3.4rem;
-    height: 1.5rem;
+    height: 1.1rem;
     background-color: white;
     margin: 0 auto;
+    display: flex;
     .top-item {
+      width: 2.65rem;
+      padding: 0.12rem 0.15rem;
+      // background: pink;
       > div {
         display: inline-block;
         vertical-align: top;
       }
       .right-item {
         > div {
-          margin-left: 0.15rem;
-          margin-top: 0.05rem;
+          margin-bottom: 0.05rem;
           div:first-child {
             color: #999;
             width: 0.9rem;
@@ -183,23 +186,11 @@ export default {
       }
     }
     .watch-item {
-      margin-top: 0.08rem;
-      span {
-        text-align: center;
-        width: 1.5rem;
-        height: 0.37rem;
-        line-height: 0.37rem;
-        color: white;
-        display: inline-block;
-        background-color: #4cbec0;
-        border-radius: 0.02rem;
-      }
-      span:first-child {
-        margin-left: 0.15rem;
-      }
-      span:last-child {
-        margin-left: 0.1rem;
-      }
+      padding-top: 0.3rem;
+      width: 0.5rem;
+      background: #4CBEC0;
+      color: #fff;
+      text-align: center;
     }
   }
   .posit {

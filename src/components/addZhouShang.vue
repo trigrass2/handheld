@@ -159,6 +159,8 @@ export default {
     //       $(fag).text($(tag).val());
     //     }
     // },
+
+    
     // 删除
     delateitem: function(index) {
       this.$confirm("确定删除此责任人吗？", "", {
@@ -174,8 +176,8 @@ export default {
           });
           this.num.splice(index, 1);
           console.log($(".add-item").length);
-		      this.startTime[index] ==''?'':this.startTime.splice(index,1);
-          this.endTime[index] ==''?'':this.endTime.splice(index,1);
+		      this.startTime[index+this.fuzeersLists.length] ==''?'':this.startTime.splice(index+this.fuzeersLists.length,1);
+          this.endTime[index+this.fuzeersLists.length] ==''?'':this.endTime.splice(index+this.fuzeersLists.length,1);
         })
         .catch(() => {
           this.$message({

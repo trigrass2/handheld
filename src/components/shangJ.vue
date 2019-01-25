@@ -21,10 +21,10 @@
             <div>米数<span></span></div>
             <div>{{item.Length}}</div>
           </div>
-          <div>
+          <!-- <div>
             <div>时间<span></span></div>
             <div>{{item.WarpDate}}</div>
-          </div>
+          </div> -->
         </div>
         <div class="edit rt">
           <span @click="$router.push('addZhouShang?handle='+'edit&code='+item.WarpSizingCode+'&id='+item.WarpSizingID+'&ids='+item.ID)">编<br>辑
@@ -172,7 +172,7 @@ export default {
     .details {
       background-color: white;
       width: 3.4rem;
-      height: 1.29rem;
+      height: 1.1rem;
       margin: 0 auto;
       margin-top: 0.1rem;
       display: flex;
@@ -188,6 +188,7 @@ export default {
           font-size: 0.17rem;
           color: #999;
           height: 0.18rem;
+          line-height: 0.18rem;
           > div:first-child {
             width: 0.7rem;
             text-align: justify;
@@ -203,6 +204,7 @@ export default {
         }
         .rightnum{
           height: 0.25rem;
+          line-height: 0.25rem;
           color: #333;
           >div:last-child{
             color: #FFA237;
@@ -214,10 +216,10 @@ export default {
       .edit {
         background-color: #4cbec0;
         width: 0.45rem;
-        height: 0.841rem;
+        // height: 0.841rem;
         text-align: center;
         color: white;
-        padding-top: 0.45rem;
+        padding-top: 0.35rem;
       }
     }
   }

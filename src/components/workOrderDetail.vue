@@ -29,10 +29,10 @@
 	        		<span>品名</span>
 	        		<span class="rt">{{gdList.PNo}}</span>
 	        	</div>
-	        	<div>
+	        	<!-- <div>
 	        		<span>筒子个数</span>
 	        		<span class="rt">{{gdList.CheesNum}} 个</span>
-	        	</div>
+	        	</div> -->
 	        	<div>
 	        		<span>卷取长度</span>
 	        		<span class="rt">{{gdList.RollLength}} 米</span>

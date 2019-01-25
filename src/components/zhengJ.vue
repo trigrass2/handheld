@@ -36,12 +36,12 @@
                 </div>
                 <div>{{item.Length}}</div>
               </div>
-              <div>
+              <!-- <div>
                 <div>时间
                   <span></span>
                 </div>
                 <div>{{item.OprationDate}}</div>
-              </div>
+              </div> -->
             </div>
             <div class="right-item" @click="$router.push('addZhou?handle='+'edit&id='+item.ID)">
               <div>编</div>
@@ -184,7 +184,7 @@ export default {
   }
   .body-item {
     width: 3.4rem;
-    height: 1.55rem;
+    height: 1.4rem;
     background-color: white;
     margin: 0 auto;
     margin-bottom: 0.1rem;
@@ -230,7 +230,7 @@ export default {
         font-size: 0.17rem;
         background: #4CBEC0;
         color: #fff;
-        padding: 0.5rem 0;
+        padding: 0.43rem 0;
         margin: 0 auto;
       }
     }

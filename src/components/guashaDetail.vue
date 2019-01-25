@@ -1,7 +1,9 @@
 <template>
   <div class="conntent">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
-    <div class="delatedetail" @click="delatelist"><img src="../assets/img/3314.png" alt=""></div>
+    <div class="delatedetail" @click="delatelist">
+      <img src="../assets/img/3314.png" alt>
+    </div>
     <div>
       <!-- <div class="toptitle">轴信息</div> -->
       <div class="detailinfo">
@@ -11,7 +13,7 @@
         </div>
         <div>
           <div>原料批号</div>
-          <span>{{shaDetails.BatchNo}}</span> 
+          <span>{{shaDetails.BatchNo}}</span>
         </div>
         <div>
           <div>筒子个数</div>
@@ -29,17 +31,13 @@
           <div>边丝颜色</div>
           <span>{{shaDetails.EdgWireColor}}</span>
         </div>
-        <div>
-          <div>时间</div>
-          <span>{{shaDetails.OprationDate}}</span>
-        </div>
         <!-- <div>
           <div>时间</div>
-          <span><input type="datetime-local"></span>
-        </div> -->
+          <span>{{shaDetails.OprationDate}}</span>
+        </div>-->
       </div>
     </div>
-    
+
     <div v-for="(item,index) in fuzeersLists">
       <div class="toptitle">责任人{{index+1}}</div>
       <div class="detailinfo">
@@ -65,7 +63,6 @@
         </div>
       </div>
     </div>
-    
   </div>
 </template>
 
@@ -81,61 +78,79 @@ export default {
         img: "",
         text: ""
       },
-    	shaDetails:{},
-    	fuzeersLists:[]
+      shaDetails: {},
+      fuzeersLists: []
     };
   },
-  methods:{
+  methods: {
     // 删除
-     delatelist:function(){
-       this.$axios({
-					method: 'post',
-					url: localStorage.getItem("IP")+'/WarpingOrder/DelWarYarnHung',
-					data:{
-						id:this.$route.query.id
-					}
-				}).then((res) => {
-          // console.log(res);
-          this.$router.push('guasha');
-          this.$message({
-              showClose: true,
-              message: "删除成功",
-              type: "success",
-              center: true
+    delatelist: function() {
+      this.$confirm("是否确认删除？", "", {
+        // confirmButtonText: '确定',
+        // cancelButtonText: '取消',
+        type: ""
+      })
+        .then(() => {
+          this.$axios({
+            method: "post",
+            url: localStorage.getItem("IP") + "/WarpingOrder/DelWarYarnHung",
+            data: {
+              id: this.$route.query.id
+            }
+          })
+            .then(res => {
+              // console.log(res);
+              this.$router.push("guasha");
+              this.$message({
+                showClose: true,
+                message: "删除成功",
+                type: "success",
+                center: true
+              });
+            })
+            .catch(error => {
+              console.log(error);
             });
-				}).catch((error) => {
-					console.log(error);
-				});
-     },
-			shaList:function(){
-				this.$axios({
-					method: 'post',
-					url: localStorage.getItem("IP")+'/WarpingOrder/GetWarpYarnHungByID',
-					data:{
-						id:this.$route.query.id
-					}
-				}).then((res) => {
-					console.log(res);
-					this.shaDetails = res.data.data.detailentity;
-					this.fuzeersLists = res.data.data.emps;
-				}).catch((error) => {
-					console.log(error);
-				});
-			}
-		},
-		created() {
-			this.shaList();
-		}
+        })
+        .catch(() => {
+          this.$message({
+            showClose: true,
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+    },
+    shaList: function() {
+      this.$axios({
+        method: "post",
+        url: localStorage.getItem("IP") + "/WarpingOrder/GetWarpYarnHungByID",
+        data: {
+          id: this.$route.query.id
+        }
+      })
+        .then(res => {
+          console.log(res);
+          this.shaDetails = res.data.data.detailentity;
+          this.fuzeersLists = res.data.data.emps;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  },
+  created() {
+    this.shaList();
+  }
 };
 </script>
 
 <style lang="less" scoped>
-.delatedetail{
+.delatedetail {
   position: absolute;
   margin-left: 3.25rem;
   margin-top: -0.38rem;
   z-index: 99999;
-  >img{
+  > img {
     height: 0.2rem;
   }
 }

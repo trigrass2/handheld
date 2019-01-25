@@ -22,18 +22,18 @@
         <div>
           <div>套扣个数</div>
           <span>{{getDatalist.entity.STCount}}</span>
-        </div> 
+        </div>
         <div>
           <div>备注</div>
-          <span>{{getDatalist.entity.Remark}}</span> 
+          <span>{{getDatalist.entity.Remark}}</span>
         </div>
       </div>
     </div>
-    <div v-for="(tag,index) in getDatalist.emps" :key="index" >
+    <div v-for="(tag,index) in getDatalist.emps" :key="index">
       <div class="toptitle">责任人{{index+1}}</div>
       <div class="detailinfo">
         <div>
-          <div>责任人{{index+1}}</div>
+          <div>责任人</div>
           <span>{{tag.EmpName}}</span>
         </div>
         <div>
@@ -52,7 +52,7 @@
           <div>索套个数</div>
           <span>{{tag.DoNum}}</span>
         </div>
-		<div>
+        <div>
           <div>班别</div>
           <span>{{tag.ClassBanName}}</span>
         </div>
@@ -73,65 +73,83 @@ export default {
         img: "",
         text: ""
       },
-      getDatalist:{
-        entity:[],
-        emps:[]
+      getDatalist: {
+        entity: [],
+        emps: []
       }
     };
   },
   methods: {
     // 删除
     delatelist: function() {
+      this.$confirm("是否确认删除？", "", {
+        // confirmButtonText: '确定',
+        // cancelButtonText: '取消',
+        type: ""
+      })
+        .then(() => {
+          this.$axios({
+            method: "post",
+            url:
+              localStorage.getItem("IP") + "/WarpingOrder/DelWarpReBeamDetail",
+            data: {
+              id: this.$route.query.id
+            }
+          })
+            .then(res => {
+              // console.log(res);
+              this.$router.push("bingzhou");
+              this.$message({
+                showClose: true,
+                message: "删除成功",
+                type: "success",
+                center: true
+              });
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        })
+        .catch(() => {
+          this.$message({
+            showClose: true,
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+    },
+    getData: function() {
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/DelWarpReBeamDetail",
+        url:
+          localStorage.getItem("IP") + "/WarpingOrder/GetReBeamDetailDataByID",
         data: {
           id: this.$route.query.id
         }
       })
         .then(res => {
-          // console.log(res);
-          this.$router.push("bingzhou");
-          this.$message({
-            showClose: true,
-            message: "删除成功",
-            type: "success",
-            center: true
-          });
+          console.log(res.data.data);
+          this.getDatalist.entity = res.data.data.entity;
+          this.getDatalist.emps = res.data.data.emps;
         })
         .catch(error => {
           console.log(error);
         });
-    },
-    getData:function(){
-				this.$axios({
-					method: 'post',
-					url: localStorage.getItem("IP")+'/WarpingOrder/GetReBeamDetailDataByID',
-					data:{
-						id:this.$route.query.id,
-					}
-				}).then((res) => {
-					console.log(res.data.data);
-          this.getDatalist.entity = res.data.data.entity;
-          this.getDatalist.emps = res.data.data.emps;
-				}).catch((error) => {
-					console.log(error);
-				});
-			}
+    }
   },
   created() {
-    this.getData()
+    this.getData();
   }
 };
 </script>
 
 <style lang="less" scoped>
-.delatedetail{
+.delatedetail {
   position: absolute;
   margin-left: 3.25rem;
   margin-top: -0.38rem;
   z-index: 99999;
-  >img{
+  > img {
     height: 0.2rem;
   }
 }
@@ -143,35 +161,34 @@ export default {
     background: rgba(243, 243, 243, 1);
     opacity: 1;
     font-size: 0.15rem;
-	font-family: Microsoft YaHei UI;
-	padding-left: 0.15rem;
+    font-family: Microsoft YaHei UI;
+    padding-left: 0.15rem;
     font-weight: 400;
     line-height: 0.35rem;
     color: rgba(153, 153, 153, 1);
   }
-  .detailinfo{
-	  >div:not(:last-child){
-		  border-bottom: 0.01rem solid #D5D5D5;
-	  }
-	  >div{
-		  height: 0.5rem;
-		  line-height: 0.5rem;
-		//   width: 3.3rem;
-		  padding: 0 0.15rem 0 0;
-		  margin-left: 0.15rem;
-		  >div{
-			//   width: 2.7rem;
-			  height: 0.5rem;
-			  display: inline-block;
-			//   background: red;
-			  color: #999;
-			  font-family:Microsoft YaHei UI;
-		  }
-		  >span{
-			  float: right
-		  }
-
-	  }
+  .detailinfo {
+    > div:not(:last-child) {
+      border-bottom: 0.01rem solid #d5d5d5;
+    }
+    > div {
+      height: 0.5rem;
+      line-height: 0.5rem;
+      //   width: 3.3rem;
+      padding: 0 0.15rem 0 0;
+      margin-left: 0.15rem;
+      > div {
+        //   width: 2.7rem;
+        height: 0.5rem;
+        display: inline-block;
+        //   background: red;
+        color: #999;
+        font-family: Microsoft YaHei UI;
+      }
+      > span {
+        float: right;
+      }
+    }
   }
 }
 </style>
