@@ -63,11 +63,11 @@
 				</div>
 				<div class="block">
 					<span class="demonstration">开始时间</span>
-					<el-date-picker v-model="startRadios[index]" type="datetime" placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm" size="small" :editable="false"></el-date-picker>
+					<el-date-picker v-model="startRadios[index]" type="datetime" placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm" size="small"></el-date-picker>
 				</div>
 				<div class="block">
 					<span class="demonstration">结束时间</span>
-					<el-date-picker v-model="endRadios[index]" type="datetime" placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm" size="small" :editable="false"></el-date-picker>
+					<el-date-picker v-model="endRadios[index]" type="datetime" placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm" size="small"></el-date-picker>
 				</div>
 				<div style="border-bottom: none;">
 					<div>班别</div>
@@ -322,23 +322,23 @@
 						$('.dqConfirmer').val(this.shaDetails.CloutCheckerID);
 						
 						this.fuzeersLists = res.data.data.emps;
-						$('.pristin00').val('c94bec1e-162e-4e45-aa23-8a152afd2113');
-						console.log($('.pristin00').val());
+						// $('.pristin00').val('c94bec1e-162e-4e45-aa23-8a152afd2113');
+						// console.log($('.pristin00').val());
 
 						console.log(this.fuzeersLists);
-						$(".original .zeren option:selected").val(this.fuzeersLists[0].EmpID);
-							$(".original1").val(this.fuzeersLists[1].EmpID);
+						// $(".original .zeren option:selected").val(this.fuzeersLists[0].EmpID);
+						// 	$(".original1").val(this.fuzeersLists[1].EmpID);
 						//循环输出时间，并赋值
 						for(let i = 0; i < this.fuzeersLists.length; i++) {
 							this.startRadios.push(this.fuzeersLists[i].BeginTime);
 							this.endRadios.push(this.fuzeersLists[i].EndTime);
 //							this.empers.push(this.fuzeersLists[i].EmpID)
 //							this.banbies.push(this.fuzeersLists[i].ClassBan)
-							$('.pristin'+i).val('c94bec1e-162e-4e45-aa23-8a152afd2113');
-							$('.pristin'+i).text(this.fuzeersLists[i].EmpName);
+							// $('.pristin'+i).val('c94bec1e-162e-4e45-aa23-8a152afd2113');
+							// $('.pristin'+i).text(this.fuzeersLists[i].EmpName);
 							// $(".original1").val(this.fuzeersLists[1].EmpID);
-							console.log($('.pristin'+i).val());
-							console.log(this.fuzeersLists[i].EmpID);
+							// console.log($('.pristin'+i).val());
+							// console.log(this.fuzeersLists[i].EmpID);
 							// $('.classBan')[i].val(this.fuzeersLists[i].ClassBan);
 						}						
 					})

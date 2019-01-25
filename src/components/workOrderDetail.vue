@@ -252,7 +252,7 @@
 	        		<span>梳子上浆料附着</span>
 	        		<span class="rt" v-if="Sizingcondition == null?'':Sizingcondition.IsSizeAdhere == 0">是</span>
 					<span class="rt" v-if="Sizingcondition == null?'':Sizingcondition.IsSizeAdhere == 1">否</span>
-	        		<span class="rt" v-if="Sizingcondition == null">是/否</span>
+	        		<span class="rt" v-if="Sizingcondition== null || Sizingcondition.IsSizeAdhere == null || Sizingcondition.IsSizeAdhere == ''">是/否</span>
 	        	</div>
 	        	<div>
 	        		<span>上浆率</span>
@@ -401,6 +401,7 @@
 		      		if(res.data.code == "0"){
 						//   console.log(res.data.data);
 						  this.Sizingcondition = res.data.data;
+						  console.log(this.Sizingcondition)
 		      		}
 		      	}).catch((error)=> {
 		      	    console.log(error);
