@@ -15,7 +15,7 @@
             </div>
             <div>
               <div>经轴长度<span></span></div>
-              <div>{{item.BeamLength}}</div>
+              <div>{{item.Length}}</div>
             </div>
 
             <!-- <div>
@@ -213,7 +213,7 @@ export default {
         background-color: #4cbec0;
         text-align: center;
         color: white;
-        padding-top: 0.33rem;
+        padding-top: 0.3rem;
       }
     }
   }

@@ -243,7 +243,15 @@ export default {
 			
 		}else{
 			for(var i=0;i<$('.add-item').length;i++){
-				if($('.zrpeople')[i].value == "" || $('.pemilength')[i].value==""|| $('.taosuo')[i].value=="" || $("input.el-input__inner[readonly='readonly']")[2*i].value == "" || $("input.el-input__inner[readonly='readonly']")[2*i+1].value == "" || $('.classBan')[i].value == ""){
+        
+        if($('.classBan')[i].value == ""
+          ||$('.classBan')[i].value == "--请选择--"
+          || $('.zrpeople')[i].value == "" 
+          || $('.pemilength')[i].value==""
+          || $('.taosuo')[i].value=="" 
+          || $("input.el-input__inner[readonly='readonly']")[2*i].value == "" 
+          || $("input.el-input__inner[readonly='readonly']")[2*i+1].value == "" 
+        ){
 					this.$message({
 						showClose: true,
 						message: "请完善信息",

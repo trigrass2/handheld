@@ -72,12 +72,7 @@ export default {
       listdata: {}
     };
   },
-  // updated(){
-  //   $('#app').css('overflow-y','hidden')
-  // },
-  mounted:function(){
-    //  $('#app').css('overflow-y','hidden')
-  },
+
   methods: {
   	
     //获取页面数据
@@ -90,7 +85,7 @@ export default {
           id: id,
           type: "0"
         }
-      }).then(res => {
+      }).then(res => {                                                                                                      
           console.log(res);
           this.listdata = res.data.data;
         }).catch(error => {
@@ -119,7 +114,7 @@ export default {
     }
   },
   mounted(){
-    $('#app').css('overflow-y','hidden')
+    $('#app').css('overflow-y','auto')
   },
   created() {
     this.lists();

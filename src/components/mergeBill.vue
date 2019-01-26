@@ -17,7 +17,7 @@
         </div>
         <div>
           <div>经轴长度</div>
-          <span>{{getDatalist.entity.BeamLength}}</span>
+          <span>{{getDatalist.entity.Length}}</span>
         </div>
         <div>
           <div>套扣个数</div>

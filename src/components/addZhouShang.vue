@@ -21,7 +21,7 @@
         <!-- <div><img src="../assets/img/3906.png" class="saoma"></div> -->
 			</div>
 			<div>
-				<div>索套个数</div><div class="rt" style="margin-right: .15rem;">请在责任人中输入</div>
+				<div>套扣次数</div><div class="rt" style="margin-right: .15rem;">请在责任人中输入</div>
 			</div>
 			<div id="remark">
 				<div>备注</div><div><textarea class="remarks" v-model="shaDetails.Remark"></textarea></div>
@@ -44,7 +44,7 @@
 					<div id="tongNum">米数</div><div class="rt"><input type="text" v-model="i.Lenght" placeholder="请输入" class="length"></div>
 				</div>
 				<div>
-					<div id="tongNum">索套个数</div><div class="rt"><input type="text" v-model="i.DoNum" placeholder="请输入" class="tcNum"></div>
+					<div id="tongNum">套扣次数</div><div class="rt"><input type="text" v-model="i.DoNum" placeholder="请输入" class="tcNum"></div>
 				</div>
 				<div class="block">
 					<span class="demonstration">开始时间</span>
