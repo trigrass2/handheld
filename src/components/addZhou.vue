@@ -1,5 +1,5 @@
 <template>
-  <div class="bg1" style="padding-bottom:1.3rem">
+  <div class="bg1">
     <HeaderSame :headerObj="headerObj"></HeaderSame>
     <div class="basic">
       <div>
@@ -477,9 +477,8 @@ export default {
   color: white;
 }
 .addNew {
-  position: fixed;
-  bottom: 0.65rem;
-  left: 0.97rem;
+  text-align: center;
+  margin-top: 0.15rem;
   img {
     width: 1.65rem;
   }

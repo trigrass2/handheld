@@ -133,7 +133,7 @@
         </div>
         <div class="block">
           <span class="demonstration">开始时间</span>
-          <el-date-picker v-model="startRadios[index+fuzeersLists.length]" type="datetime" placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm" size="small" :editable="false"></el-date-picker>
+          <el-date-picker v-model="startRadios[index+fuzeersLists.length]" type="datetime" placeholder="选择日期" class="startTime" value-format="yyyy-MM-dd HH:mm" size="small" :editable="false" :readOnly='true'></el-date-picker>
           <!-- <div class="jeinpbox" style="margin-left:0.05rem">
             <input type="text" class="jeinput startTime" placeholder="选择日期" readOnly='readOnly'>
           </div> -->
@@ -445,27 +445,6 @@ export default {
 	$("#app").css("overflow-y", "auto");
   },
   updated() {
-	  	// 时间插件
-	// jeDate(".startTime", {
-    //   // festival:true, //农历时间
-    //   theme: { bgcolor: "#007EFF", pnColor: "#007EFF" },
-    //   minDate: "1900-01-01", //最小日期
-    //   maxDate: "2099-12-31", //最大日期
-    //   method: {
-    //     choose: function(params) {}
-    //   },
-    //   format: "YYYY-MM-DD hh:mm"
-	// });
-	// jeDate(".endTime", {
-    //   // festival:true, //农历时间
-    //   theme: { bgcolor: "#007EFF", pnColor: "#007EFF" },
-    //   minDate: "1900-01-01", //最小日期
-    //   maxDate: "2099-12-31", //最大日期
-    //   method: {
-    //     choose: function(params) {}
-    //   },
-    //   format: "YYYY-MM-DD hh:mm"
-    // });
     if ($(".add-item").length == 1) {
       $(".delateitem:eq(0)").addClass("disdelate");
     } else {
@@ -483,7 +462,7 @@ export default {
   // position: relative;
   font-size: 0.17rem;
   height: auto;
-  padding-bottom: 1.3rem;
+  padding-bottom: 0.7rem;
   min-height: 100%;
   .delateitem {
     position: relative;
@@ -554,9 +533,8 @@ export default {
 }
 
 .addNew {
-  position: fixed;
-  bottom: 0.65rem;
-  left: 0.97rem;
+  text-align: center;
+  margin-top: 0.15rem;
   img {
     width: 1.65rem;
   }

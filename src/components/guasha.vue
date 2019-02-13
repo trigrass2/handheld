@@ -30,7 +30,7 @@
     </div>
 </v-scroll>
     <div class="posit">
-      <span @click="returnGD">返回工单</span><span @click="$router.push('addGuaSha?handle='+'add')">新增轴</span>
+      <span @click="returnGD">返回工单</span><span @click="$router.push('addGuaSha?handle='+'add')">新增</span>
     </div>
   </div>
 </template>

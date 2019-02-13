@@ -382,7 +382,7 @@ export default {
   font-size: 0.17rem;
   height: auto;
   min-height: 100%;
-  padding-bottom: 1.3rem;
+  padding-bottom: 0.7rem;
   .delateitem {
     position: relative;
     margin-top: -0.3rem;
@@ -463,9 +463,8 @@ export default {
   color: white;
 }
 .addNew {
-  position: fixed;
-  bottom: 0.65rem;
-  left: 0.97rem;
+  text-align: center;
+  margin-top: 0.15rem;
   img {
     width: 1.65rem;
   }
