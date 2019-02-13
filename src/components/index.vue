@@ -4,9 +4,9 @@
       <slot></slot>
     </div>
     <HeaderSame :headerObj="headerObj"></HeaderSame>
-    <div class="delatedetail" @click="$router.push('ipSettings')">
+    <!-- <div class="delatedetail" @click="$router.push('ipSettings')">
       <img src="../assets/img/setting.png" alt>
-    </div>
+    </div> -->
 
     <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" class="bg1">
       <div class="body-item" v-for="item in listdata">
@@ -72,11 +72,10 @@ export default {
     },
 
     getList() {
-    	var API = localStorage.getItem("IP");
       let vm = this;
       this.$axios({
         method: "post",
-        url: API+"/WarpingOrder/GetWarpOrderListData",
+        url: "/WarpingOrder/GetWarpOrderListData",
         data: {
           pageindex: "0",
           pagesize: this.num
@@ -117,7 +116,7 @@ export default {
       } else {
         this.$axios({
           method: "post",
-          url: localStorage.getItem("IP")+"/WarpingOrder/GetWarpOrderListData",
+          url: "/WarpingOrder/GetWarpOrderListData",
           data: {
             pageindex: counters,
             pagesize: this.num

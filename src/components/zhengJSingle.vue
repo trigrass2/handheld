@@ -80,7 +80,7 @@ export default {
     	let id = localStorage.getItem("zjID");
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/GetWarpOrderByID",
+        url:"/WarpingOrder/GetWarpOrderByID",
         data: {
           id: id,
           type: "0"

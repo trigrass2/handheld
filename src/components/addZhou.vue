@@ -301,7 +301,7 @@ export default {
         }
         this.$axios({
           method: "post",
-          url: localStorage.getItem("IP")+"/WarpingOrder/SaveWarpingDetail",
+          url:  "/WarpingOrder/SaveWarpingDetail",
           data: {
             entity: entity,
             empjson: emps
@@ -328,7 +328,7 @@ export default {
       //筒子确认者列表
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/GetEmpDropDownList"
+        url:  "/WarpingOrder/GetEmpDropDownList"
       })
         .then(res => {
           // console.log(res);
@@ -340,7 +340,7 @@ export default {
       //垫圈确认者列表
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/GetBShiftDrpDownList"
+        url:  "/WarpingOrder/GetBShiftDrpDownList"
       })
         .then(res => {
           // console.log(res);
@@ -356,7 +356,7 @@ export default {
     if(this.$route.query.handle == 'edit'){
 				this.$axios({
 					method: 'post',
-					url: localStorage.getItem("IP")+'/WarpingOrder/GetWarpingDetailByID',
+					url:  '/WarpingOrder/GetWarpingDetailByID',
 					data:{
 						id:this.$route.query.id
 					}

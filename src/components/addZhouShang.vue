@@ -216,7 +216,7 @@ export default {
       //筒子确认者列表
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/GetEmpDropDownList"
+        url:  "/WarpingOrder/GetEmpDropDownList"
       })
         .then(res => {
           // console.log(res);
@@ -228,7 +228,7 @@ export default {
       //班别列表
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/GetBShiftDrpDownList"
+        url:  "/WarpingOrder/GetBShiftDrpDownList"
       })
         .then(res => {
           // console.log(res);
@@ -313,7 +313,7 @@ export default {
 	        }
 	        this.$axios({
 	          method: "post",
-	          url: localStorage.getItem("IP")+"/WarpingOrder/SaveWarpsizingData",
+	          url:  "/WarpingOrder/SaveWarpsizingData",
 	          data: {
 	            entity: entity,
 	            emplist: emplist
@@ -347,7 +347,7 @@ export default {
       localStorage.setItem("ids", this.ids);
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/GetWarpsizingDataByID",
+        url:  "/WarpingOrder/GetWarpsizingDataByID",
         data: {
           id: localStorage.getItem("ids")
         }

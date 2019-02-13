@@ -207,7 +207,7 @@ export default {
       //责任人
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/GetEmpDropDownList"
+        url:  "/WarpingOrder/GetEmpDropDownList"
       })
         .then(res => {
           this.empList = res.data.data;
@@ -219,7 +219,7 @@ export default {
       //班别
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/GetBShiftDrpDownList"
+        url:  "/WarpingOrder/GetBShiftDrpDownList"
       })
         .then(res => {
           this.drpList = res.data.data;
@@ -305,7 +305,7 @@ export default {
 	        console.log(emps);
 	        this.$axios({
 	          method: "post",
-	          url: localStorage.getItem("IP")+"/WarpingOrder/SaveWarpReBeamDetailData",
+	          url:  "/WarpingOrder/SaveWarpReBeamDetailData",
 	          data: {
 	            entity: entity,
 	            emps: emps
@@ -339,7 +339,7 @@ export default {
       localStorage.setItem("ids", this.ids);
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/GetReBeamDetailDataByID",
+        url:  "/WarpingOrder/GetReBeamDetailDataByID",
         data: {
           id: localStorage.getItem("ids")
         }

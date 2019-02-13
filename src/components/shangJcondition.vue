@@ -233,7 +233,7 @@ export default {
   	details:function(){
   		this.$axios({
       	    method: 'post',
-      	    url: localStorage.getItem("IP")+'/WarpingOrder/GetWarpSizingConditionByID',
+      	    url:  '/WarpingOrder/GetWarpSizingConditionByID',
       	    data:{
       	    	id:this.$route.query.id,
       	    }

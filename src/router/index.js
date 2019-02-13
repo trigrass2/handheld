@@ -26,29 +26,30 @@ Vue.use(Router)
 
 export default new Router({
 		routes: [
+			// {
+			// 	path: '/',
+			// 	name: 'ipjudge',
+			// 	component: ipjudge,
+			// 	meta: {
+			// 		title: '前道'
+			// 	}
+			// },{
+			// 	path: '/ipSettings',
+			// 	name: 'ipjuipSettingsdge',
+			// 	component: ipSettings,
+			// 	meta: {
+			// 		title: '设置'
+			// 	}
+			// },{
+			// 	path: '/reviseip',
+			// 	name: 'reviseip',
+			// 	component: reviseip,
+			// 	meta: {
+			// 		title: '修改ip'
+			// 	}
+			// }, 
 			{
 				path: '/',
-				name: 'ipjudge',
-				component: ipjudge,
-				meta: {
-					title: '前道'
-				}
-			},{
-				path: '/ipSettings',
-				name: 'ipjuipSettingsdge',
-				component: ipSettings,
-				meta: {
-					title: '设置'
-				}
-			},{
-				path: '/reviseip',
-				name: 'reviseip',
-				component: reviseip,
-				meta: {
-					title: '修改ip'
-				}
-			}, {
-				path: '/index',
 				name: 'index',
 				component: index,
 				meta: {

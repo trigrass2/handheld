@@ -46,7 +46,7 @@ export default {
     lists: function() {
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/GetWarpSizingConditionByOrderid ",
+        url:  "/WarpingOrder/GetWarpSizingConditionByOrderid ",
         data: {
           orderid: localStorage.getItem("zjID"),
           type: "1"

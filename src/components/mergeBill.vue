@@ -91,7 +91,7 @@ export default {
           this.$axios({
             method: "post",
             url:
-              localStorage.getItem("IP") + "/WarpingOrder/DelWarpReBeamDetail",
+               "/WarpingOrder/DelWarpReBeamDetail",
             data: {
               id: this.$route.query.id
             }
@@ -122,7 +122,7 @@ export default {
       this.$axios({
         method: "post",
         url:
-          localStorage.getItem("IP") + "/WarpingOrder/GetReBeamDetailDataByID",
+           "/WarpingOrder/GetReBeamDetailDataByID",
         data: {
           id: this.$route.query.id
         }

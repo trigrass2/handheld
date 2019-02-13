@@ -68,7 +68,7 @@ export default {
     shaList: function() {
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP")+"/WarpingOrder/GetWarpYarnHungListData",
+        url:  "/WarpingOrder/GetWarpYarnHungListData",
         data: {
           orderid:localStorage.getItem("zjID"),
           pageindex: "0",
@@ -114,7 +114,7 @@ export default {
       } else {
         this.$axios({
           method: "post",
-          url: localStorage.getItem("IP")+"/WarpingOrder/GetWarpYarnHungListData",
+          url:  "/WarpingOrder/GetWarpYarnHungListData",
           data: {
             orderid:localStorage.getItem("zjID"),
             pageindex: counters,

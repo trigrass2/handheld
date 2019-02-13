@@ -25,7 +25,7 @@ export default {
       }else if(text == "addGuaSha"){
         this.$router.push('guasha')
       }else if(text == "toplist"){
-        this.$router.push('/index')
+        this.$router.push('/')
       }else{
         this.$router.go(-1);
       }

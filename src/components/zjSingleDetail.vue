@@ -89,7 +89,7 @@ export default {
         .then(() => {
           this.$axios({
             method: "post",
-            url: localStorage.getItem("IP") + "/WarpingOrder/DelWarpingDetail",
+            url:  "/WarpingOrder/DelWarpingDetail",
             data: {
               id: this.$route.query.id
             }
@@ -119,7 +119,7 @@ export default {
     shaList: function() {
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP") + "/WarpingOrder/GetWarpingDetailByID",
+        url:  "/WarpingOrder/GetWarpingDetailByID",
         data: {
           id: this.$route.query.id
         }

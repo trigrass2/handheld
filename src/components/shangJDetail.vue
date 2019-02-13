@@ -89,7 +89,7 @@ export default {
           this.$axios({
             method: "post",
             url:
-              localStorage.getItem("IP") + "/WarpingOrder/DelWarpingsizingData",
+               "/WarpingOrder/DelWarpingsizingData",
             data: {
               id: this.$route.query.id
             }
@@ -119,7 +119,7 @@ export default {
     details: function() {
       this.$axios({
         method: "post",
-        url: localStorage.getItem("IP") + "/WarpingOrder/GetWarpsizingDataByID",
+        url:  "/WarpingOrder/GetWarpsizingDataByID",
         data: {
           id: this.$route.query.id
         }
