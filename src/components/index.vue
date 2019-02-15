@@ -9,7 +9,7 @@
     </div> -->
 
     <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" class="bg1">
-      <div class="body-item" v-for="item in listdata">
+      <div class="body-item" v-for="item in listdata" @click="watchDetail(item.ID , item.Code)">
         <div class="item-title">
           <span class="lf">整经编号: {{item.Code}}</span>
           <span class="rt" @click="watchDetail(item.ID , item.Code)">查看</span>
